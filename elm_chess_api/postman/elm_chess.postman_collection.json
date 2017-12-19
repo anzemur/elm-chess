@@ -1,120 +1,201 @@
 {
-	"id": "8b6b0d52-c4d8-3181-94bc-127b600eb153",
-	"name": "elm_chess",
-	"description": "",
-	"order": [
-		"abda006f-cd7a-6157-8886-4fb642f9d93c",
-		"908ffb43-dd38-4742-355e-d1e9b8e9f446"
-	],
-	"folders": [],
-	"folders_order": [],
-	"timestamp": 1513624675793,
-	"owner": "1741165",
-	"public": false,
-	"requests": [
+	"variables": [],
+	"info": {
+		"name": "elm_chess",
+		"_postman_id": "8b6b0d52-c4d8-3181-94bc-127b600eb153",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
 		{
-			"id": "908ffb43-dd38-4742-355e-d1e9b8e9f446",
-			"headers": "Content-Type: application/x-www-form-urlencoded\n",
-			"headerData": [
+			"name": "Highscores",
+			"description": "",
+			"item": [
 				{
-					"key": "Content-Type",
-					"value": "application/x-www-form-urlencoded",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "http://localhost:3000/api/v1/highscores/add",
-			"queryParams": [],
-			"pathVariables": {},
-			"pathVariableData": [],
-			"preRequestScript": null,
-			"method": "POST",
-			"collectionId": "8b6b0d52-c4d8-3181-94bc-127b600eb153",
-			"data": [
-				{
-					"key": "name",
-					"value": "playerX",
-					"description": "",
-					"type": "text",
-					"enabled": true
+					"name": "listTopFive",
+					"request": {
+						"url": {
+							"raw": "http://localhost:3000/api/v1/highscores",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"v1",
+								"highscores"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"equals": true,
+									"description": "",
+									"disabled": true
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "position",
+									"value": "a2",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "",
+									"value": "",
+									"description": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
 				},
 				{
-					"key": "score",
-					"value": "10",
-					"description": "",
-					"type": "text",
-					"enabled": true
+					"name": "addPlayer",
+					"request": {
+						"url": "http://localhost:3000/api/v1/highscores/add",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "name",
+									"value": "playerX",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "score",
+									"value": "10",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
 				}
-			],
-			"dataMode": "urlencoded",
-			"name": "addPlayer",
-			"description": "",
-			"descriptionFormat": "html",
-			"time": 1513683759003,
-			"version": 2,
-			"responses": [],
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {}
+			]
 		},
 		{
-			"id": "abda006f-cd7a-6157-8886-4fb642f9d93c",
-			"headers": "Content-Type: application/x-www-form-urlencoded\n",
-			"headerData": [
-				{
-					"key": "Content-Type",
-					"value": "application/x-www-form-urlencoded",
-					"description": "",
-					"enabled": true
-				}
-			],
-			"url": "http://localhost:3000/api/v1/highscores",
-			"queryParams": [
-				{
-					"key": "name",
-					"value": "loli",
-					"equals": true,
-					"description": "",
-					"enabled": false
-				},
-				{
-					"key": "score",
-					"value": "1",
-					"equals": true,
-					"description": "",
-					"enabled": false
-				}
-			],
-			"preRequestScript": null,
-			"pathVariables": {},
-			"pathVariableData": [],
-			"method": "GET",
-			"data": [
-				{
-					"key": "name",
-					"value": "player 6",
-					"description": "",
-					"type": "text",
-					"enabled": true
-				},
-				{
-					"key": "score",
-					"value": "4",
-					"description": "",
-					"type": "text",
-					"enabled": true
-				}
-			],
-			"dataMode": "urlencoded",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1513683690413,
-			"name": "listTopFive",
+			"name": "Chess",
 			"description": "",
-			"collectionId": "8b6b0d52-c4d8-3181-94bc-127b600eb153",
-			"responses": []
+			"item": [
+				{
+					"name": "twoPlayersGame",
+					"description": "",
+					"item": [
+						{
+							"name": "checkGameOver",
+							"request": {
+								"url": "http://localhost:3000/api/v1/chess/two/check",
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "listPosibleMoves",
+							"request": {
+								"url": "http://localhost:3000/api/v1/chess/two/moves",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "position",
+											"value": "a2",
+											"description": "",
+											"type": "text"
+										}
+									]
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "createNewGame",
+							"request": {
+								"url": "http://localhost:3000/api/v1/chess/two",
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "moveFigure",
+							"request": {
+								"url": "http://localhost:3000/api/v1/chess/two/move",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/x-www-form-urlencoded",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "from",
+											"value": "a2",
+											"description": "",
+											"type": "text"
+										},
+										{
+											"key": "to",
+											"value": "a3",
+											"description": "",
+											"type": "text"
+										}
+									]
+								},
+								"description": ""
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
 		}
 	]
 }

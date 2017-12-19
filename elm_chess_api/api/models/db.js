@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
+
 var failedConnections = 0;
 var autoReconnect = true;
 
@@ -18,7 +19,7 @@ mongoose.connection.on('connected', function() {
 
 });
 
-/** Mongoose is disconnected **/
+/** Mongoose is disconnected--> Tries to reconnect three times, then gives up **/
 mongoose.connection.on('disconnected', function() {
     console.log('Mongoose is disconnected.');
     if(failedConnections < 3) {

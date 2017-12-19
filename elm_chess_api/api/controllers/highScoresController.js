@@ -4,18 +4,18 @@ var hhmmss = require('hhmmss');
 var mongoose = require('mongoose');
 var Player = mongoose.model('Player');
 
-exports.addNewPlayer = function(req, response) {
+exports.addNewPlayer = function(req, res) {
     var newPlayer = new Player(req.body);
 
     newPlayer.save(function(err, player) {
         if(err) {
-            response.send(err);
+            res.send(err);
         }
-        response.json(player);
+        res.json(player);
     });
 };
 
-exports.lisTopHighScores = function(req, response) {
+exports.lisTopHighScores = function(req, res) {
     Player.find(
                 {},                                                         //No search filter
                 ['name', 'score', 'score_out', 'date', 'date_out'],         //Return name, score and date
@@ -28,7 +28,7 @@ exports.lisTopHighScores = function(req, response) {
                 }
 
     , function(err, topFive) {
-        if(err) response.send(err);
+        if(err) res.send(err);
 
         for(var i in topFive) {
             var date = ((topFive[i].date + '').split('-') + '').split(" ");
@@ -36,6 +36,6 @@ exports.lisTopHighScores = function(req, response) {
             topFive[i].score_out = hhmmss(topFive[i].score);
         }
 
-        response.json(topFive);
+        res.json(topFive);
     });
 }

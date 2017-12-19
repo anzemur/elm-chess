@@ -6,6 +6,7 @@ var dataBase = require('./api/models/db');
 var routesApi = require('./api/routes/apiRoutes');
 var app = express();
 var player = require('./api/models/playerModel');
+var status = require('./api/models/chessboardModel');
 var port = process.env.PORT || 3000;
 
 
