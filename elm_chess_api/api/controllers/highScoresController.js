@@ -22,7 +22,7 @@ exports.lisTopHighScores = function(req, res) {
                 {
                     skip: 0,                                                //Start at idx 0
                     limit: 5,                                               //finish at idx 5
-                    sort:{
+                    sort: {
                         score: 'asc'                                        //Sort by score, ascending
                     }
                 }

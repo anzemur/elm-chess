@@ -10,7 +10,7 @@ var status = new Status();
 
 exports.startNewGame = function(req, res) {
     chess = new Chess();
-    status.status = "done";
+    status.status = "new game started";
     res.json(status);
     printChessboard();
 
@@ -22,8 +22,20 @@ exports.listPosibleMoves = function(req, res) {
         var sq = req.body.position;
 
         var moves = new Moves();
-        moves.moves = chess.moves({square: sq});
+        var posibleMoves = chess.moves({square: sq});
 
+        for(var i = 0; i < posibleMoves.length; i++) {
+            if(posibleMoves[i].length > 2) {
+                var tmp = posibleMoves[i];
+                while(tmp.length > 2) {
+                    tmp = tmp.substring(1);
+
+                }
+                posibleMoves[i] = tmp;
+            }
+        }
+
+        moves.moves = posibleMoves;
         res.json(moves);
 
     } else {
@@ -31,9 +43,7 @@ exports.listPosibleMoves = function(req, res) {
         res.json(status);
 
     }
-
 };
-
 /**  Params: from(pgn currentPosition) -> to(pgn desiredPosition) **/
 exports.move = function(req, res) {
     if(chess != null) {
@@ -102,8 +112,6 @@ exports.checkGameOver = function(req, res) {
         res.json(status);
 
     }
-
-
 };
 
 function printChessboard() {

@@ -9,6 +9,7 @@
   "author": "Anze Mur",
   "license": "ISC",
   "dependencies": {
+    "chess-ai-kong": "^0.3.3",
     "chess.js": "^0.10.2",
     "express": "^4.16.2",
     "hhmmss": "^1.0.0",

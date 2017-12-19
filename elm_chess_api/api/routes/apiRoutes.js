@@ -1,4 +1,5 @@
 'use strict';
+
 var express = require('express');
 
 module.exports = function(app) {
@@ -16,8 +17,22 @@ module.exports = function(app) {
     /** Chess routes **/
 
     /** Player vs. Computer game mode **/
-    // versionRouter.route('/chess/one')
-    //      .get(chessOnePlayerController.startNewGame);
+    versionRouter.route('/chess/one')
+         .get(chessOnePlayerController.startNewGame);
+
+    versionRouter.route('/chess/one/moves')
+        .post(chessOnePlayerController.listPosibleMoves);
+
+    versionRouter.route('/chess/one/move/player')
+        .post(chessOnePlayerController.move);
+
+    versionRouter.route('/chess/one/move/ai')
+        .post(chessOnePlayerController.moveAI);
+
+    versionRouter.route('/chess/one/check')
+        .get(chessOnePlayerController.checkGameOver);
+
+
 
 
     /** Player vs. Player game mode **/
