@@ -60,13 +60,11 @@ exports.move = function(req, res) {
         var toSq = req.body.to;
 
         var move = chess.move({ from: fromSq, to: toSq });
+        console.log(move);
         if(move != null) {
             status.status = "figure moved"
             res.json(status);
-            movesArr.push(toSq);
-
-
-
+            movesArr.push(move.san);
             printChessboard();
 
         } else {
@@ -127,146 +125,20 @@ exports.checkGameOver = function(req, res) {
 };
 
 exports.moveAI = function(req, res) {
-    // console.log(movesArr);
     if(chess != null) {
-        // console.log(chess.fen());
         var move = chessAi.play(movesArr);
-        var moveToCompare = move;
-        move = move.toLowerCase();
+        var makeMove = chess.move(move);
 
-        // console.log(move);
-
-        var from = 0;
-
-        var chessBoardFen = chess.fen();
-        var tmp = (chessBoardFen + "").split(" ");
-        var chessBoard = (tmp[0] + "").split("/");
-        // console.log(chessBoard);
-
-        var figure = "RNBQKrnbqk";
-
-        if(figure.includes(move.charAt(0))) {
-            var figura = move.charAt(0);
-
-            var found = false;
-            // console.log("dela1");
-            for(var i = 0; i < chessBoard.length; i++) {
-
-                // console.log("iscem " + i);
-                if(chessBoard[i].includes(figura)) {
-                    // console.log("vsebuje " + i);
-                    var idxFigure = 0;
-                    for(var j = 0; j < chessBoard[i].length; j++ ) {
-                        if(chessBoard[i].charAt(j) == figura) {
-                            var coll = chessBoard.length - i;
-                            // console.log("vrstica " + coll);
-                            var row = returnRow(idxFigure);
-                            // console.log("row " + row);
-
-                            var poz = row + coll;
-                            // console.log(poz);
-
-                            var posibleMoves = chess.moves({square: poz});
-
-                            // console.log(posibleMoves);
-
-                            if(posibleMoves.indexOf(moveToCompare) != -1){
-                                found = true;
-                                from = poz;
-                                // console.log(from);
-
-                                break;
-
-                            } else {
-                                idxFigure++;
-
-                            }
-
-                        } else if (!isNaN(chessBoard[i].charAt(idxFigure))) {
-                            idxFigure += chessBoard[i].charAt(j);
-
-
-                        } else {
-                            idxFigure++;
-
-                        }
-                    }
-                    if(found) break;
-                }
-            }
-
-        } else {
-            var figura = "p";
-
-            var found = false;
-            // console.log("dela1");
-            for(var i = 0; i < chessBoard.length; i++) {
-
-                // console.log("iscem " + i);
-                if(chessBoard[i].includes(figura)) {
-                    // console.log("vsebuje " + i);
-                    var idxFigure = 0;
-                    for(var j = 0; j < chessBoard[i].length; j++ ) {
-                        if(chessBoard[i].charAt(j) == figura) {
-                            var coll = chessBoard.length - i;
-                            // console.log("vrstica " + coll);
-                            var row = returnRow(idxFigure);
-                            // console.log("row " + row);
-
-                            var poz = row + coll;
-                            // console.log(poz);
-
-                            var posibleMoves = chess.moves({square: poz});
-
-                            // console.log(posibleMoves);
-
-                            if(posibleMoves.indexOf(move) != -1){
-                                found = true;
-                                from = poz;
-                                // console.log(from);
-
-                                break;
-
-                            } else {
-                                idxFigure++;
-
-                            }
-
-                        } else if (!isNaN(chessBoard[i].charAt(j))) {
-                            idxFigure += chessBoard[i].charAt(j);
-
-
-                        } else {
-                            idxFigure++;
-
-                        }
-                    }
-
-                    if(found) break;
-                }
-            }
-        }
-
-
-        var makeMove = chess.move(moveToCompare);
         if(makeMove != null) {
-            movesArr.push(moveToCompare);
+
+            var from = makeMove.from;
+            var to = makeMove.to;
+            movesArr.push(makeMove.san);
+
             var aiMoves = new AIMoves();
-
             aiMoves.status = "AI moved!";
+            aiMoves.to = to;
             aiMoves.from = from;
-
-            if(moveToCompare.length > 2) {
-                var tmp = moveToCompare;
-                while(tmp.length > 2) {
-                    tmp = tmp.substring(1);
-
-                }
-                aiMoves.to = tmp;
-            } else {
-                aiMoves.to = moveToCompare;
-
-            }
 
             res.json(aiMoves);
 
@@ -280,54 +152,10 @@ exports.moveAI = function(req, res) {
     } else {
         status.status = "error: chess was not initialized!";
         res.json(status);
-
     }
+
 
 };
-
-
-
-function returnRow(row) {
-    switch (row) {
-        case 0:
-            return "a";
-            break;
-
-        case 1:
-            return "b";
-            break;
-
-        case 2:
-            return "c";
-            break;
-
-        case 3:
-            return "d";
-            break;
-
-        case 4:
-            return "e";
-            break;
-
-        case 5:
-            return "f";
-            break;
-
-        case 6:
-            return "g";
-            break;
-
-        case 7:
-            return "h";
-            break;
-
-        default:
-            break;
-
-    }
-}
-
-
 
 function printChessboard() {
     console.log();

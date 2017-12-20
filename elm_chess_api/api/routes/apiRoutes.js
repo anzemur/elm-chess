@@ -27,7 +27,7 @@ module.exports = function(app) {
         .post(chessOnePlayerController.move);
 
     versionRouter.route('/chess/one/move/ai')
-        .post(chessOnePlayerController.moveAI);
+        .get(chessOnePlayerController.moveAI);
 
     versionRouter.route('/chess/one/check')
         .get(chessOnePlayerController.checkGameOver);

@@ -274,7 +274,7 @@
 							"name": "moveFigureAI",
 							"request": {
 								"url": "http://localhost:3000/api/v1/chess/one/move/ai",
-								"method": "POST",
+								"method": "GET",
 								"header": [
 									{
 										"key": "Content-Type",
@@ -287,13 +287,13 @@
 									"urlencoded": [
 										{
 											"key": "from",
-											"value": "a2",
+											"value": "d2dsdassd",
 											"description": "",
 											"type": "text"
 										},
 										{
 											"key": "to",
-											"value": "a3",
+											"value": "c3",
 											"description": "",
 											"type": "text"
 										}
