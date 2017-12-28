@@ -3,7 +3,7 @@ module Styles exposing (..)
 import Html.Attributes exposing (selected, style)
 
 
-squareStyle selected =
+squareStyle selected isBlack =
     style
         [ ( "display", "inline-block" )
         , ( "height", "60px" )
@@ -13,7 +13,9 @@ squareStyle selected =
         , ( "background"
           , if selected then
                 "cyan"
+            else if isBlack then
+                "rgb(192, 152, 31)"
             else
-                "white"
+                "rgba(192, 152, 31,0.5)"
           )
         ]

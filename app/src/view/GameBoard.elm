@@ -48,7 +48,7 @@ renderSquare model row col =
                         False
     in
     div
-        [ squareStyle selectedField
+        [ squareStyle selectedField ((row + col) % 2 == 1)
         , onClick (Model.SquareSelected row col)
         ]
         [ img
