@@ -1,5 +1,6 @@
 module View exposing (..)
 
+import GameBoard
 import Html exposing (..)
 import Html.Events exposing (onClick, onInput)
 import Model exposing (Model, Msg)
@@ -10,4 +11,4 @@ import Model exposing (Model, Msg)
 
 view : Model -> Html Msg
 view model =
-    div [] [ input [] [] ]
+    div [] [ GameBoard.view model ]
