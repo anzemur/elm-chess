@@ -6,7 +6,8 @@ mongoose.Promise = global.Promise;
 var failedConnections = 0;
 var autoReconnect = true;
 
-var db_URI = 'mongodb://localhost/ElmChessDb'
+//var db_URI = 'mongodb://localhost/ElmChessDb'
+var db_URI = 'mongodb://chess_player:chess_player@ds163016.mlab.com:63016/chess-highscores';
 connect();
 
 function connect() {
