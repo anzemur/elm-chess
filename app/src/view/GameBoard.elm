@@ -6,7 +6,7 @@ import Html.Events exposing (onClick)
 import List
 import Model exposing (Model, Msg)
 import Styles exposing (squareStyle)
-import Svg.Attributes exposing (visibility)
+import Types exposing (Board, Figure, Square)
 
 
 view : Model -> Html Msg
@@ -15,29 +15,29 @@ view model =
 
 
 
--- Returns a list of Html elements that represnt a chessboard
+-- Returns a list of Html elements that represent a chessboard
 
 
 renderBoard : Model -> List (Html Msg)
 renderBoard model =
-    List.map (renderRow model) (List.range 0 7)
+    List.map2 (\row boardRow -> renderRow model boardRow row) (List.range 0 7) model.board.board
 
 
 
 -- Creates a row for a board
 
 
-renderRow : Model -> Int -> Html Msg
-renderRow model row =
-    div [] (List.map (renderSquare model row) (List.range 0 7))
+renderRow : Model -> List Square -> Int -> Html Msg
+renderRow model boardRow row =
+    div [] (List.map2 (\col square -> renderSquare model square row col) (List.range 0 7) boardRow)
 
 
 
 -- Renders the content of a certain square in a board and send events when clicked
 
 
-renderSquare : Model -> Int -> Int -> Html Msg
-renderSquare model row col =
+renderSquare : Model -> Square -> Int -> Int -> Html Msg
+renderSquare model square row col =
     let
         selectedField =
             case model.selectedSquare of
@@ -52,16 +52,10 @@ renderSquare model row col =
         , onClick (Model.SquareSelected row col)
         ]
         [ img
-            [ src "assets/king_black.svg"
+            [ src square.figure.img_src
             , style
-                [ ( "visibility"
-                  , if selectedField then
-                        "visible"
-                    else
-                        "hidden"
-                  )
-                , ( "height", "20px" )
-                , ( "width", "20px" )
+                [ ( "height", "35px" )
+                , ( "width", "35px" )
                 ]
             ]
             []
