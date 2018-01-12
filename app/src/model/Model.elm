@@ -5,10 +5,11 @@ import Types exposing (Board)
 
 
 -- Model definition for the chess game
-
+type ClickType
+    = FirstClick
 
 type Msg
-    = SquareSelected Int Int
+    = SquareSelected Int Int ClickType
 
 
 init : ( Model, Cmd Msg )

@@ -17,12 +17,20 @@ type Color
     | White
 
 
+type HighlightType
+  = None
+  | PossibleMoves
+  | ChosenSquare
+  | AIRecommmends
+
+
 type alias Board =
     { board : List (List Square) }
 
 
 type alias Square =
     { figure : Figure
+    , highlightType : HighlightType
     , pos : ( Int, Int ) -- (row,col)
     }
 
