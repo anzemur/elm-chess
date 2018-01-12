@@ -8,7 +8,8 @@
         "src/model",
         "src/update",
         "src/view",
-        "src/subscriptions"
+        "src/subscriptions",
+        "src/chess"
     ],
     "exposed-modules": [],
     "dependencies": {
