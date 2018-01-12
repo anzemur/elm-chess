@@ -20,7 +20,7 @@ view model =
 
 renderBoard : Model -> List (Html Msg)
 renderBoard model =
-    List.map2 (\row boardRow -> renderRow model boardRow row) (List.range 0 7) model.board.board
+    List.indexedMap (\row boardRow -> renderRow model boardRow row) model.board.board
 
 
 
@@ -29,7 +29,7 @@ renderBoard model =
 
 renderRow : Model -> List Square -> Int -> Html Msg
 renderRow model boardRow row =
-    div [] (List.map2 (\col square -> renderSquare model square row col) (List.range 0 7) boardRow)
+    div [] (List.indexedMap (\col square -> renderSquare model square row col) boardRow)
 
 
 
@@ -40,16 +40,14 @@ renderSquare : Model -> Square -> Int -> Int -> Html Msg
 renderSquare model square row col =
     let
         selectedField =
-            case model.selectedSquare of
-                ( a, b ) ->
-                    if a == row && b == col then
-                        True
-                    else
-                        False
+            case square.highlightType of
+                Types.ChosenSquare ->
+                    True
+                _ -> False
     in
     div
         [ squareStyle selectedField ((row + col) % 2 == 1)
-        , onClick (Model.SquareSelected row col)
+        , onClick (Model.SquareSelected row col Model.FirstClick)
         ]
         [ img
             [ src square.figure.img_src
