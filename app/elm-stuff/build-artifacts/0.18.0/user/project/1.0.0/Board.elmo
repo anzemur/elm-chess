@@ -8,12 +8,7 @@ var _user$project$Board$createBoard = {
 					return {
 						pos: {ctor: '_Tuple2', _0: row, _1: col},
 						highlightType: _user$project$Types$None,
-						figure: {
-							figureType: _user$project$Types$Bishop,
-							color: _user$project$Types$Black,
-							img_src: 'assets/rook_black.svg',
-							pos: {ctor: '_Tuple2', _0: 0, _1: 0}
-						}
+						figure: {figureType: _user$project$Types$Bishop, color: _user$project$Types$Black, img_src: 'assets/rook_black.svg'}
 					};
 				},
 				A2(_elm_lang$core$List$range, 0, 7));
@@ -75,12 +70,7 @@ var _user$project$Board$getInitFigure = function (pos) {
 				break _v0_18;
 		}
 	} while(false);
-	return {
-		figureType: _user$project$Types$Nothing,
-		pos: {ctor: '_Tuple2', _0: 0, _1: 0},
-		color: _user$project$Types$Black,
-		img_src: ''
-	};
+	return {figureType: _user$project$Types$Empty, color: _user$project$Types$Black, img_src: ''};
 };
 var _user$project$Board$createInitialBoard = {
 	board: A2(

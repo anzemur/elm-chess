@@ -90,7 +90,8 @@ getInitFigure pos =
             createFigure Types.Black Types.Queen
 
         ( a, b ) ->
-            { figureType = Types.Nothing, pos = ( 0, 0 ), color = Types.Black, img_src = "" }
+            --FIXME repair the figure "must have" values
+            { figureType = Types.Empty, color = Types.Black, img_src = "" }
 
 
 
@@ -105,7 +106,7 @@ createBoard =
                 List.map
                     (\col ->
                         --FIXME repair the figure "must have" values
-                        { pos = ( row, col ), highlightType = Types.None, figure = { figureType = Types.Bishop, color = Types.Black, img_src = "assets/rook_black.svg", pos = ( 0, 0 ) } }
+                        { pos = ( row, col ), highlightType = Types.None,figure = { figureType = Types.Bishop, color = Types.Black, img_src = "assets/rook_black.svg"} }
                      -- Square type
                     )
                     (List.range 0 7)

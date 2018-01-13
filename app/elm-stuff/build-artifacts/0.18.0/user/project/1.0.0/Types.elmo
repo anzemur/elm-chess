@@ -14,11 +14,11 @@ var _user$project$Types$Square = F3(
 	function (a, b, c) {
 		return {figure: a, highlightType: b, pos: c};
 	});
-var _user$project$Types$Figure = F4(
-	function (a, b, c, d) {
-		return {figureType: a, pos: b, color: c, img_src: d};
+var _user$project$Types$Figure = F3(
+	function (a, b, c) {
+		return {figureType: a, color: b, img_src: c};
 	});
-var _user$project$Types$Nothing = {ctor: 'Nothing'};
+var _user$project$Types$Empty = {ctor: 'Empty'};
 var _user$project$Types$Knight = {ctor: 'Knight'};
 var _user$project$Types$Rook = {ctor: 'Rook'};
 var _user$project$Types$Pawn = {ctor: 'Pawn'};

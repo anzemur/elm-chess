@@ -1,112 +1,44 @@
 var _user$project$Figure$createFigure = F2(
 	function (figColor, figType) {
 		var _p0 = {ctor: '_Tuple2', _0: figColor, _1: figType};
-		_v0_12:
-		do {
-			if (_p0.ctor === '_Tuple2') {
+		switch (_p0._1.ctor) {
+			case 'King':
 				if (_p0._0.ctor === 'Black') {
-					switch (_p0._1.ctor) {
-						case 'King':
-							return {
-								figureType: figType,
-								color: figColor,
-								img_src: 'assets/king_black.svg',
-								pos: {ctor: '_Tuple2', _0: 0, _1: 0}
-							};
-						case 'Queen':
-							return {
-								figureType: figType,
-								color: figColor,
-								img_src: 'assets/queen_black.svg',
-								pos: {ctor: '_Tuple2', _0: 0, _1: 0}
-							};
-						case 'Bishop':
-							return {
-								figureType: figType,
-								color: figColor,
-								img_src: 'assets/bishop_black.svg',
-								pos: {ctor: '_Tuple2', _0: 0, _1: 0}
-							};
-						case 'Pawn':
-							return {
-								figureType: figType,
-								color: figColor,
-								img_src: 'assets/pawn_black.svg',
-								pos: {ctor: '_Tuple2', _0: 0, _1: 0}
-							};
-						case 'Rook':
-							return {
-								figureType: figType,
-								color: figColor,
-								img_src: 'assets/rook_black.svg',
-								pos: {ctor: '_Tuple2', _0: 0, _1: 0}
-							};
-						case 'Knight':
-							return {
-								figureType: figType,
-								color: figColor,
-								img_src: 'assets/knight_black.svg',
-								pos: {ctor: '_Tuple2', _0: 0, _1: 0}
-							};
-						default:
-							break _v0_12;
-					}
+					return {figureType: figType, color: figColor, img_src: 'assets/king_black.svg'};
 				} else {
-					switch (_p0._1.ctor) {
-						case 'King':
-							return {
-								figureType: figType,
-								color: figColor,
-								img_src: 'assets/king_white.svg',
-								pos: {ctor: '_Tuple2', _0: 0, _1: 0}
-							};
-						case 'Queen':
-							return {
-								figureType: figType,
-								color: figColor,
-								img_src: 'assets/queen_white.svg',
-								pos: {ctor: '_Tuple2', _0: 0, _1: 0}
-							};
-						case 'Bishop':
-							return {
-								figureType: figType,
-								color: figColor,
-								img_src: 'assets/bishop_white.svg',
-								pos: {ctor: '_Tuple2', _0: 0, _1: 0}
-							};
-						case 'Pawn':
-							return {
-								figureType: figType,
-								color: figColor,
-								img_src: 'assets/pawn_white.svg',
-								pos: {ctor: '_Tuple2', _0: 0, _1: 0}
-							};
-						case 'Rook':
-							return {
-								figureType: figType,
-								color: figColor,
-								img_src: 'assets/rook_white.svg',
-								pos: {ctor: '_Tuple2', _0: 0, _1: 0}
-							};
-						case 'Knight':
-							return {
-								figureType: figType,
-								color: figColor,
-								img_src: 'assets/knight_white.svg',
-								pos: {ctor: '_Tuple2', _0: 0, _1: 0}
-							};
-						default:
-							break _v0_12;
-					}
+					return {figureType: figType, color: figColor, img_src: 'assets/king_white.svg'};
 				}
-			} else {
-				break _v0_12;
-			}
-		} while(false);
-		return {
-			figureType: _user$project$Types$Nothing,
-			color: figColor,
-			img_src: '',
-			pos: {ctor: '_Tuple2', _0: 0, _1: 0}
-		};
+			case 'Queen':
+				if (_p0._0.ctor === 'Black') {
+					return {figureType: figType, color: figColor, img_src: 'assets/queen_black.svg'};
+				} else {
+					return {figureType: figType, color: figColor, img_src: 'assets/queen_white.svg'};
+				}
+			case 'Bishop':
+				if (_p0._0.ctor === 'Black') {
+					return {figureType: figType, color: figColor, img_src: 'assets/bishop_black.svg'};
+				} else {
+					return {figureType: figType, color: figColor, img_src: 'assets/bishop_white.svg'};
+				}
+			case 'Pawn':
+				if (_p0._0.ctor === 'Black') {
+					return {figureType: figType, color: figColor, img_src: 'assets/pawn_black.svg'};
+				} else {
+					return {figureType: figType, color: figColor, img_src: 'assets/pawn_white.svg'};
+				}
+			case 'Rook':
+				if (_p0._0.ctor === 'Black') {
+					return {figureType: figType, color: figColor, img_src: 'assets/rook_black.svg'};
+				} else {
+					return {figureType: figType, color: figColor, img_src: 'assets/rook_white.svg'};
+				}
+			case 'Knight':
+				if (_p0._0.ctor === 'Black') {
+					return {figureType: figType, color: figColor, img_src: 'assets/knight_black.svg'};
+				} else {
+					return {figureType: figType, color: figColor, img_src: 'assets/knight_white.svg'};
+				}
+			default:
+				return {figureType: figType, color: figColor, img_src: ''};
+		}
 	});

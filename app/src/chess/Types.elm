@@ -10,7 +10,7 @@ type FigureType
     | Pawn
     | Rook
     | Knight
-    | Nothing
+    | Empty
 
 
 type GameType
@@ -60,7 +60,6 @@ type alias Square =
 
 type alias Figure =
     { figureType : FigureType
-    , pos : ( Int, Int ) -- (row,col)
     , color : Color
     , img_src : String
     }
