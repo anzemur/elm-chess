@@ -1,7 +1,7 @@
 module Main exposing (..)
 
 import Html
-import Model exposing (Model, Msg)
+import Model exposing (Model, Msg, init)
 import Update
 import View
 
@@ -12,7 +12,7 @@ import View
 main : Program Never Model Msg
 main =
     Html.program
-        { init = Model.init
+        { init = init
         , view = View.view
         , update = Update.update
         , subscriptions = \_ -> Sub.none
