@@ -123,7 +123,10 @@ module.exports = function(app) {
         .get(highScoresController.createNewLocalScoreboard);
 
     versionRouter.route('/highscores')
-        .post(highScoresController.lisTopHighScores);
+        .get(highScoresController.lisTopHighScores);
+
+    versionRouter.route('/highscores')
+        .post(highScoresController.lisTopHighScoresLocal);
 
     versionRouter.route('/highscores/add')
         .post(highScoresController.addNewPlayer);
