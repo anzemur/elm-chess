@@ -12,9 +12,20 @@ type FigureType
     | Knight
 
 
+
+-- | Nothing
+
+
 type Color
     = Black
     | White
+
+
+type HighlightType
+    = None
+    | PossibleMoves
+    | ChosenSquare
+    | AIRecommmends
 
 
 type alias Board =
@@ -23,6 +34,7 @@ type alias Board =
 
 type alias Square =
     { figure : Figure
+    , highlightType : HighlightType
     , pos : ( Int, Int ) -- (row,col)
     }
 
