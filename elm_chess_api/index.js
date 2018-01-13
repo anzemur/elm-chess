@@ -29,13 +29,16 @@ app.get('/', function (req, res) {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+// to allow CORS
+app.all('/*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
 routesApi(app);
 
 //app.listen(port);
 //console.log("Up and running on port: " + port);
-
-
-
 
 
 
