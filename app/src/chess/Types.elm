@@ -32,6 +32,7 @@ type alias Player =
 type Color
     = Black
     | White
+    | NoColor
 
 
 type HighlightType

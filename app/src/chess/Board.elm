@@ -91,7 +91,7 @@ getInitFigure pos =
 
         ( a, b ) ->
             --FIXME repair the figure "must have" values
-            { figureType = Types.Empty, color = Types.Black, img_src = "" }
+            { figureType = Types.Empty, color = Types.NoColor, img_src = "" }
 
 
 

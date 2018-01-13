@@ -6,7 +6,7 @@ var _user$project$Moves$returnPossibleMovesHighlighted = function (board) {
 				var _p0 = square.highlightType;
 				if (_p0.ctor === 'ChosenSquare') {
 					return _elm_lang$core$Maybe$Just(
-						{ctor: '_Tuple2', _0: square.pos, _1: square.figure.figureType});
+						{ctor: '_Tuple2', _0: square.pos, _1: square.figure});
 				} else {
 					return _elm_lang$core$Maybe$Nothing;
 				}
@@ -24,50 +24,79 @@ var _user$project$Moves$returnPossibleMovesHighlighted = function (board) {
 			return {
 				ctor: '_Tuple2',
 				_0: {ctor: '_Tuple2', _0: 0, _1: 0},
-				_1: _user$project$Types$Queen
+				_1: {figureType: _user$project$Types$Empty, color: _user$project$Types$Black, img_src: ''}
 			};
 		}
 	}();
 	var figureMove = F3(
-		function (figure, selectedPosition, possible) {
-			var _p2 = figure;
-			switch (_p2.ctor) {
+		function (figure, selectedPosition, checkSquare) {
+			var colPoss = _elm_lang$core$Tuple$second(checkSquare.pos);
+			var rowPoss = _elm_lang$core$Tuple$first(checkSquare.pos);
+			var colSelect = _elm_lang$core$Tuple$second(selectedPosition);
+			var rowSelect = _elm_lang$core$Tuple$first(selectedPosition);
+			var forwardDistance = function () {
+				var _p2 = figure.color;
+				switch (_p2.ctor) {
+					case 'Black':
+						return _elm_lang$core$Native_Utils.eq(rowSelect, 1) ? 2 : 1;
+					case 'White':
+						return _elm_lang$core$Native_Utils.eq(rowSelect, 6) ? 2 : 1;
+					default:
+						return 0;
+				}
+			}();
+			var _p3 = figure.figureType;
+			switch (_p3.ctor) {
 				case 'Rook':
-					return _elm_lang$core$Native_Utils.eq(
-						_elm_lang$core$Tuple$first(possible),
-						_elm_lang$core$Tuple$first(selectedPosition)) || _elm_lang$core$Native_Utils.eq(
-						_elm_lang$core$Tuple$second(possible),
-						_elm_lang$core$Tuple$second(selectedPosition));
+					return _elm_lang$core$Native_Utils.eq(rowPoss, rowSelect) || _elm_lang$core$Native_Utils.eq(colPoss, colSelect);
 				case 'Bishop':
 					return _elm_lang$core$Native_Utils.eq(
-						_elm_lang$core$Basics$abs(
-							_elm_lang$core$Tuple$first(possible) - _elm_lang$core$Tuple$first(selectedPosition)),
-						_elm_lang$core$Basics$abs(
-							_elm_lang$core$Tuple$second(possible) - _elm_lang$core$Tuple$second(selectedPosition)));
+						_elm_lang$core$Basics$abs(rowPoss - rowSelect),
+						_elm_lang$core$Basics$abs(colPoss - colSelect));
 				case 'Queen':
-					return A3(figureMove, _user$project$Types$Rook, selectedPosition, possible) || A3(figureMove, _user$project$Types$Bishop, selectedPosition, possible);
+					return A3(
+						figureMove,
+						_elm_lang$core$Native_Utils.update(
+							figure,
+							{figureType: _user$project$Types$Rook}),
+						selectedPosition,
+						checkSquare) || A3(
+						figureMove,
+						_elm_lang$core$Native_Utils.update(
+							figure,
+							{figureType: _user$project$Types$Bishop}),
+						selectedPosition,
+						checkSquare);
 				case 'Knight':
 					return (_elm_lang$core$Native_Utils.eq(
-						_elm_lang$core$Basics$abs(
-							_elm_lang$core$Tuple$first(possible) - _elm_lang$core$Tuple$first(selectedPosition)),
+						_elm_lang$core$Basics$abs(rowPoss - rowSelect),
 						2) && _elm_lang$core$Native_Utils.eq(
-						_elm_lang$core$Basics$abs(
-							_elm_lang$core$Tuple$second(possible) - _elm_lang$core$Tuple$second(selectedPosition)),
+						_elm_lang$core$Basics$abs(colPoss - colSelect),
 						1)) || (_elm_lang$core$Native_Utils.eq(
-						_elm_lang$core$Basics$abs(
-							_elm_lang$core$Tuple$first(possible) - _elm_lang$core$Tuple$first(selectedPosition)),
+						_elm_lang$core$Basics$abs(rowPoss - rowSelect),
 						1) && _elm_lang$core$Native_Utils.eq(
-						_elm_lang$core$Basics$abs(
-							_elm_lang$core$Tuple$second(possible) - _elm_lang$core$Tuple$second(selectedPosition)),
+						_elm_lang$core$Basics$abs(colPoss - colSelect),
 						2));
 				case 'King':
 					return (_elm_lang$core$Native_Utils.cmp(
-						_elm_lang$core$Basics$abs(
-							_elm_lang$core$Tuple$first(possible) - _elm_lang$core$Tuple$first(selectedPosition)),
+						_elm_lang$core$Basics$abs(rowPoss - rowSelect),
 						1) < 1) && (_elm_lang$core$Native_Utils.cmp(
-						_elm_lang$core$Basics$abs(
-							_elm_lang$core$Tuple$second(possible) - _elm_lang$core$Tuple$second(selectedPosition)),
+						_elm_lang$core$Basics$abs(colPoss - colSelect),
 						1) < 1);
+				case 'Pawn':
+					var _p4 = figure.color;
+					switch (_p4.ctor) {
+						case 'Black':
+							return (_elm_lang$core$Native_Utils.eq(colPoss, colSelect) && ((_elm_lang$core$Native_Utils.cmp(0, rowPoss - rowSelect) < 0) && (_elm_lang$core$Native_Utils.cmp(rowPoss - rowSelect, forwardDistance) < 1))) || (_elm_lang$core$Native_Utils.eq(
+								_elm_lang$core$Basics$abs(colPoss - colSelect),
+								1) && (_elm_lang$core$Native_Utils.eq(rowPoss, rowSelect + 1) && _elm_lang$core$Native_Utils.eq(checkSquare.figure.color, _user$project$Types$White)));
+						case 'White':
+							return (_elm_lang$core$Native_Utils.eq(colPoss, colSelect) && ((_elm_lang$core$Native_Utils.cmp(0, rowPoss - rowSelect) > 0) && (_elm_lang$core$Native_Utils.cmp(rowSelect - rowPoss, forwardDistance) < 1))) || (_elm_lang$core$Native_Utils.eq(
+								_elm_lang$core$Basics$abs(colPoss - colSelect),
+								1) && (_elm_lang$core$Native_Utils.eq(rowPoss, rowSelect - 1) && _elm_lang$core$Native_Utils.eq(checkSquare.figure.color, _user$project$Types$Black)));
+						default:
+							return false;
+					}
 				default:
 					return false;
 			}
@@ -82,7 +111,7 @@ var _user$project$Moves$returnPossibleMovesHighlighted = function (board) {
 						figureMove,
 						_elm_lang$core$Tuple$second(selected),
 						_elm_lang$core$Tuple$first(selected),
-						square.pos) && (!_elm_lang$core$Native_Utils.eq(
+						square) && (!_elm_lang$core$Native_Utils.eq(
 						square.pos,
 						_elm_lang$core$Tuple$first(selected)))) ? _elm_lang$core$Native_Utils.update(
 						square,

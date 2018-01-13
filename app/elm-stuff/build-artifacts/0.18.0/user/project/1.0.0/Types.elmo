@@ -28,6 +28,7 @@ var _user$project$Types$King = {ctor: 'King'};
 var _user$project$Types$NoGame = {ctor: 'NoGame'};
 var _user$project$Types$PlayerVsPlayer = {ctor: 'PlayerVsPlayer'};
 var _user$project$Types$PlayerVsAi = {ctor: 'PlayerVsAi'};
+var _user$project$Types$NoColor = {ctor: 'NoColor'};
 var _user$project$Types$White = {ctor: 'White'};
 var _user$project$Types$Black = {ctor: 'Black'};
 var _user$project$Types$AIRecommmends = {ctor: 'AIRecommmends'};

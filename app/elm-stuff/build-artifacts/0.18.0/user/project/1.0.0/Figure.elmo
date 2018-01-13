@@ -1,44 +1,46 @@
 var _user$project$Figure$createFigure = F2(
 	function (figColor, figType) {
 		var _p0 = {ctor: '_Tuple2', _0: figColor, _1: figType};
-		switch (_p0._1.ctor) {
-			case 'King':
-				if (_p0._0.ctor === 'Black') {
-					return {figureType: figType, color: figColor, img_src: 'assets/king_black.svg'};
-				} else {
-					return {figureType: figType, color: figColor, img_src: 'assets/king_white.svg'};
-				}
-			case 'Queen':
-				if (_p0._0.ctor === 'Black') {
-					return {figureType: figType, color: figColor, img_src: 'assets/queen_black.svg'};
-				} else {
-					return {figureType: figType, color: figColor, img_src: 'assets/queen_white.svg'};
-				}
-			case 'Bishop':
-				if (_p0._0.ctor === 'Black') {
-					return {figureType: figType, color: figColor, img_src: 'assets/bishop_black.svg'};
-				} else {
-					return {figureType: figType, color: figColor, img_src: 'assets/bishop_white.svg'};
-				}
-			case 'Pawn':
-				if (_p0._0.ctor === 'Black') {
-					return {figureType: figType, color: figColor, img_src: 'assets/pawn_black.svg'};
-				} else {
-					return {figureType: figType, color: figColor, img_src: 'assets/pawn_white.svg'};
-				}
-			case 'Rook':
-				if (_p0._0.ctor === 'Black') {
-					return {figureType: figType, color: figColor, img_src: 'assets/rook_black.svg'};
-				} else {
-					return {figureType: figType, color: figColor, img_src: 'assets/rook_white.svg'};
-				}
-			case 'Knight':
-				if (_p0._0.ctor === 'Black') {
-					return {figureType: figType, color: figColor, img_src: 'assets/knight_black.svg'};
-				} else {
-					return {figureType: figType, color: figColor, img_src: 'assets/knight_white.svg'};
-				}
-			default:
-				return {figureType: figType, color: figColor, img_src: ''};
-		}
+		_v0_12:
+		do {
+			switch (_p0._0.ctor) {
+				case 'Black':
+					switch (_p0._1.ctor) {
+						case 'King':
+							return {figureType: figType, color: figColor, img_src: 'assets/king_black.svg'};
+						case 'Queen':
+							return {figureType: figType, color: figColor, img_src: 'assets/queen_black.svg'};
+						case 'Bishop':
+							return {figureType: figType, color: figColor, img_src: 'assets/bishop_black.svg'};
+						case 'Pawn':
+							return {figureType: figType, color: figColor, img_src: 'assets/pawn_black.svg'};
+						case 'Rook':
+							return {figureType: figType, color: figColor, img_src: 'assets/rook_black.svg'};
+						case 'Knight':
+							return {figureType: figType, color: figColor, img_src: 'assets/knight_black.svg'};
+						default:
+							break _v0_12;
+					}
+				case 'White':
+					switch (_p0._1.ctor) {
+						case 'King':
+							return {figureType: figType, color: figColor, img_src: 'assets/king_white.svg'};
+						case 'Queen':
+							return {figureType: figType, color: figColor, img_src: 'assets/queen_white.svg'};
+						case 'Bishop':
+							return {figureType: figType, color: figColor, img_src: 'assets/bishop_white.svg'};
+						case 'Pawn':
+							return {figureType: figType, color: figColor, img_src: 'assets/pawn_white.svg'};
+						case 'Rook':
+							return {figureType: figType, color: figColor, img_src: 'assets/rook_white.svg'};
+						case 'Knight':
+							return {figureType: figType, color: figColor, img_src: 'assets/knight_white.svg'};
+						default:
+							break _v0_12;
+					}
+				default:
+					break _v0_12;
+			}
+		} while(false);
+		return {figureType: _user$project$Types$Empty, color: _user$project$Types$NoColor, img_src: ''};
 	});
