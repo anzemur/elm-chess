@@ -12,16 +12,20 @@ type FigureType
     | Knight
 
 
+
+-- | Nothing
+
+
 type Color
     = Black
     | White
 
 
 type HighlightType
-  = None
-  | PossibleMoves
-  | ChosenSquare
-  | AIRecommmends
+    = None
+    | PossibleMoves
+    | ChosenSquare
+    | AIRecommmends
 
 
 type alias Board =
