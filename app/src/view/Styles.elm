@@ -19,3 +19,17 @@ squareStyle selected isBlack =
                 "rgba(192, 152, 31,0.5)"
           )
         ]
+
+
+mainViewStyle =
+    style
+        [ ( "display", "inline-block" )
+        , ( "margin", "10px" )
+        ]
+
+
+highscoresStyle =
+    style
+        [ ( "border-width", "1px" )
+        , ( "border-style", "solid" )
+        ]

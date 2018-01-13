@@ -10,14 +10,25 @@ import Types exposing (Board, HighlightType, Square)
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        Model.SquareSelected row col _ ->
-            ( { model | selectedSquare = ( row, col ), board = updateSquareHighlight model.board msg }, Cmd.none )
+        Model.SquareSelected row col clickType ->
+            ( { model | selectedSquare = ( row, col ), board = updateSquareHighlight model.board row col clickType }, Model.getHighscores )
+
+        Model.Highscores (Ok highscores) ->
+            ( { model | highscores = highscores }, Cmd.none )
+
+        -- HTTP ERROR HANDLING
+        Model.Highscores (Err e) ->
+            let
+                _ =
+                    Debug.log "highscores get err" e
+            in
+            ( { model | errors = e :: model.errors }, Cmd.none )
 
 
-updateSquareHighlight : Board -> Msg -> Board
-updateSquareHighlight board msg =
-    case msg of
-        Model.SquareSelected row col Model.FirstClick ->
+updateSquareHighlight : Board -> Int -> Int -> Model.ClickType -> Board
+updateSquareHighlight board row col clickType =
+    case clickType of
+        Model.FirstClick ->
             { board
                 | board =
                     List.indexedMap

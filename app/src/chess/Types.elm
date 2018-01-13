@@ -28,6 +28,12 @@ type HighlightType
     | AIRecommmends
 
 
+type alias PlayerScore =
+    { name : String
+    , score : Int
+    }
+
+
 type alias Board =
     { board : List (List Square) }
 
