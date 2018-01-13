@@ -1,0 +1,86 @@
+var _user$project$GameBoard$renderSquare = F4(
+	function (model, square, row, col) {
+		return A2(
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: A2(
+					_user$project$Styles$squareStyle,
+					square.highlightType,
+					_elm_lang$core$Native_Utils.eq(
+						A2(_elm_lang$core$Basics_ops['%'], row + col, 2),
+						1)),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html_Events$onClick(
+						A3(_user$project$Model$SquareSelected, row, col, _user$project$Model$FirstClick)),
+					_1: {ctor: '[]'}
+				}
+			},
+			{
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$img,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$src(square.figure.img_src),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$style(
+								{
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'height', _1: '35px'},
+									_1: {
+										ctor: '::',
+										_0: {ctor: '_Tuple2', _0: 'width', _1: '35px'},
+										_1: {ctor: '[]'}
+									}
+								}),
+							_1: {ctor: '[]'}
+						}
+					},
+					{ctor: '[]'}),
+				_1: {
+					ctor: '::',
+					_0: _elm_lang$html$Html$text(
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							_elm_lang$core$Basics$toString(
+								_elm_lang$core$Tuple$first(square.pos)),
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								' ',
+								_elm_lang$core$Basics$toString(
+									_elm_lang$core$Tuple$second(square.pos))))),
+					_1: {ctor: '[]'}
+				}
+			});
+	});
+var _user$project$GameBoard$renderRow = F3(
+	function (model, boardRow, row) {
+		return A2(
+			_elm_lang$html$Html$div,
+			{ctor: '[]'},
+			A2(
+				_elm_lang$core$List$indexedMap,
+				F2(
+					function (col, square) {
+						return A4(_user$project$GameBoard$renderSquare, model, square, row, col);
+					}),
+				boardRow));
+	});
+var _user$project$GameBoard$renderBoard = function (model) {
+	return A2(
+		_elm_lang$core$List$indexedMap,
+		F2(
+			function (row, boardRow) {
+				return A3(_user$project$GameBoard$renderRow, model, boardRow, row);
+			}),
+		model.board.board);
+};
+var _user$project$GameBoard$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		_user$project$GameBoard$renderBoard(model));
+};

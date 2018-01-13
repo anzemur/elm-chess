@@ -1,0 +1,62 @@
+var _user$project$Styles$highscoresStyle = _elm_lang$html$Html_Attributes$style(
+	{
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 'border-width', _1: '1px'},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'border-style', _1: 'solid'},
+			_1: {ctor: '[]'}
+		}
+	});
+var _user$project$Styles$mainViewStyle = _elm_lang$html$Html_Attributes$style(
+	{
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 'display', _1: 'inline-block'},
+		_1: {
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'margin', _1: '10px'},
+			_1: {ctor: '[]'}
+		}
+	});
+var _user$project$Styles$squareStyle = F2(
+	function (selected, isBlack) {
+		var squareColor = function () {
+			var _p0 = selected;
+			switch (_p0.ctor) {
+				case 'None':
+					return isBlack ? 'rgb(192, 152, 31)' : 'rgba(192, 152, 31,0.5)';
+				case 'ChosenSquare':
+					return 'cyan';
+				case 'PossibleMove':
+					return 'blue';
+				default:
+					return 'black';
+			}
+		}();
+		return _elm_lang$html$Html_Attributes$style(
+			{
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'display', _1: 'inline-block'},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'height', _1: '60px'},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'width', _1: '60px'},
+						_1: {
+							ctor: '::',
+							_0: {ctor: '_Tuple2', _0: 'border-style', _1: 'solid'},
+							_1: {
+								ctor: '::',
+								_0: {ctor: '_Tuple2', _0: 'border-width', _1: '1px'},
+								_1: {
+									ctor: '::',
+									_0: {ctor: '_Tuple2', _0: 'background', _1: squareColor},
+									_1: {ctor: '[]'}
+								}
+							}
+						}
+					}
+				}
+			});
+	});

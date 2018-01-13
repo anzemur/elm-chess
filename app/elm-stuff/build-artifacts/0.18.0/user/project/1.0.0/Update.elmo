@@ -1,0 +1,85 @@
+var _user$project$Update$updateSquareHighlight = F4(
+	function (board, row, col, clickType) {
+		var _p0 = clickType;
+		return _elm_lang$core$Native_Utils.update(
+			board,
+			{
+				board: A2(
+					_elm_lang$core$List$indexedMap,
+					F2(
+						function (rown, rowlist) {
+							return A2(
+								_elm_lang$core$List$indexedMap,
+								F2(
+									function (coln, square) {
+										return (_elm_lang$core$Native_Utils.eq(row, rown) && _elm_lang$core$Native_Utils.eq(col, coln)) ? _elm_lang$core$Native_Utils.update(
+											square,
+											{highlightType: _user$project$Types$ChosenSquare}) : _elm_lang$core$Native_Utils.update(
+											square,
+											{highlightType: _user$project$Types$None});
+									}),
+								rowlist);
+						}),
+					board.board)
+			});
+	});
+var _user$project$Update$update = F2(
+	function (msg, model) {
+		var _p1 = msg;
+		switch (_p1.ctor) {
+			case 'SquareSelected':
+				var _p3 = _p1._0;
+				var _p2 = _p1._1;
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							selectedSquare: {ctor: '_Tuple2', _0: _p3, _1: _p2},
+							board: _user$project$Moves$returnPossibleMovesHighlighted(
+								A4(_user$project$Update$updateSquareHighlight, model.board, _p3, _p2, _p1._2))
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'Highscores':
+				if (_p1._0.ctor === 'Ok') {
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{highscores: _p1._0._0}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				} else {
+					var _p5 = _p1._0._0;
+					var _p4 = A2(_elm_lang$core$Debug$log, 'highscores get err', _p5);
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								errors: {ctor: '::', _0: _p5, _1: model.errors}
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				}
+			case 'GameOneStart':
+				if (_p1._0.ctor === 'Ok') {
+					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+				} else {
+					var _p7 = _p1._0._0;
+					var _p6 = A2(_elm_lang$core$Debug$log, 'highscores get err', _p7);
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								errors: {ctor: '::', _0: _p7, _1: model.errors}
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				}
+			default:
+				return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+		}
+	});

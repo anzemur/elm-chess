@@ -38,15 +38,8 @@ renderRow model boardRow row =
 
 renderSquare : Model -> Square -> Int -> Int -> Html Msg
 renderSquare model square row col =
-    let
-        selectedField =
-            case square.highlightType of
-                Types.ChosenSquare ->
-                    True
-                _ -> False
-    in
     div
-        [ squareStyle selectedField ((row + col) % 2 == 1)
+        [ squareStyle square.highlightType ((row + col) % 2 == 1)
         , onClick (Model.SquareSelected row col Model.FirstClick)
         ]
         [ img
@@ -57,5 +50,5 @@ renderSquare model square row col =
                 ]
             ]
             []
-        , text (toString row ++ " " ++ toString col)
+        , text (toString (Tuple.first square.pos) ++ " " ++ toString (Tuple.second square.pos))
         ]

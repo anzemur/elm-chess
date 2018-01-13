@@ -35,10 +35,10 @@ type Color
 
 
 type HighlightType
-    = None
-    | PossibleMoves
-    | ChosenSquare
-    | AIRecommmends
+  = None
+  | PossibleMove
+  | ChosenSquare
+  | AIRecommmends
 
 
 type alias PlayerScore =

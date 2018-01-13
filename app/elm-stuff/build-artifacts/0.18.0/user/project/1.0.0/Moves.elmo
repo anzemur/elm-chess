@@ -1,0 +1,98 @@
+var _user$project$Moves$returnPossibleMovesHighlighted = function (board) {
+	var selected = function () {
+		var res = A2(
+			_elm_lang$core$List$filterMap,
+			function (square) {
+				var _p0 = square.highlightType;
+				if (_p0.ctor === 'ChosenSquare') {
+					return _elm_lang$core$Maybe$Just(
+						{ctor: '_Tuple2', _0: square.pos, _1: square.figure.figureType});
+				} else {
+					return _elm_lang$core$Maybe$Nothing;
+				}
+			},
+			A2(
+				_elm_lang$core$List$concatMap,
+				function (a) {
+					return a;
+				},
+				board.board));
+		var _p1 = res;
+		if (_p1.ctor === '::') {
+			return _p1._0;
+		} else {
+			return {
+				ctor: '_Tuple2',
+				_0: {ctor: '_Tuple2', _0: 0, _1: 0},
+				_1: _user$project$Types$Queen
+			};
+		}
+	}();
+	var figureMove = F3(
+		function (figure, selectedPosition, possible) {
+			var _p2 = figure;
+			switch (_p2.ctor) {
+				case 'Rook':
+					return _elm_lang$core$Native_Utils.eq(
+						_elm_lang$core$Tuple$first(possible),
+						_elm_lang$core$Tuple$first(selectedPosition)) || _elm_lang$core$Native_Utils.eq(
+						_elm_lang$core$Tuple$second(possible),
+						_elm_lang$core$Tuple$second(selectedPosition));
+				case 'Bishop':
+					return _elm_lang$core$Native_Utils.eq(
+						_elm_lang$core$Basics$abs(
+							_elm_lang$core$Tuple$first(possible) - _elm_lang$core$Tuple$first(selectedPosition)),
+						_elm_lang$core$Basics$abs(
+							_elm_lang$core$Tuple$second(possible) - _elm_lang$core$Tuple$second(selectedPosition)));
+				case 'Queen':
+					return A3(figureMove, _user$project$Types$Rook, selectedPosition, possible) || A3(figureMove, _user$project$Types$Bishop, selectedPosition, possible);
+				case 'Knight':
+					return (_elm_lang$core$Native_Utils.eq(
+						_elm_lang$core$Basics$abs(
+							_elm_lang$core$Tuple$first(possible) - _elm_lang$core$Tuple$first(selectedPosition)),
+						2) && _elm_lang$core$Native_Utils.eq(
+						_elm_lang$core$Basics$abs(
+							_elm_lang$core$Tuple$second(possible) - _elm_lang$core$Tuple$second(selectedPosition)),
+						1)) || (_elm_lang$core$Native_Utils.eq(
+						_elm_lang$core$Basics$abs(
+							_elm_lang$core$Tuple$first(possible) - _elm_lang$core$Tuple$first(selectedPosition)),
+						1) && _elm_lang$core$Native_Utils.eq(
+						_elm_lang$core$Basics$abs(
+							_elm_lang$core$Tuple$second(possible) - _elm_lang$core$Tuple$second(selectedPosition)),
+						2));
+				case 'King':
+					return (_elm_lang$core$Native_Utils.cmp(
+						_elm_lang$core$Basics$abs(
+							_elm_lang$core$Tuple$first(possible) - _elm_lang$core$Tuple$first(selectedPosition)),
+						1) < 1) && (_elm_lang$core$Native_Utils.cmp(
+						_elm_lang$core$Basics$abs(
+							_elm_lang$core$Tuple$second(possible) - _elm_lang$core$Tuple$second(selectedPosition)),
+						1) < 1);
+				default:
+					return false;
+			}
+		});
+	var newBoard = A2(
+		_elm_lang$core$List$map,
+		function (row) {
+			return A2(
+				_elm_lang$core$List$map,
+				function (square) {
+					return (A3(
+						figureMove,
+						_elm_lang$core$Tuple$second(selected),
+						_elm_lang$core$Tuple$first(selected),
+						square.pos) && (!_elm_lang$core$Native_Utils.eq(
+						square.pos,
+						_elm_lang$core$Tuple$first(selected)))) ? _elm_lang$core$Native_Utils.update(
+						square,
+						{highlightType: _user$project$Types$PossibleMove}) : square;
+				},
+				row);
+		},
+		board.board);
+	return _elm_lang$core$Native_Utils.update(
+		board,
+		{board: newBoard});
+};
+var _user$project$Moves$moves = 1;

@@ -1,0 +1,30 @@
+var _user$project$Model$Model = F5(
+	function (a, b, c, d, e) {
+		return {selectedSquare: a, board: b, game: c, highscores: d, errors: e};
+	});
+var _user$project$Model$FirstClick = {ctor: 'FirstClick'};
+var _user$project$Model$TwoPlayerGame = {ctor: 'TwoPlayerGame'};
+var _user$project$Model$OnePlayerGame = {ctor: 'OnePlayerGame'};
+var _user$project$Model$GameOneStart = function (a) {
+	return {ctor: 'GameOneStart', _0: a};
+};
+var _user$project$Model$startGameOne = A2(_elm_lang$http$Http$send, _user$project$Model$GameOneStart, _user$project$ChessApi$startGameOne);
+var _user$project$Model$Highscores = function (a) {
+	return {ctor: 'Highscores', _0: a};
+};
+var _user$project$Model$getHighscores = A2(_elm_lang$http$Http$send, _user$project$Model$Highscores, _user$project$ChessApi$getHighscore);
+var _user$project$Model$init = {
+	ctor: '_Tuple2',
+	_0: {
+		selectedSquare: {ctor: '_Tuple2', _0: -1, _1: -1},
+		errors: {ctor: '[]'},
+		game: {gameType: _user$project$Types$NoGame, gameId: ''},
+		board: _user$project$Board$createInitialBoard,
+		highscores: {ctor: '[]'}
+	},
+	_1: _user$project$Model$getHighscores
+};
+var _user$project$Model$SquareSelected = F3(
+	function (a, b, c) {
+		return {ctor: 'SquareSelected', _0: a, _1: b, _2: c};
+	});

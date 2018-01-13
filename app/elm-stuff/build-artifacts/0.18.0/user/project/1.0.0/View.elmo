@@ -1,0 +1,18 @@
+var _user$project$View$view = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _user$project$Styles$mainViewStyle,
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: _user$project$GameBoard$view(model),
+			_1: {
+				ctor: '::',
+				_0: _user$project$Highscores$view(model),
+				_1: {ctor: '[]'}
+			}
+		});
+};

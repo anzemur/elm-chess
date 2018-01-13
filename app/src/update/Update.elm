@@ -1,7 +1,8 @@
 module Update exposing (..)
 
 import Model exposing (Model, Msg)
-import Types exposing (Board, HighlightType, Square)
+import Types exposing (Square, HighlightType, Board)
+import Moves exposing (returnPossibleMovesHighlighted)
 
 
 -- Update function for the chess game
@@ -13,7 +14,7 @@ update msg model =
         Model.SquareSelected row col clickType ->
             ( { model
                 | selectedSquare = ( row, col )
-                , board = updateSquareHighlight model.board row col clickType
+                , board = returnPossibleMovesHighlighted (updateSquareHighlight model.board row col clickType)
               }
             , Cmd.none
             )
