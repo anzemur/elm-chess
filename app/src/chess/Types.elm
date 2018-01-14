@@ -13,8 +13,20 @@ type FigureType
     | Nothing
 
 
+type GameType
+    = PlayerVsAi
+    | PlayerVsPlayer
+    | NoGame
 
--- | Nothing
+
+type alias Game =
+    { gameId : String
+    , gameType : GameType
+    }
+
+
+type alias Player =
+    {}
 
 
 type Color

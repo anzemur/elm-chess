@@ -11,7 +11,12 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Model.SquareSelected row col clickType ->
-            ( { model | selectedSquare = ( row, col ), board = updateSquareHighlight model.board row col clickType }, Model.getHighscores )
+            ( { model
+                | selectedSquare = ( row, col )
+                , board = updateSquareHighlight model.board row col clickType
+              }
+            , Cmd.none
+            )
 
         Model.Highscores (Ok highscores) ->
             ( { model | highscores = highscores }, Cmd.none )
@@ -33,6 +38,9 @@ update msg model =
                     Debug.log "highscores get err" e
             in
             ( { model | errors = e :: model.errors }, Cmd.none )
+
+        _ ->
+            ( model, Cmd.none )
 
 
 updateSquareHighlight : Board -> Int -> Int -> Model.ClickType -> Board
