@@ -10,6 +10,7 @@ type FigureType
     | Pawn
     | Rook
     | Knight
+    | Nothing
 
 
 

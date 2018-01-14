@@ -16,6 +16,7 @@ type ClickType
 type Msg
     = SquareSelected Int Int ClickType
     | Highscores (Result Http.Error (List PlayerScore))
+    | GameOneStart (Result Http.Error String)
 
 
 init : ( Model, Cmd Msg )
@@ -31,5 +32,21 @@ type alias Model =
     }
 
 
+
+-- Returns highscores
+
+
 getHighscores =
     Http.send Highscores ChessApi.getHighscore
+
+
+
+-- Starts a game against a computer
+
+
+startGameOne =
+    Http.send GameOneStart ChessApi.startGameOne
+
+
+
+-- moveFigurePlayerOne = Http.send

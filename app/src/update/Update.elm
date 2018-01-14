@@ -16,8 +16,18 @@ update msg model =
         Model.Highscores (Ok highscores) ->
             ( { model | highscores = highscores }, Cmd.none )
 
+        Model.GameOneStart (Ok game_id) ->
+            ( model, Cmd.none )
+
         -- HTTP ERROR HANDLING
         Model.Highscores (Err e) ->
+            let
+                _ =
+                    Debug.log "highscores get err" e
+            in
+            ( { model | errors = e :: model.errors }, Cmd.none )
+
+        Model.GameOneStart (Err e) ->
             let
                 _ =
                     Debug.log "highscores get err" e

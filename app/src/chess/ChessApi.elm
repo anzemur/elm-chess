@@ -2,12 +2,17 @@ module ChessApi exposing (..)
 
 import Http
 import Json.Decode as JD exposing (Decoder, field, int, list, map2, string)
+import Json.Encode as Encode
 import Types exposing (PlayerScore)
 
 
 baseUrl =
     --"http://localhost:3000/api/v1/"
     "https://chess-api-chess.herokuapp.com/api/v1/"
+
+
+
+-- Returns the list of top 5 players in chess
 
 
 getHighscore =
@@ -27,15 +32,34 @@ playerScoreDecoder =
 
 
 
---
--- corsGet : Http.request
--- corsGet =
---     { verb = "GET"
---     , headers =
---         [ ("Origin", "http://elm-lang.org")
---         , ("Access-Control-Request-Method", "POST")
---         , ("Access-Control-Request-Headers", "X-Custom-Header")
---         ]
---     , url = "http://example.com/hats"
---     , body = empty
---     }
+-- Starts a new game and returns a game ID
+
+
+startGameOne =
+    Http.get (baseUrl ++ "chess/one") decodeStartGameOneUrl
+
+
+decodeStartGameOneUrl : Decoder String
+decodeStartGameOneUrl =
+    field "game_id" string
+
+
+
+-- Sends a move for a player to aPI
+
+
+moveFiguresPlayerOne game_id from to =
+    let
+        body =
+            Http.jsonBody
+                (Encode.object
+                    [ ( "game_id", Encode.string game_id )
+                    , ( "from", Encode.string from )
+                    , ( "to", Encode.string to )
+                    ]
+                )
+    in
+    Http.post
+        (baseUrl ++ "chess/one/move/player")
+        body
+        (field "status" string)
