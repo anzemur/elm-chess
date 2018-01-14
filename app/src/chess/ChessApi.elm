@@ -28,7 +28,7 @@ playerScoreDecoder : Decoder PlayerScore
 playerScoreDecoder =
     map2 PlayerScore
         (field "name" string)
-        (field "score" int)
+        (field "score_out" string)
 
 
 

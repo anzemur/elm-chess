@@ -17,7 +17,7 @@ showHighscores model =
     div []
         (List.foldl
             (\player tmp ->
-                text (player.name ++ " " ++ toString player.score) :: (br [] [] :: tmp)
+                text (player.name ++ " " ++ player.score_out) :: (br [] [] :: tmp)
             )
             []
             model.highscores
