@@ -30,7 +30,7 @@ type HighlightType
 
 type alias PlayerScore =
     { name : String
-    , score : Int
+    , score_out : String
     }
 
 
