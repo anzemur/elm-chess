@@ -1,5 +1,7 @@
 module Update exposing (..)
 
+import ChessApi exposing (startGameOne)
+import Http
 import Model exposing (Model, Msg)
 import Moves exposing (returnPossibleMovesHighlighted, searchSquare)
 import Types exposing (Board, HighlightType, Square)
@@ -13,20 +15,29 @@ update msg model =
     case msg of
         Model.SquareSelected row col clickType ->
             let
-              changePlayer : Types.Color -> Board -> Types.Color
-              changePlayer color board =
-                case (searchSquare board (\square -> square.highlightType == Types.SuccessfulMove)).pos of
-                  (-1, -1) -> color
-                  _ -> case color of
-                        Types.Black -> Types.White
-                        Types.White -> Types.Black
-                        _ -> Types.White
+                changePlayer : Types.Color -> Board -> Types.Color
+                changePlayer color board =
+                    case (searchSquare board (\square -> square.highlightType == Types.SuccessfulMove)).pos of
+                        ( -1, -1 ) ->
+                            color
 
-              highlightBoard = updateSquareHighlight model row col clickType
+                        _ ->
+                            case color of
+                                Types.Black ->
+                                    Types.White
+
+                                Types.White ->
+                                    Types.Black
+
+                                _ ->
+                                    Types.White
+
+                highlightBoard =
+                    updateSquareHighlight model row col clickType
             in
             ( { model
                 | selectedSquare = ( row, col )
-                , board = returnPossibleMovesHighlighted (highlightBoard)
+                , board = returnPossibleMovesHighlighted highlightBoard
                 , playerColor = changePlayer model.playerColor highlightBoard
               }
             , Cmd.none
@@ -36,8 +47,22 @@ update msg model =
             ( { model | highscores = highscores }, Cmd.none )
 
         Model.GameOneStart (Ok game_id) ->
-            ( model, Cmd.none )
+            ( { model | game = { gameType = Types.PlayerVsAi, gameId = game_id } }, Cmd.none )
 
+        Model.ShowMainMenu ->
+            ( { model | route = Model.MainMenu }, Cmd.none )
+
+        Model.ShowHighscoresMenu ->
+            ( { model | route = Model.HighscoresMenu }, Model.getHighscores )
+
+        Model.ShowGameTypesMenu ->
+            ( { model | route = Model.GameTypeMenu }, Cmd.none )
+
+        Model.OnePlayerGame ->
+            ( { model | route = Model.Game }, Model.startGameOne )
+
+        --Model.TwoPlayerGame ->
+        --( { model | route = Model.Game }, Model.startGameOne )
         -- HTTP ERROR HANDLING
         Model.Highscores (Err e) ->
             let
@@ -60,26 +85,30 @@ update msg model =
 updateSquareHighlight : Model -> Int -> Int -> Model.ClickType -> Board
 updateSquareHighlight model row col clickType =
     let
-      currentBoard = model.board
-      updateBoard : (Square -> Square) -> List (List Square)
-      updateBoard mapper =
-        List.map
-            (\rowlist ->
-                List.map
-                    (\square -> mapper square)
-                    rowlist
-            )
-            model.board.board
+        currentBoard =
+            model.board
+
+        updateBoard : (Square -> Square) -> List (List Square)
+        updateBoard mapper =
+            List.map
+                (\rowlist ->
+                    List.map
+                        (\square -> mapper square)
+                        rowlist
+                )
+                model.board.board
     in
     case clickType of
         Model.FirstClick ->
             { currentBoard
-                | board = updateBoard  (\square ->
-                                if square.pos == (row, col) && square.highlightType /= Types.ChosenSquare && model.playerColor == square.figure.color then
-                                    { square | highlightType = Types.ChosenSquare }
-                                else
-                                    { square | highlightType = Types.None }
-                            )
+                | board =
+                    updateBoard
+                        (\square ->
+                            if square.pos == ( row, col ) && square.highlightType /= Types.ChosenSquare && model.playerColor == square.figure.color then
+                                { square | highlightType = Types.ChosenSquare }
+                            else
+                                { square | highlightType = Types.None }
+                        )
             }
 
         Model.MoveFigure ->
@@ -88,12 +117,14 @@ updateSquareHighlight model row col clickType =
                     searchSquare currentBoard (\square -> square.highlightType == Types.ChosenSquare)
             in
             { currentBoard
-                | board = updateBoard  (\square ->
-                                    if square.pos == (row, col) then
-                                        { square | highlightType = Types.SuccessfulMove, figure = movedSquare.figure }
-                                    else if square.pos == movedSquare.pos then
-                                        { square | highlightType = Types.None, figure = Types.Figure Types.Empty Types.NoColor "" }
-                                    else
-                                        { square | highlightType = Types.None }
-                                )
+                | board =
+                    updateBoard
+                        (\square ->
+                            if square.pos == ( row, col ) then
+                                { square | highlightType = Types.SuccessfulMove, figure = movedSquare.figure }
+                            else if square.pos == movedSquare.pos then
+                                { square | highlightType = Types.None, figure = Types.Figure Types.Empty Types.NoColor "" }
+                            else
+                                { square | highlightType = Types.None }
+                        )
             }

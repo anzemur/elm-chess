@@ -3,7 +3,7 @@ module Model exposing (..)
 import Board exposing (createInitialBoard)
 import ChessApi
 import Http
-import Types exposing (Board, Game, PlayerScore, Color)
+import Types exposing (Board, Color, Game, PlayerScore)
 
 
 -- Model definition for the chess game
@@ -14,12 +14,22 @@ type ClickType
     | MoveFigure
 
 
+type Route
+    = MainMenu
+    | HighscoresMenu
+    | GameTypeMenu
+    | Game
+
+
 type Msg
     = SquareSelected Int Int ClickType
     | Highscores (Result Http.Error (List PlayerScore))
     | GameOneStart (Result Http.Error String)
     | OnePlayerGame
     | TwoPlayerGame
+    | ShowMainMenu
+    | ShowGameTypesMenu
+    | ShowHighscoresMenu
 
 
 init : ( Model, Cmd Msg )
@@ -30,6 +40,7 @@ init =
       , game = { gameType = Types.NoGame, gameId = "" }
       , board = createInitialBoard
       , highscores = []
+      , route = MainMenu
       }
     , getHighscores
     )
@@ -42,6 +53,7 @@ type alias Model =
     , game : Game
     , highscores : List PlayerScore
     , errors : List Http.Error
+    , route : Route
     }
 
 
