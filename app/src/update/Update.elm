@@ -1,8 +1,8 @@
 module Update exposing (..)
 
 import Model exposing (Model, Msg)
-import Types exposing (Square, HighlightType, Board)
 import Moves exposing (returnPossibleMovesHighlighted, searchSquare)
+import Types exposing (Board, HighlightType, Square)
 
 
 -- Update function for the chess game
@@ -63,9 +63,11 @@ updateSquareHighlight board row col clickType =
                         )
                         board.board
             }
+
         Model.MoveFigure ->
             let
-              movedSquare = searchSquare board (\square -> square.highlightType == Types.ChosenSquare)
+                movedSquare =
+                    searchSquare board (\square -> square.highlightType == Types.ChosenSquare)
             in
             { board
                 | board =
@@ -75,10 +77,10 @@ updateSquareHighlight board row col clickType =
                                 (\coln square ->
                                     if row == rown && col == coln then
                                         { square | highlightType = Types.ChosenSquare, figure = movedSquare.figure }
-                                    else if (rown, coln) == movedSquare.pos then
-                                        { square | highlightType = Types.None, figure = (Types.Figure Types.Empty Types.NoColor "") }
+                                    else if ( rown, coln ) == movedSquare.pos then
+                                        { square | highlightType = Types.None, figure = Types.Figure Types.Empty Types.NoColor "" }
                                     else
-                                        { square | highlightType = Types.None}
+                                        { square | highlightType = Types.None }
                                 )
                                 rowlist
                         )

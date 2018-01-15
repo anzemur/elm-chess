@@ -39,11 +39,20 @@ renderRow model boardRow row =
 renderSquare : Model -> Square -> Int -> Int -> Html Msg
 renderSquare model square row col =
     let
-      clickType : Model.ClickType
-      clickType =
-        case square.highlightType of
-          Types.PossibleMove -> Model.MoveFigure
-          _ -> Model.FirstClick
+        clickType : Model.ClickType
+        clickType =
+            case square.highlightType of
+                Types.PossibleMove ->
+                    Model.MoveFigure
+
+                _ ->
+                    Model.FirstClick
+
+        setOpacity =
+            if String.length square.figure.img_src == 0 then
+                "0"
+            else
+                "1"
     in
     div
         [ squareStyle square.highlightType ((row + col) % 2 == 1)
@@ -54,6 +63,7 @@ renderSquare model square row col =
             , style
                 [ ( "height", "35px" )
                 , ( "width", "35px" )
+                , ( "opacity", setOpacity )
                 ]
             ]
             []

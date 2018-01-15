@@ -46,5 +46,6 @@ createFigure figColor figType =
 
         ( Types.White, Types.Knight ) ->
             { figureType = figType, color = figColor, img_src = "assets/knight_white.svg" }
-        (_, _ ) ->
+
+        ( _, _ ) ->
             { figureType = Types.Empty, color = Types.NoColor, img_src = "" }
