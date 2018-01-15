@@ -80,14 +80,14 @@ getInitFigure pos =
             createFigure Types.Black Types.King
 
         ( 7, 3 ) ->
-            createFigure Types.Black Types.King
+            createFigure Types.White Types.King
 
         -- Queens
         ( 0, 3 ) ->
             createFigure Types.Black Types.Queen
 
         ( 7, 4 ) ->
-            createFigure Types.Black Types.Queen
+            createFigure Types.White Types.Queen
 
         ( a, b ) ->
             --FIXME repair the figure "must have" values
