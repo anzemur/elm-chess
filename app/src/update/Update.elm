@@ -46,22 +46,26 @@ update msg model =
 
 updateSquareHighlight : Board -> Int -> Int -> Model.ClickType -> Board
 updateSquareHighlight board row col clickType =
+    let
+      updateBoard : (Square -> Square) -> List (List Square)
+      updateBoard mapper =
+        List.map
+            (\rowlist ->
+                List.map
+                    (\square -> mapper square)
+                    rowlist
+            )
+            board.board
+    in
     case clickType of
         Model.FirstClick ->
             { board
-                | board =
-                    List.indexedMap
-                        (\rown rowlist ->
-                            List.indexedMap
-                                (\coln square ->
-                                    if row == rown && col == coln && square.highlightType /= Types.ChosenSquare then
-                                        { square | highlightType = Types.ChosenSquare }
-                                    else
-                                        { square | highlightType = Types.None }
-                                )
-                                rowlist
-                        )
-                        board.board
+                | board = updateBoard  (\square ->
+                                if square.pos == (row, col) && square.highlightType /= Types.ChosenSquare then
+                                    { square | highlightType = Types.ChosenSquare }
+                                else
+                                    { square | highlightType = Types.None }
+                            )
             }
 
         Model.MoveFigure ->
@@ -70,19 +74,12 @@ updateSquareHighlight board row col clickType =
                     searchSquare board (\square -> square.highlightType == Types.ChosenSquare)
             in
             { board
-                | board =
-                    List.indexedMap
-                        (\rown rowlist ->
-                            List.indexedMap
-                                (\coln square ->
-                                    if row == rown && col == coln then
+                | board = updateBoard  (\square ->
+                                    if square.pos == (row, col) then
                                         { square | highlightType = Types.None, figure = movedSquare.figure }
-                                    else if ( rown, coln ) == movedSquare.pos then
+                                    else if square.pos == movedSquare.pos then
                                         { square | highlightType = Types.None, figure = Types.Figure Types.Empty Types.NoColor "" }
                                     else
                                         { square | highlightType = Types.None }
                                 )
-                                rowlist
-                        )
-                        board.board
             }

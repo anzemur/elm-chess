@@ -1,27 +1,33 @@
 var _user$project$Update$updateSquareHighlight = F4(
 	function (board, row, col, clickType) {
+		var updateBoard = function (mapper) {
+			return A2(
+				_elm_lang$core$List$map,
+				function (rowlist) {
+					return A2(
+						_elm_lang$core$List$map,
+						function (square) {
+							return mapper(square);
+						},
+						rowlist);
+				},
+				board.board);
+		};
 		var _p0 = clickType;
 		if (_p0.ctor === 'FirstClick') {
 			return _elm_lang$core$Native_Utils.update(
 				board,
 				{
-					board: A2(
-						_elm_lang$core$List$indexedMap,
-						F2(
-							function (rown, rowlist) {
-								return A2(
-									_elm_lang$core$List$indexedMap,
-									F2(
-										function (coln, square) {
-											return (_elm_lang$core$Native_Utils.eq(row, rown) && (_elm_lang$core$Native_Utils.eq(col, coln) && (!_elm_lang$core$Native_Utils.eq(square.highlightType, _user$project$Types$ChosenSquare)))) ? _elm_lang$core$Native_Utils.update(
-												square,
-												{highlightType: _user$project$Types$ChosenSquare}) : _elm_lang$core$Native_Utils.update(
-												square,
-												{highlightType: _user$project$Types$None});
-										}),
-									rowlist);
-							}),
-						board.board)
+					board: updateBoard(
+						function (square) {
+							return (_elm_lang$core$Native_Utils.eq(
+								square.pos,
+								{ctor: '_Tuple2', _0: row, _1: col}) && (!_elm_lang$core$Native_Utils.eq(square.highlightType, _user$project$Types$ChosenSquare))) ? _elm_lang$core$Native_Utils.update(
+								square,
+								{highlightType: _user$project$Types$ChosenSquare}) : _elm_lang$core$Native_Utils.update(
+								square,
+								{highlightType: _user$project$Types$None});
+						})
 				});
 		} else {
 			var movedSquare = A2(
@@ -33,30 +39,21 @@ var _user$project$Update$updateSquareHighlight = F4(
 			return _elm_lang$core$Native_Utils.update(
 				board,
 				{
-					board: A2(
-						_elm_lang$core$List$indexedMap,
-						F2(
-							function (rown, rowlist) {
-								return A2(
-									_elm_lang$core$List$indexedMap,
-									F2(
-										function (coln, square) {
-											return (_elm_lang$core$Native_Utils.eq(row, rown) && _elm_lang$core$Native_Utils.eq(col, coln)) ? _elm_lang$core$Native_Utils.update(
-												square,
-												{highlightType: _user$project$Types$None, figure: movedSquare.figure}) : (_elm_lang$core$Native_Utils.eq(
-												{ctor: '_Tuple2', _0: rown, _1: coln},
-												movedSquare.pos) ? _elm_lang$core$Native_Utils.update(
-												square,
-												{
-													highlightType: _user$project$Types$None,
-													figure: A3(_user$project$Types$Figure, _user$project$Types$Empty, _user$project$Types$NoColor, '')
-												}) : _elm_lang$core$Native_Utils.update(
-												square,
-												{highlightType: _user$project$Types$None}));
-										}),
-									rowlist);
-							}),
-						board.board)
+					board: updateBoard(
+						function (square) {
+							return _elm_lang$core$Native_Utils.eq(
+								square.pos,
+								{ctor: '_Tuple2', _0: row, _1: col}) ? _elm_lang$core$Native_Utils.update(
+								square,
+								{highlightType: _user$project$Types$None, figure: movedSquare.figure}) : (_elm_lang$core$Native_Utils.eq(square.pos, movedSquare.pos) ? _elm_lang$core$Native_Utils.update(
+								square,
+								{
+									highlightType: _user$project$Types$None,
+									figure: A3(_user$project$Types$Figure, _user$project$Types$Empty, _user$project$Types$NoColor, '')
+								}) : _elm_lang$core$Native_Utils.update(
+								square,
+								{highlightType: _user$project$Types$None}));
+						})
 				});
 		}
 	});
