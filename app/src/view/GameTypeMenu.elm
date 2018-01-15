@@ -5,15 +5,46 @@ import Html.Attributes exposing (src, style)
 import Html.Events exposing (onClick)
 import List
 import Model exposing (Model, Msg)
-import Styles exposing (highscoresStyle)
+import Styles exposing (mainMenuStyle)
 
 
 view : Model -> Html Msg
 view model =
-    div []
-        [ button [ onClick Model.OnePlayerGame ] [ text "One Player Game" ]
+    div [ mainMenuStyle ]
+        [ img [ src "/src/assets/other/GameMode.png" ] []
         , br [] []
-        , button [ onClick Model.TwoPlayerGame ] [ text "Two Players Game" ]
+        , button
+            [ style
+                [ ( "background", "url(\"/src/assets/buttons/PlayerVsComputer.png\")" )
+                , ( "width", "482px" )
+                , ( "height", "110px" )
+                ]
+            , onClick Model.OnePlayerGame
+            ]
+            []
         , br [] []
-        , button [ onClick Model.ShowMainMenu ] [ text "Main Menu" ]
+        , button
+            [ style
+                [ ( "background", "url(\"/src/assets/buttons/PlayerVsPlayer.png\")" )
+                , ( "width", "482px" )
+                , ( "height", "110px" )
+                ]
+            , onClick Model.TwoPlayerGame
+            ]
+            []
+        , br [] []
+        , br [] []
+        , br [] []
+        , br [] []
+        , br [] []
+        , br [] []
+        , button
+            [ style
+                [ ( "background", "url(\"/src/assets/buttons/MainMenu.png\")" )
+                , ( "width", "512px" )
+                , ( "height", "110px" )
+                ]
+            , onClick Model.ShowMainMenu
+            ]
+            []
         ]

@@ -11,11 +11,21 @@ import Styles exposing (highscoresStyle)
 view : Model -> Html Msg
 view model =
     div [ highscoresStyle ]
-        [ text "HIGHSCORE"
+        [ br [] []
+        , img [ src "/src/assets/other/Highscores.png" ] []
         , br [] []
         , showHighscores model
         , br [] []
-        , button [ onClick Model.ShowMainMenu ] [ text "Main Menu" ]
+        , br [] []
+        , button
+            [ style
+                [ ( "background", "url(\"/src/assets/buttons/MainMenu.png\")" )
+                , ( "width", "512px" )
+                , ( "height", "110px" )
+                ]
+            , onClick Model.ShowMainMenu
+            ]
+            []
         ]
 
 

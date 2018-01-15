@@ -68,21 +68,57 @@ figureImgStyle setOpacity =
 
 
 gameBoardStyle =
-    style []
+    style
+        [ ( "position", "absolute" )
+        , ( "left", "0px" )
+        , ( "top", "0px" )
+        , ( "width", "100%" )
+        , ( "height", "100%" )
+        , ( "background-image", "url(\"/src/assets/other/BackgroundBlue.png\")" )
+        , ( "background-size", "cover" )
+        , ( "background-repeat", "no-repeat" )
+        , ( "background-position", "center center" )
+        , ( "text-align", "center" )
+        , ( "color", "white" )
+        , ( "font-size", "40px" )
+        ]
 
 
 mainViewStyle =
     style
         [ ( "display", "inline-block" )
         , ( "margin", "10px" )
-
-        --  , ( "width", "50%" )
         , ( "align-content", "center" )
         ]
 
 
 highscoresStyle =
     style
-        [ ( "border-width", "1px" )
-        , ( "border-style", "solid" )
+        [ ( "position", "absolute" )
+        , ( "left", "0px" )
+        , ( "top", "0px" )
+        , ( "width", "100%" )
+        , ( "height", "100%" )
+        , ( "background-image", "url(\"/src/assets/other/Background.png\")" )
+        , ( "background-size", "cover" )
+        , ( "background-repeat", "no-repeat" )
+        , ( "background-position", "center center" )
+        , ( "text-align", "center" )
+        , ( "color", "white" )
+        , ( "font-size", "40px" )
+        ]
+
+
+mainMenuStyle =
+    style
+        [ ( "position", "absolute" )
+        , ( "left", "0px" )
+        , ( "top", "0px" )
+        , ( "width", "100%" )
+        , ( "height", "100%" )
+        , ( "background-image", "url(\"/src/assets/other/Background.png\")" )
+        , ( "background-size", "cover" )
+        , ( "background-repeat", "no-repeat" )
+        , ( "background-position", "center center" )
+        , ( "text-align", "center" )
         ]
