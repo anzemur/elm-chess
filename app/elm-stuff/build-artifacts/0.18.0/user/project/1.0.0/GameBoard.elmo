@@ -1,5 +1,13 @@
 var _user$project$GameBoard$renderSquare = F4(
 	function (model, square, row, col) {
+		var clickType = function () {
+			var _p0 = square.highlightType;
+			if (_p0.ctor === 'PossibleMove') {
+				return _user$project$Model$MoveFigure;
+			} else {
+				return _user$project$Model$FirstClick;
+			}
+		}();
 		return A2(
 			_elm_lang$html$Html$div,
 			{
@@ -13,7 +21,7 @@ var _user$project$GameBoard$renderSquare = F4(
 				_1: {
 					ctor: '::',
 					_0: _elm_lang$html$Html_Events$onClick(
-						A3(_user$project$Model$SquareSelected, row, col, _user$project$Model$FirstClick)),
+						A3(_user$project$Model$SquareSelected, row, col, clickType)),
 					_1: {ctor: '[]'}
 				}
 			},

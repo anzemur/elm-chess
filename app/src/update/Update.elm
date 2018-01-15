@@ -2,7 +2,7 @@ module Update exposing (..)
 
 import Model exposing (Model, Msg)
 import Types exposing (Square, HighlightType, Board)
-import Moves exposing (returnPossibleMovesHighlighted)
+import Moves exposing (returnPossibleMovesHighlighted, searchSquare)
 
 
 -- Update function for the chess game
@@ -54,10 +54,31 @@ updateSquareHighlight board row col clickType =
                         (\rown rowlist ->
                             List.indexedMap
                                 (\coln square ->
-                                    if row == rown && col == coln then
+                                    if row == rown && col == coln && square.highlightType /= Types.ChosenSquare then
                                         { square | highlightType = Types.ChosenSquare }
                                     else
                                         { square | highlightType = Types.None }
+                                )
+                                rowlist
+                        )
+                        board.board
+            }
+        Model.MoveFigure ->
+            let
+              movedSquare = searchSquare board (\square -> square.highlightType == Types.ChosenSquare)
+            in
+            { board
+                | board =
+                    List.indexedMap
+                        (\rown rowlist ->
+                            List.indexedMap
+                                (\coln square ->
+                                    if row == rown && col == coln then
+                                        { square | highlightType = Types.ChosenSquare, figure = movedSquare.figure }
+                                    else if (rown, coln) == movedSquare.pos then
+                                        { square | highlightType = Types.None, figure = (Types.Figure Types.Empty Types.NoColor "") }
+                                    else
+                                        { square | highlightType = Types.None}
                                 )
                                 rowlist
                         )
