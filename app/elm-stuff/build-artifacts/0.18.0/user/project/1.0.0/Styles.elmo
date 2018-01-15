@@ -15,9 +15,20 @@ var _user$project$Styles$mainViewStyle = _elm_lang$html$Html_Attributes$style(
 		_1: {
 			ctor: '::',
 			_0: {ctor: '_Tuple2', _0: 'margin', _1: '10px'},
-			_1: {ctor: '[]'}
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'align-content', _1: 'center'},
+				_1: {ctor: '[]'}
+			}
 		}
 	});
+var _user$project$Styles$gameBoardStyle = _elm_lang$html$Html_Attributes$style(
+	{ctor: '[]'});
+var _user$project$Styles$squareSizeInt = 80;
+var _user$project$Styles$squareSize = A2(
+	_elm_lang$core$Basics_ops['++'],
+	_elm_lang$core$Basics$toString(_user$project$Styles$squareSizeInt),
+	'px');
 var _user$project$Styles$squareStyle = F2(
 	function (selected, isBlack) {
 		var squareColor = function () {
@@ -39,10 +50,10 @@ var _user$project$Styles$squareStyle = F2(
 				_0: {ctor: '_Tuple2', _0: 'display', _1: 'inline-block'},
 				_1: {
 					ctor: '::',
-					_0: {ctor: '_Tuple2', _0: 'height', _1: '60px'},
+					_0: {ctor: '_Tuple2', _0: 'height', _1: _user$project$Styles$squareSize},
 					_1: {
 						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 'width', _1: '60px'},
+						_0: {ctor: '_Tuple2', _0: 'width', _1: _user$project$Styles$squareSize},
 						_1: {
 							ctor: '::',
 							_0: {ctor: '_Tuple2', _0: 'border-style', _1: 'solid'},
@@ -60,3 +71,32 @@ var _user$project$Styles$squareStyle = F2(
 				}
 			});
 	});
+var _user$project$Styles$figureImgSizeInt = _user$project$Styles$squareSizeInt * 0.5;
+var _user$project$Styles$figureImgSize = A2(
+	_elm_lang$core$Basics_ops['++'],
+	_elm_lang$core$Basics$toString(_user$project$Styles$figureImgSizeInt),
+	'px');
+var _user$project$Styles$figureMargin = A2(
+	_elm_lang$core$Basics_ops['++'],
+	_elm_lang$core$Basics$toString(((_user$project$Styles$squareSizeInt - _user$project$Styles$figureImgSizeInt) * 0.5) * 0.9),
+	'px');
+var _user$project$Styles$figureImgStyle = function (setOpacity) {
+	return _elm_lang$html$Html_Attributes$style(
+		{
+			ctor: '::',
+			_0: {ctor: '_Tuple2', _0: 'height', _1: _user$project$Styles$figureImgSize},
+			_1: {
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 'width', _1: _user$project$Styles$figureImgSize},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'opacity', _1: setOpacity},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'margin', _1: _user$project$Styles$figureMargin},
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		});
+};

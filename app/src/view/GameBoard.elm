@@ -5,13 +5,13 @@ import Html.Attributes exposing (src, style)
 import Html.Events exposing (onClick)
 import List
 import Model exposing (Model, Msg)
-import Styles exposing (squareStyle)
+import Styles exposing (figureImgStyle, gameBoardStyle, squareStyle)
 import Types exposing (Board, Figure, Square)
 
 
 view : Model -> Html Msg
 view model =
-    div [] (renderBoard model)
+    div [ Styles.gameBoardStyle ] (renderBoard model)
 
 
 
@@ -60,12 +60,9 @@ renderSquare model square row col =
         ]
         [ img
             [ src square.figure.img_src
-            , style
-                [ ( "height", "35px" )
-                , ( "width", "35px" )
-                , ( "opacity", setOpacity )
-                ]
+            , figureImgStyle setOpacity
             ]
             []
-        , text (toString (Tuple.first square.pos) ++ " " ++ toString (Tuple.second square.pos))
+
+        --, text (toString (Tuple.first square.pos) ++ " " ++ toString (Tuple.second square.pos))
         ]

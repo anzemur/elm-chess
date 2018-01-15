@@ -37,38 +37,12 @@ var _user$project$GameBoard$renderSquare = F4(
 						_0: _elm_lang$html$Html_Attributes$src(square.figure.img_src),
 						_1: {
 							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$style(
-								{
-									ctor: '::',
-									_0: {ctor: '_Tuple2', _0: 'height', _1: '35px'},
-									_1: {
-										ctor: '::',
-										_0: {ctor: '_Tuple2', _0: 'width', _1: '35px'},
-										_1: {
-											ctor: '::',
-											_0: {ctor: '_Tuple2', _0: 'opacity', _1: setOpacity},
-											_1: {ctor: '[]'}
-										}
-									}
-								}),
+							_0: _user$project$Styles$figureImgStyle(setOpacity),
 							_1: {ctor: '[]'}
 						}
 					},
 					{ctor: '[]'}),
-				_1: {
-					ctor: '::',
-					_0: _elm_lang$html$Html$text(
-						A2(
-							_elm_lang$core$Basics_ops['++'],
-							_elm_lang$core$Basics$toString(
-								_elm_lang$core$Tuple$first(square.pos)),
-							A2(
-								_elm_lang$core$Basics_ops['++'],
-								' ',
-								_elm_lang$core$Basics$toString(
-									_elm_lang$core$Tuple$second(square.pos))))),
-					_1: {ctor: '[]'}
-				}
+				_1: {ctor: '[]'}
 			});
 	});
 var _user$project$GameBoard$renderRow = F3(
@@ -96,6 +70,10 @@ var _user$project$GameBoard$renderBoard = function (model) {
 var _user$project$GameBoard$view = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
-		{ctor: '[]'},
+		{
+			ctor: '::',
+			_0: _user$project$Styles$gameBoardStyle,
+			_1: {ctor: '[]'}
+		},
 		_user$project$GameBoard$renderBoard(model));
 };
