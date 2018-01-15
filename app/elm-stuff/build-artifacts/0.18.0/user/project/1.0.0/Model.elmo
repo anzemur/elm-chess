@@ -2,6 +2,7 @@ var _user$project$Model$Model = F5(
 	function (a, b, c, d, e) {
 		return {selectedSquare: a, board: b, game: c, highscores: d, errors: e};
 	});
+var _user$project$Model$MoveFigure = {ctor: 'MoveFigure'};
 var _user$project$Model$FirstClick = {ctor: 'FirstClick'};
 var _user$project$Model$TwoPlayerGame = {ctor: 'TwoPlayerGame'};
 var _user$project$Model$OnePlayerGame = {ctor: 'OnePlayerGame'};

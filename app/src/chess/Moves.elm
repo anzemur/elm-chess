@@ -3,7 +3,10 @@ import Types exposing (..)
 import Tuple exposing (first, second, mapFirst, mapSecond)
 
 -- All the moves for certain types of figures
-
+-- vektor za racunanje naslednje pozicije iz trenutne
+-- next je funkcija ki vrne naslednjo pozicijo
+-- isBlocked pove ce se ta vektor se sme uporabljati za generiranje uporabljati
+-- blockIn je stevilo korakov po katerih bo vektor blokiran (uporabljeno za konja in kmete)
 type alias Vector =
   { position : Square
   , next : Square -> Square
@@ -11,6 +14,8 @@ type alias Vector =
   , blockIn : Int
   }
 
+-- racunanje naslednjega vektorja
+-- vektorju posodobi pozicijo in preveri za trke z drugimi figurami
 calcNext : Vector -> Board -> Vector
 calcNext vector board =
   let
@@ -24,6 +29,7 @@ calcNext vector board =
                   else
                     {vector | position = vector.next vector.position, blockIn = vector.blockIn - 1}
 
+-- preisce Board za square ki ustreza pogoju, vrne samo prvega najdenega!
 searchSquare : Board -> (Square -> Bool) -> Square
 searchSquare board check =
   let
@@ -43,14 +49,18 @@ moves =
 returnPossibleMovesHighlighted : Board -> Board
 returnPossibleMovesHighlighted board =
   let
+      -- naredi seznam vektorjev za podano figuro (figura označena z ChosenSquare)
       vectors : Square -> List Vector
       vectors square =
         let
+          -- vrne seznam funkcij ki sprejmejo po dva parametra iz katerih se naredi vektor
+          -- parametra sta sprememba po x in y
           makeVectors : Int -> List (Int -> Int -> Vector)
           makeVectors n = List.repeat n (\a b -> {blockIn = -1, isBlocked = False, position = square, next = \square -> {square | pos = (first square.pos + a, second square.pos + b)}})
           rowSelect = (Tuple.first square.pos)
           colSelect = (Tuple.second square.pos)
-        
+
+          -- racunanje premika kmetov
           forwardDistance =
             case square.figure.color of
               Black -> if rowSelect == 1 then
@@ -63,6 +73,7 @@ returnPossibleMovesHighlighted board =
                       1
               _ -> 0
 
+          -- vektor za kmeta (kmet ne more pozirat pred sabo)
           forwardVector n =
             [{blockIn = forwardDistance, isBlocked = False, position = square
                       , next = \square -> if (searchSquare board (\sq -> sq.pos == mapFirst (\x -> x+n) square.pos)).figure.color == NoColor then
@@ -71,6 +82,7 @@ returnPossibleMovesHighlighted board =
                                               square
             }]
 
+          -- vektor za diagonalno poziranje pri kmetu
           sideVectors row col =
             let
               nextColor = (searchSquare board (\sq -> sq.pos == ((first square.pos) + row, (second square.pos) + col))).figure.color
@@ -110,8 +122,10 @@ returnPossibleMovesHighlighted board =
       newBoard : List (List Types.Square)
       newBoard =
         let
+          -- vsi vektorji za izbrano polje s figuro
           vectorList = vectors (searchSquare board (\square -> square.highlightType == ChosenSquare))
 
+          -- za vektor preveri ce je se uporaben in ga "izvede" na plosci ter se rekurzivno klice
           changeBoard : List (List Types.Square) -> Vector -> List (List Types.Square)
           changeBoard squareList vector=
             if vector.isBlocked == False then
@@ -119,6 +133,7 @@ returnPossibleMovesHighlighted board =
             else
               squareList
 
+          -- dejanska spremeba plosce glede na vektor (samo eno polje na enkrat)
           changeSquare : List (List Types.Square) -> Vector -> List (List Types.Square)
           changeSquare squareList vector =
             List.map (\row -> List.map (\square -> if vector.position.pos == square.pos && square.pos /= (searchSquare board (\square -> square.highlightType == ChosenSquare)).pos then
@@ -127,6 +142,7 @@ returnPossibleMovesHighlighted board =
                                                   square
                                           ) row) squareList
         in
+        -- na plosci izvede vse vektorje
         List.foldl (\vector board -> changeBoard board vector) board.board vectorList
 
     in

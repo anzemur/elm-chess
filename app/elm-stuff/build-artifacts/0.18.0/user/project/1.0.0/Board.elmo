@@ -60,9 +60,9 @@ var _user$project$Board$getInitFigure = function (pos) {
 					case 5:
 						return A2(_user$project$Figure$createFigure, _user$project$Types$White, _user$project$Types$Bishop);
 					case 3:
-						return A2(_user$project$Figure$createFigure, _user$project$Types$Black, _user$project$Types$King);
+						return A2(_user$project$Figure$createFigure, _user$project$Types$White, _user$project$Types$King);
 					case 4:
-						return A2(_user$project$Figure$createFigure, _user$project$Types$Black, _user$project$Types$Queen);
+						return A2(_user$project$Figure$createFigure, _user$project$Types$White, _user$project$Types$Queen);
 					default:
 						break _v0_18;
 				}

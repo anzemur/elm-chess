@@ -11,6 +11,7 @@ import Types exposing (Board, Game, PlayerScore)
 
 type ClickType
     = FirstClick
+    | MoveFigure
 
 
 type Msg
