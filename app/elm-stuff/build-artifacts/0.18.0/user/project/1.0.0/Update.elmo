@@ -43,7 +43,7 @@ var _user$project$Update$updateSquareHighlight = F4(
 										function (coln, square) {
 											return (_elm_lang$core$Native_Utils.eq(row, rown) && _elm_lang$core$Native_Utils.eq(col, coln)) ? _elm_lang$core$Native_Utils.update(
 												square,
-												{highlightType: _user$project$Types$ChosenSquare, figure: movedSquare.figure}) : (_elm_lang$core$Native_Utils.eq(
+												{highlightType: _user$project$Types$None, figure: movedSquare.figure}) : (_elm_lang$core$Native_Utils.eq(
 												{ctor: '_Tuple2', _0: rown, _1: coln},
 												movedSquare.pos) ? _elm_lang$core$Native_Utils.update(
 												square,

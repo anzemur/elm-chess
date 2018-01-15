@@ -76,7 +76,7 @@ updateSquareHighlight board row col clickType =
                             List.indexedMap
                                 (\coln square ->
                                     if row == rown && col == coln then
-                                        { square | highlightType = Types.ChosenSquare, figure = movedSquare.figure }
+                                        { square | highlightType = Types.None, figure = movedSquare.figure }
                                     else if ( rown, coln ) == movedSquare.pos then
                                         { square | highlightType = Types.None, figure = Types.Figure Types.Empty Types.NoColor "" }
                                     else
