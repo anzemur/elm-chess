@@ -18,7 +18,7 @@ var _user$project$Moves$searchSquare = F2(
 		} else {
 			return {
 				highlightType: _user$project$Types$None,
-				pos: {ctor: '_Tuple2', _0: 0, _1: 0},
+				pos: {ctor: '_Tuple2', _0: -1, _1: -1},
 				figure: {figureType: _user$project$Types$Empty, color: _user$project$Types$NoColor, img_src: ''}
 			};
 		}

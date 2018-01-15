@@ -40,6 +40,8 @@ var _user$project$Styles$squareStyle = F2(
 					return 'cyan';
 				case 'PossibleMove':
 					return 'blue';
+				case 'SuccessfulMove':
+					return 'limegreen';
 				default:
 					return 'black';
 			}

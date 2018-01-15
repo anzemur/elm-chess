@@ -62,7 +62,7 @@ searchSquare board check =
             h
 
         _ ->
-            { highlightType = None, pos = ( 0, 0 ), figure = { figureType = Empty, color = NoColor, img_src = "" } }
+            { highlightType = None, pos = ( -1, -1 ), figure = { figureType = Empty, color = NoColor, img_src = "" } }
 
 
 moves =

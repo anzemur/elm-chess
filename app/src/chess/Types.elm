@@ -40,6 +40,7 @@ type HighlightType
   | PossibleMove
   | ChosenSquare
   | AIRecommmends
+  | SuccessfulMove
 
 
 type alias PlayerScore =

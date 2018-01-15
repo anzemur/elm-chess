@@ -40,6 +40,9 @@ squareStyle selected isBlack =
                 Types.PossibleMove ->
                     "blue"
 
+                Types.SuccessfulMove ->
+                    "limegreen"
+
                 _ ->
                     "black"
     in

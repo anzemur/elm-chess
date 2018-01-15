@@ -3,7 +3,7 @@ module Model exposing (..)
 import Board exposing (createInitialBoard)
 import ChessApi
 import Http
-import Types exposing (Board, Game, PlayerScore)
+import Types exposing (Board, Game, PlayerScore, Color)
 
 
 -- Model definition for the chess game
@@ -25,6 +25,7 @@ type Msg
 init : ( Model, Cmd Msg )
 init =
     ( { selectedSquare = ( -1, -1 )
+      , playerColor = Types.White
       , errors = []
       , game = { gameType = Types.NoGame, gameId = "" }
       , board = createInitialBoard
@@ -36,6 +37,7 @@ init =
 
 type alias Model =
     { selectedSquare : ( Int, Int )
+    , playerColor : Color
     , board : Board
     , game : Game
     , highscores : List PlayerScore

@@ -1,6 +1,6 @@
-var _user$project$Model$Model = F5(
-	function (a, b, c, d, e) {
-		return {selectedSquare: a, board: b, game: c, highscores: d, errors: e};
+var _user$project$Model$Model = F6(
+	function (a, b, c, d, e, f) {
+		return {selectedSquare: a, playerColor: b, board: c, game: d, highscores: e, errors: f};
 	});
 var _user$project$Model$MoveFigure = {ctor: 'MoveFigure'};
 var _user$project$Model$FirstClick = {ctor: 'FirstClick'};
@@ -18,6 +18,7 @@ var _user$project$Model$init = {
 	ctor: '_Tuple2',
 	_0: {
 		selectedSquare: {ctor: '_Tuple2', _0: -1, _1: -1},
+		playerColor: _user$project$Types$White,
 		errors: {ctor: '[]'},
 		game: {gameType: _user$project$Types$NoGame, gameId: ''},
 		board: _user$project$Board$createInitialBoard,

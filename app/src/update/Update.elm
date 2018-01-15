@@ -12,9 +12,22 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Model.SquareSelected row col clickType ->
+            let
+              changePlayer : Types.Color -> Board -> Types.Color
+              changePlayer color board =
+                case (searchSquare board (\square -> square.highlightType == Types.SuccessfulMove)).pos of
+                  (-1, -1) -> color
+                  _ -> case color of
+                        Types.Black -> Types.White
+                        Types.White -> Types.Black
+                        _ -> Types.White
+
+              highlightBoard = updateSquareHighlight model row col clickType
+            in
             ( { model
                 | selectedSquare = ( row, col )
-                , board = returnPossibleMovesHighlighted (updateSquareHighlight model.board row col clickType)
+                , board = returnPossibleMovesHighlighted (highlightBoard)
+                , playerColor = changePlayer model.playerColor highlightBoard
               }
             , Cmd.none
             )
@@ -44,9 +57,10 @@ update msg model =
             ( model, Cmd.none )
 
 
-updateSquareHighlight : Board -> Int -> Int -> Model.ClickType -> Board
-updateSquareHighlight board row col clickType =
+updateSquareHighlight : Model -> Int -> Int -> Model.ClickType -> Board
+updateSquareHighlight model row col clickType =
     let
+      currentBoard = model.board
       updateBoard : (Square -> Square) -> List (List Square)
       updateBoard mapper =
         List.map
@@ -55,13 +69,13 @@ updateSquareHighlight board row col clickType =
                     (\square -> mapper square)
                     rowlist
             )
-            board.board
+            model.board.board
     in
     case clickType of
         Model.FirstClick ->
-            { board
+            { currentBoard
                 | board = updateBoard  (\square ->
-                                if square.pos == (row, col) && square.highlightType /= Types.ChosenSquare then
+                                if square.pos == (row, col) && square.highlightType /= Types.ChosenSquare && model.playerColor == square.figure.color then
                                     { square | highlightType = Types.ChosenSquare }
                                 else
                                     { square | highlightType = Types.None }
@@ -71,12 +85,12 @@ updateSquareHighlight board row col clickType =
         Model.MoveFigure ->
             let
                 movedSquare =
-                    searchSquare board (\square -> square.highlightType == Types.ChosenSquare)
+                    searchSquare currentBoard (\square -> square.highlightType == Types.ChosenSquare)
             in
-            { board
+            { currentBoard
                 | board = updateBoard  (\square ->
                                     if square.pos == (row, col) then
-                                        { square | highlightType = Types.None, figure = movedSquare.figure }
+                                        { square | highlightType = Types.SuccessfulMove, figure = movedSquare.figure }
                                     else if square.pos == movedSquare.pos then
                                         { square | highlightType = Types.None, figure = Types.Figure Types.Empty Types.NoColor "" }
                                     else

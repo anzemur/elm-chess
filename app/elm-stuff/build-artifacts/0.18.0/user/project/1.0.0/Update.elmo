@@ -1,5 +1,5 @@
 var _user$project$Update$updateSquareHighlight = F4(
-	function (board, row, col, clickType) {
+	function (model, row, col, clickType) {
 		var updateBoard = function (mapper) {
 			return A2(
 				_elm_lang$core$List$map,
@@ -11,18 +11,19 @@ var _user$project$Update$updateSquareHighlight = F4(
 						},
 						rowlist);
 				},
-				board.board);
+				model.board.board);
 		};
+		var currentBoard = model.board;
 		var _p0 = clickType;
 		if (_p0.ctor === 'FirstClick') {
 			return _elm_lang$core$Native_Utils.update(
-				board,
+				currentBoard,
 				{
 					board: updateBoard(
 						function (square) {
 							return (_elm_lang$core$Native_Utils.eq(
 								square.pos,
-								{ctor: '_Tuple2', _0: row, _1: col}) && (!_elm_lang$core$Native_Utils.eq(square.highlightType, _user$project$Types$ChosenSquare))) ? _elm_lang$core$Native_Utils.update(
+								{ctor: '_Tuple2', _0: row, _1: col}) && ((!_elm_lang$core$Native_Utils.eq(square.highlightType, _user$project$Types$ChosenSquare)) && _elm_lang$core$Native_Utils.eq(model.playerColor, square.figure.color))) ? _elm_lang$core$Native_Utils.update(
 								square,
 								{highlightType: _user$project$Types$ChosenSquare}) : _elm_lang$core$Native_Utils.update(
 								square,
@@ -32,12 +33,12 @@ var _user$project$Update$updateSquareHighlight = F4(
 		} else {
 			var movedSquare = A2(
 				_user$project$Moves$searchSquare,
-				board,
+				currentBoard,
 				function (square) {
 					return _elm_lang$core$Native_Utils.eq(square.highlightType, _user$project$Types$ChosenSquare);
 				});
 			return _elm_lang$core$Native_Utils.update(
-				board,
+				currentBoard,
 				{
 					board: updateBoard(
 						function (square) {
@@ -45,7 +46,7 @@ var _user$project$Update$updateSquareHighlight = F4(
 								square.pos,
 								{ctor: '_Tuple2', _0: row, _1: col}) ? _elm_lang$core$Native_Utils.update(
 								square,
-								{highlightType: _user$project$Types$None, figure: movedSquare.figure}) : (_elm_lang$core$Native_Utils.eq(square.pos, movedSquare.pos) ? _elm_lang$core$Native_Utils.update(
+								{highlightType: _user$project$Types$SuccessfulMove, figure: movedSquare.figure}) : (_elm_lang$core$Native_Utils.eq(square.pos, movedSquare.pos) ? _elm_lang$core$Native_Utils.update(
 								square,
 								{
 									highlightType: _user$project$Types$None,
@@ -62,16 +63,39 @@ var _user$project$Update$update = F2(
 		var _p1 = msg;
 		switch (_p1.ctor) {
 			case 'SquareSelected':
-				var _p3 = _p1._0;
-				var _p2 = _p1._1;
+				var _p5 = _p1._0;
+				var _p4 = _p1._1;
+				var highlightBoard = A4(_user$project$Update$updateSquareHighlight, model, _p5, _p4, _p1._2);
+				var changePlayer = F2(
+					function (color, board) {
+						var _p2 = A2(
+							_user$project$Moves$searchSquare,
+							board,
+							function (square) {
+								return _elm_lang$core$Native_Utils.eq(square.highlightType, _user$project$Types$SuccessfulMove);
+							}).pos;
+						if (((_p2.ctor === '_Tuple2') && (_p2._0 === -1)) && (_p2._1 === -1)) {
+							return color;
+						} else {
+							var _p3 = color;
+							switch (_p3.ctor) {
+								case 'Black':
+									return _user$project$Types$White;
+								case 'White':
+									return _user$project$Types$Black;
+								default:
+									return _user$project$Types$White;
+							}
+						}
+					});
 				return {
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
 						{
-							selectedSquare: {ctor: '_Tuple2', _0: _p3, _1: _p2},
-							board: _user$project$Moves$returnPossibleMovesHighlighted(
-								A4(_user$project$Update$updateSquareHighlight, model.board, _p3, _p2, _p1._2))
+							selectedSquare: {ctor: '_Tuple2', _0: _p5, _1: _p4},
+							board: _user$project$Moves$returnPossibleMovesHighlighted(highlightBoard),
+							playerColor: A2(changePlayer, model.playerColor, highlightBoard)
 						}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
@@ -85,22 +109,6 @@ var _user$project$Update$update = F2(
 						_1: _elm_lang$core$Platform_Cmd$none
 					};
 				} else {
-					var _p5 = _p1._0._0;
-					var _p4 = A2(_elm_lang$core$Debug$log, 'highscores get err', _p5);
-					return {
-						ctor: '_Tuple2',
-						_0: _elm_lang$core$Native_Utils.update(
-							model,
-							{
-								errors: {ctor: '::', _0: _p5, _1: model.errors}
-							}),
-						_1: _elm_lang$core$Platform_Cmd$none
-					};
-				}
-			case 'GameOneStart':
-				if (_p1._0.ctor === 'Ok') {
-					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
-				} else {
 					var _p7 = _p1._0._0;
 					var _p6 = A2(_elm_lang$core$Debug$log, 'highscores get err', _p7);
 					return {
@@ -109,6 +117,22 @@ var _user$project$Update$update = F2(
 							model,
 							{
 								errors: {ctor: '::', _0: _p7, _1: model.errors}
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				}
+			case 'GameOneStart':
+				if (_p1._0.ctor === 'Ok') {
+					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+				} else {
+					var _p9 = _p1._0._0;
+					var _p8 = A2(_elm_lang$core$Debug$log, 'highscores get err', _p9);
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								errors: {ctor: '::', _0: _p9, _1: model.errors}
 							}),
 						_1: _elm_lang$core$Platform_Cmd$none
 					};
