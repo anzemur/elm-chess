@@ -154,6 +154,12 @@ var _user$project$Styles$gameBoardStyle = _elm_lang$html$Html_Attributes$style(
 			}
 		}
 	});
+var _user$project$Styles$chessboardStyle = _elm_lang$html$Html_Attributes$style(
+	{
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 'margin-top', _1: '50px'},
+		_1: {ctor: '[]'}
+	});
 var _user$project$Styles$squareSizeInt = 80;
 var _user$project$Styles$squareSize = A2(
 	_elm_lang$core$Basics_ops['++'],

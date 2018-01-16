@@ -11,7 +11,9 @@ import Types exposing (Board, Figure, Square)
 
 view : Model -> Html Msg
 view model =
-    div [ Styles.gameBoardStyle ] (renderBoard model)
+    div [ Styles.gameBoardStyle ]
+        [ div [ Styles.chessboardStyle ] (renderBoard model)
+        ]
 
 
 
