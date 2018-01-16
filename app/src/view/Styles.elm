@@ -67,6 +67,11 @@ figureImgStyle setOpacity =
         ]
 
 
+chessboardStyle =
+    style
+        [ ( "margin-top", "50px" ) ]
+
+
 gameBoardStyle =
     style
         [ ( "position", "absolute" )

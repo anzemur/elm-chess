@@ -75,5 +75,16 @@ var _user$project$GameBoard$view = function (model) {
 			_0: _user$project$Styles$gameBoardStyle,
 			_1: {ctor: '[]'}
 		},
-		_user$project$GameBoard$renderBoard(model));
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$div,
+				{
+					ctor: '::',
+					_0: _user$project$Styles$chessboardStyle,
+					_1: {ctor: '[]'}
+				},
+				_user$project$GameBoard$renderBoard(model)),
+			_1: {ctor: '[]'}
+		});
 };
