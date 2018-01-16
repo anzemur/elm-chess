@@ -210,7 +210,7 @@ var _user$project$Styles$figureImgSize = A2(
 	'px');
 var _user$project$Styles$figureMargin = A2(
 	_elm_lang$core$Basics_ops['++'],
-	_elm_lang$core$Basics$toString(((_user$project$Styles$squareSizeInt - _user$project$Styles$figureImgSizeInt) * 0.5) * 0.9),
+	_elm_lang$core$Basics$toString(((_user$project$Styles$squareSizeInt - _user$project$Styles$figureImgSizeInt) * 0.5) * 0.75),
 	'px');
 var _user$project$Styles$figureImgStyle = function (setOpacity) {
 	return _elm_lang$html$Html_Attributes$style(

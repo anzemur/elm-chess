@@ -17,7 +17,7 @@ figureImgSizeInt =
 
 
 figureMargin =
-    toString (((squareSizeInt - figureImgSizeInt) * 0.5) * 0.9) ++ "px"
+    toString (((squareSizeInt - figureImgSizeInt) * 0.5) * 0.75) ++ "px"
 
 
 figureImgSize =
