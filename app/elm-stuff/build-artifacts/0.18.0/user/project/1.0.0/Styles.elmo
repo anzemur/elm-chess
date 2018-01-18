@@ -96,11 +96,19 @@ var _user$project$Styles$mainViewStyle = _elm_lang$html$Html_Attributes$style(
 		_0: {ctor: '_Tuple2', _0: 'display', _1: 'inline-block'},
 		_1: {
 			ctor: '::',
-			_0: {ctor: '_Tuple2', _0: 'margin', _1: '10px'},
+			_0: {ctor: '_Tuple2', _0: 'align-content', _1: 'center'},
 			_1: {
 				ctor: '::',
-				_0: {ctor: '_Tuple2', _0: 'align-content', _1: 'center'},
-				_1: {ctor: '[]'}
+				_0: {ctor: '_Tuple2', _0: 'background-image', _1: 'url(\"/src/assets/other/BackgroundBlue.png\")'},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 'width', _1: '100%'},
+					_1: {
+						ctor: '::',
+						_0: {ctor: '_Tuple2', _0: 'height', _1: '100%'},
+						_1: {ctor: '[]'}
+					}
+				}
 			}
 		}
 	});
@@ -122,25 +130,29 @@ var _user$project$Styles$gameBoardStyle = _elm_lang$html$Html_Attributes$style(
 						_0: {ctor: '_Tuple2', _0: 'height', _1: '100%'},
 						_1: {
 							ctor: '::',
-							_0: {ctor: '_Tuple2', _0: 'background-image', _1: 'url(\"/src/assets/other/BackgroundBlue.png\")'},
+							_0: {ctor: '_Tuple2', _0: 'background-size', _1: 'cover'},
 							_1: {
 								ctor: '::',
-								_0: {ctor: '_Tuple2', _0: 'background-size', _1: 'cover'},
+								_0: {ctor: '_Tuple2', _0: 'background-repeat', _1: 'no-repeat'},
 								_1: {
 									ctor: '::',
-									_0: {ctor: '_Tuple2', _0: 'background-repeat', _1: 'no-repeat'},
+									_0: {ctor: '_Tuple2', _0: 'background-position', _1: 'center center'},
 									_1: {
 										ctor: '::',
-										_0: {ctor: '_Tuple2', _0: 'background-position', _1: 'center center'},
+										_0: {ctor: '_Tuple2', _0: 'text-align', _1: 'center'},
 										_1: {
 											ctor: '::',
-											_0: {ctor: '_Tuple2', _0: 'text-align', _1: 'center'},
+											_0: {ctor: '_Tuple2', _0: 'color', _1: 'white'},
 											_1: {
 												ctor: '::',
-												_0: {ctor: '_Tuple2', _0: 'color', _1: 'white'},
+												_0: {ctor: '_Tuple2', _0: 'font-size', _1: '40px'},
 												_1: {
 													ctor: '::',
+<<<<<<< HEAD
+													_0: {ctor: '_Tuple2', _0: 'margin-top', _1: '50px'},
+=======
 													_0: {ctor: '_Tuple2', _0: 'font-size', _1: '35px'},
+>>>>>>> de6b3a49f49c75bac2e999d4800e9e6ef63c290c
 													_1: {ctor: '[]'}
 												}
 											}

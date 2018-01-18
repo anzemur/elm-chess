@@ -79,21 +79,25 @@ gameBoardStyle =
         , ( "top", "0px" )
         , ( "width", "100%" )
         , ( "height", "100%" )
-        , ( "background-image", "url(\"/src/assets/other/BackgroundBlue.png\")" )
+
+        --, ( "background-image", "url(\"/src/assets/other/BackgroundBlue.png\")" )
         , ( "background-size", "cover" )
         , ( "background-repeat", "no-repeat" )
         , ( "background-position", "center center" )
         , ( "text-align", "center" )
         , ( "color", "white" )
-        , ( "font-size", "35px" )
+        , ( "font-size", "40px" )
+        , ( "margin-top", "50px" )
         ]
 
 
 mainViewStyle =
     style
         [ ( "display", "inline-block" )
-        , ( "margin", "10px" )
         , ( "align-content", "center" )
+        , ( "background-image", "url(\"/src/assets/other/BackgroundBlue.png\")" )
+        , ( "width", "100%" )
+        , ( "height", "100%" )
         ]
 
 

@@ -18,7 +18,7 @@ import Styles
 
 view : Model -> Html Msg
 view model =
-    div []
+    div [ Styles.mainViewStyle ]
         [ showView model ]
 
 
