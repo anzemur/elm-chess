@@ -32,9 +32,9 @@ view model =
 showHighscores : Model -> Html Msg
 showHighscores model =
     div []
-        (List.foldl
+        (List.foldr
             (\player tmp ->
-                text (player.name ++ " " ++ player.score_out) :: (br [] [] :: tmp)
+                text (player.name ++ " . . . . " ++ player.score_out) :: (br [] [] :: tmp)
             )
             []
             model.highscores
