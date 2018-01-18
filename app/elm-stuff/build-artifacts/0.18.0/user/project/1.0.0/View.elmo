@@ -9,8 +9,10 @@ var _user$project$View$showView = function (model) {
 			return _user$project$Highscores$view(model);
 		case 'GameOne':
 			return _user$project$GameBoardOne$view(model);
-		default:
+		case 'GameTwo':
 			return _user$project$GameBoardTwo$view(model);
+		default:
+			return _user$project$GameOverMenu$view(model);
 	}
 };
 var _user$project$View$view = function (model) {

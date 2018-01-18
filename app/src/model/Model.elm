@@ -21,6 +21,7 @@ type Route
     | GameTypeMenu
     | GameOne
     | GameTwo
+    | GameOverMenu
 
 
 type Msg
@@ -32,6 +33,7 @@ type Msg
     | ShowMainMenu
     | ShowGameTypesMenu
     | ShowHighscoresMenu
+    | ShowGameOverMenu
     | Tick Time
     | MoveFigurePlayerOne (Result Http.Error String)
     | MoveFigureAi (Result Http.Error Move)

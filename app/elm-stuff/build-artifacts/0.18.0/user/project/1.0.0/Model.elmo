@@ -21,6 +21,7 @@ var _user$project$Model$Model = function (a) {
 };
 var _user$project$Model$MoveFigure = {ctor: 'MoveFigure'};
 var _user$project$Model$FirstClick = {ctor: 'FirstClick'};
+var _user$project$Model$GameOverMenu = {ctor: 'GameOverMenu'};
 var _user$project$Model$GameTwo = {ctor: 'GameTwo'};
 var _user$project$Model$GameOne = {ctor: 'GameOne'};
 var _user$project$Model$GameTypeMenu = {ctor: 'GameTypeMenu'};
@@ -51,6 +52,7 @@ var _user$project$Model$Tick = function (a) {
 var _user$project$Model$subscriptions = function (model) {
 	return A2(_elm_lang$core$Time$every, _elm_lang$core$Time$second, _user$project$Model$Tick);
 };
+var _user$project$Model$ShowGameOverMenu = {ctor: 'ShowGameOverMenu'};
 var _user$project$Model$ShowHighscoresMenu = {ctor: 'ShowHighscoresMenu'};
 var _user$project$Model$ShowGameTypesMenu = {ctor: 'ShowGameTypesMenu'};
 var _user$project$Model$ShowMainMenu = {ctor: 'ShowMainMenu'};

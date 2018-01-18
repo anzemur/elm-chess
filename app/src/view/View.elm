@@ -2,6 +2,7 @@ module View exposing (..)
 
 import GameBoardOne
 import GameBoardTwo
+import GameOverMenu
 import GameTypeMenu
 import Highscores
 import Html exposing (..)
@@ -38,3 +39,6 @@ showView model =
 
         Model.GameTwo ->
             GameBoardTwo.view model
+
+        Model.GameOverMenu ->
+            GameOverMenu.view model

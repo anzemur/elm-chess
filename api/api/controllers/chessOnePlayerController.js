@@ -351,7 +351,7 @@ exports.helpPlayer = function( req, res ) {
             if(chess != null) {
                 chessAi.setOptions(
                     {
-                        depth: 5,
+                        depth: 4,
                         monitor: false,
                         strategy: 'basic',
                         timeout: 10000

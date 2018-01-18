@@ -87,6 +87,9 @@ update msg model =
         Model.ShowGameTypesMenu ->
             ( { model | route = Model.GameTypeMenu }, Cmd.none )
 
+        Model.ShowGameOverMenu ->
+            ( { model | route = Model.GameOverMenu }, Cmd.none )
+
         Model.OnePlayerGame ->
             ( { model | route = Model.GameOne }, Model.startGameOne )
 
