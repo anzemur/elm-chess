@@ -73,7 +73,27 @@ update msg model =
                 _ =
                     Debug.log " " (toString move)
             in
-            ( model, Cmd.none )
+            update (Model.SquareSelected (Tuple.second move.to) (Tuple.first move.to) Model.MoveFigure)
+                { model
+                    | board =
+                        { board =
+                            List.indexedMap
+                                (\idxRow row ->
+                                    if Tuple.second move.from == idxRow then
+                                        List.indexedMap
+                                            (\idxCol sqr ->
+                                                if Tuple.first move.from == idxCol then
+                                                    { sqr | highlightType = Types.ChosenSquare, pos = sqr.pos }
+                                                else
+                                                    sqr
+                                            )
+                                            row
+                                    else
+                                        row
+                                )
+                                model.board.board
+                        }
+                }
 
         Model.MoveFigurePlayerOne (Ok result) ->
             ( model, moveFigureAiCmd )

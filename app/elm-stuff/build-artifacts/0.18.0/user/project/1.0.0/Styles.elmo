@@ -148,11 +148,7 @@ var _user$project$Styles$gameBoardStyle = _elm_lang$html$Html_Attributes$style(
 												_0: {ctor: '_Tuple2', _0: 'color', _1: 'white'},
 												_1: {
 													ctor: '::',
-<<<<<<< HEAD
-													_0: {ctor: '_Tuple2', _0: 'margin-top', _1: '50px'},
-=======
 													_0: {ctor: '_Tuple2', _0: 'font-size', _1: '35px'},
->>>>>>> 78ff89319e53878f1e7b28bd6891ba87d94a0017
 													_1: {ctor: '[]'}
 												}
 											}
