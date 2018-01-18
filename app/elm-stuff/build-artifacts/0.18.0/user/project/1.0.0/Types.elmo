@@ -3,6 +3,10 @@ var _user$project$Types$Game = F2(
 		return {gameId: a, gameType: b};
 	});
 var _user$project$Types$Player = {};
+var _user$project$Types$Move = F2(
+	function (a, b) {
+		return {from: a, to: b};
+	});
 var _user$project$Types$PlayerScore = F2(
 	function (a, b) {
 		return {name: a, score_out: b};

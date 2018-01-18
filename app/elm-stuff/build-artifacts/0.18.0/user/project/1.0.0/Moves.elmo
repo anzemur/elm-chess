@@ -1,4 +1,3 @@
-var _user$project$Moves$moves = 1;
 var _user$project$Moves$searchSquare = F2(
 	function (board, check) {
 		var res = A2(

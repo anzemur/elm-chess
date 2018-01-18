@@ -26,6 +26,25 @@ var _user$project$Model$GameOne = {ctor: 'GameOne'};
 var _user$project$Model$GameTypeMenu = {ctor: 'GameTypeMenu'};
 var _user$project$Model$HighscoresMenu = {ctor: 'HighscoresMenu'};
 var _user$project$Model$MainMenu = {ctor: 'MainMenu'};
+var _user$project$Model$MoveFigureAi = function (a) {
+	return {ctor: 'MoveFigureAi', _0: a};
+};
+var _user$project$Model$moveFigureAi = function (game_id) {
+	return A2(
+		_elm_lang$http$Http$send,
+		_user$project$Model$MoveFigureAi,
+		_user$project$ChessApi$moveFigureAi(game_id));
+};
+var _user$project$Model$MoveFigurePlayerOne = function (a) {
+	return {ctor: 'MoveFigurePlayerOne', _0: a};
+};
+var _user$project$Model$moveFigurePlayerOne = F3(
+	function (game_id, from, to) {
+		return A2(
+			_elm_lang$http$Http$send,
+			_user$project$Model$MoveFigurePlayerOne,
+			A3(_user$project$ChessApi$moveFigurePlayerOne, game_id, from, to));
+	});
 var _user$project$Model$Tick = function (a) {
 	return {ctor: 'Tick', _0: a};
 };
