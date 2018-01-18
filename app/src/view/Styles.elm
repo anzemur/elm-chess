@@ -69,7 +69,7 @@ figureImgStyle setOpacity =
 
 chessboardStyle =
     style
-        [ ( "margin-top", "50px" ) ]
+        [ ( "margin-top", "2px" ) ]
 
 
 gameBoardStyle =
@@ -85,7 +85,7 @@ gameBoardStyle =
         , ( "background-position", "center center" )
         , ( "text-align", "center" )
         , ( "color", "white" )
-        , ( "font-size", "40px" )
+        , ( "font-size", "35px" )
         ]
 
 
