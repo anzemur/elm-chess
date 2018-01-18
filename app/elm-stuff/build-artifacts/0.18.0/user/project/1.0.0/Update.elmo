@@ -123,6 +123,14 @@ var _user$project$Update$update = F2(
 						{route: _user$project$Model$GameTypeMenu}),
 					_1: _elm_lang$core$Platform_Cmd$none
 				};
+			case 'ShowGameOverMenu':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{route: _user$project$Model$GameOverMenu}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
 			case 'OnePlayerGame':
 				return {
 					ctor: '_Tuple2',
