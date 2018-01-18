@@ -37,6 +37,7 @@ type Msg
     | Tick Time
     | MoveFigurePlayerOne (Result Http.Error String)
     | MoveFigureAi (Result Http.Error Move)
+    | QuitGame
 
 
 init : ( Model, Cmd Msg )

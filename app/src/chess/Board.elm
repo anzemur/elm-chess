@@ -79,14 +79,14 @@ getInitFigure pos =
         ( 0, 4 ) ->
             createFigure Types.Black Types.King
 
-        ( 7, 3 ) ->
+        ( 7, 4 ) ->
             createFigure Types.White Types.King
 
         -- Queens
         ( 0, 3 ) ->
             createFigure Types.Black Types.Queen
 
-        ( 7, 4 ) ->
+        ( 7, 3 ) ->
             createFigure Types.White Types.Queen
 
         ( a, b ) ->
@@ -106,7 +106,7 @@ createBoard =
                 List.map
                     (\col ->
                         --FIXME repair the figure "must have" values
-                        { pos = ( row, col ), highlightType = Types.None,figure = { figureType = Types.Bishop, color = Types.Black, img_src = "assets/rook_black.svg"} }
+                        { pos = ( row, col ), highlightType = Types.None, figure = { figureType = Types.Bishop, color = Types.Black, img_src = "assets/rook_black.svg" } }
                      -- Square type
                     )
                     (List.range 0 7)

@@ -1,5 +1,6 @@
 module Update exposing (..)
 
+import Board exposing (createInitialBoard)
 import ChessApi exposing (startGameOne)
 import Http
 import Model exposing (Model, Msg)
@@ -73,7 +74,27 @@ update msg model =
                 _ =
                     Debug.log " " (toString move)
             in
-            ( model, Cmd.none )
+            update (Model.SquareSelected (Tuple.second move.to) (Tuple.first move.to) Model.MoveFigure)
+                { model
+                    | board =
+                        { board =
+                            List.indexedMap
+                                (\idxRow row ->
+                                    if Tuple.second move.from == idxRow then
+                                        List.indexedMap
+                                            (\idxCol sqr ->
+                                                if Tuple.first move.from == idxCol then
+                                                    { sqr | highlightType = Types.ChosenSquare, pos = sqr.pos }
+                                                else
+                                                    sqr
+                                            )
+                                            row
+                                    else
+                                        row
+                                )
+                                model.board.board
+                        }
+                }
 
         Model.MoveFigurePlayerOne (Ok result) ->
             ( model, moveFigureAiCmd )
@@ -93,8 +114,25 @@ update msg model =
         Model.OnePlayerGame ->
             ( { model | route = Model.GameOne }, Model.startGameOne )
 
-        --Model.TwoPlayerGame ->
-        --( { model | route = Model.Game }, Model.startGameOne )
+        Model.TwoPlayerGame ->
+            ( { model | route = Model.GameTwo }, Cmd.none )
+
+        Model.QuitGame ->
+            ( { model
+                | route = Model.MainMenu
+                , selectedSquare = ( -1, -1 )
+                , playerColor = Types.White
+                , errors = []
+                , game = { gameType = Types.NoGame, gameId = "" }
+                , board = createInitialBoard
+                , highscores = []
+                , currTime = 0
+                , startTime = 0
+                , score = 0
+              }
+            , Cmd.none
+            )
+
         Model.Tick newTime ->
             ( { model
                 | currTime = newTime

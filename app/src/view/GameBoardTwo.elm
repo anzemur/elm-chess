@@ -20,7 +20,7 @@ view model =
                 , ( "width", "200px" )
                 , ( "height", "50px" )
                 ]
-            , onClick Model.ShowMainMenu
+            , onClick Model.QuitGame
             ]
             []
         ]

@@ -28,7 +28,7 @@ view model =
                 , ( "height", "50px" )
                 , ( "margin-right", "60px" )
                 ]
-            , onClick Model.ShowMainMenu
+            , onClick Model.QuitGame
             ]
             []
         , button
