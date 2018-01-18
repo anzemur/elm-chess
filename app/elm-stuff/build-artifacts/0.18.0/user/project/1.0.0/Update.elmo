@@ -69,7 +69,7 @@ var _user$project$Update$update = F2(
 			}
 		}();
 		var _p2 = msg;
-		_v2_12:
+		_v2_13:
 		do {
 			switch (_p2.ctor) {
 				case 'SquareSelected':
@@ -87,7 +87,6 @@ var _user$project$Update$update = F2(
 						} else {
 							return _elm_lang$core$Platform_Cmd$none;
 						}
-<<<<<<< HEAD
 					}();
 					var highlightBoard = A4(_user$project$Update$updateSquareHighlight, model, _p8, _p7, _p6);
 					var changePlayer = F2(
@@ -112,75 +111,6 @@ var _user$project$Update$update = F2(
 								}
 							}
 						});
-=======
-					});
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{
-							selectedSquare: {ctor: '_Tuple2', _0: _p5, _1: _p4},
-							board: _user$project$Moves$returnPossibleMovesHighlighted(highlightBoard),
-							playerColor: A2(changePlayer, model.playerColor, highlightBoard)
-						}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			case 'ShowMainMenu':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{route: _user$project$Model$MainMenu}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			case 'ShowHighscoresMenu':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{route: _user$project$Model$HighscoresMenu}),
-					_1: _user$project$Model$getHighscores
-				};
-			case 'ShowGameTypesMenu':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{route: _user$project$Model$GameTypeMenu}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			case 'ShowGameOverMenu':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{route: _user$project$Model$GameOverMenu}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			case 'OnePlayerGame':
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{route: _user$project$Model$GameOne}),
-					_1: _user$project$Model$startGameOne
-				};
-			case 'Tick':
-				var _p6 = _p1._0;
-				return {
-					ctor: '_Tuple2',
-					_0: _elm_lang$core$Native_Utils.update(
-						model,
-						{
-							currTime: _p6,
-							score: (_elm_lang$core$Native_Utils.cmp(model.startTime, 0) > 0) ? _elm_lang$core$Basics$round(
-								_elm_lang$core$Time$inSeconds(_p6) - _elm_lang$core$Time$inSeconds(model.startTime)) : model.score
-						}),
-					_1: _elm_lang$core$Platform_Cmd$none
-				};
-			case 'Highscores':
-				if (_p1._0.ctor === 'Ok') {
->>>>>>> 78ff89319e53878f1e7b28bd6891ba87d94a0017
 					return {
 						ctor: '_Tuple2',
 						_0: _elm_lang$core$Native_Utils.update(
@@ -200,13 +130,13 @@ var _user$project$Update$update = F2(
 							_elm_lang$core$Basics$toString(_p2._0._0));
 						return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
 					} else {
-						break _v2_12;
+						break _v2_13;
 					}
 				case 'MoveFigurePlayerOne':
 					if (_p2._0.ctor === 'Ok') {
 						return {ctor: '_Tuple2', _0: model, _1: moveFigureAiCmd};
 					} else {
-						break _v2_12;
+						break _v2_13;
 					}
 				case 'ShowMainMenu':
 					return {
@@ -230,6 +160,14 @@ var _user$project$Update$update = F2(
 						_0: _elm_lang$core$Native_Utils.update(
 							model,
 							{route: _user$project$Model$GameTypeMenu}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				case 'ShowGameOverMenu':
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{route: _user$project$Model$GameOverMenu}),
 						_1: _elm_lang$core$Platform_Cmd$none
 					};
 				case 'OnePlayerGame':
@@ -301,7 +239,7 @@ var _user$project$Update$update = F2(
 						};
 					}
 				default:
-					break _v2_12;
+					break _v2_13;
 			}
 		} while(false);
 		return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
