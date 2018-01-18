@@ -65,6 +65,9 @@ module.exports = function(app) {
     versionRouter.route('/chess/one/start/pgn')
         .post(chessOnePlayerController.startNewGameWithFEN);
 
+    versionRouter.route('/chess/one/help')
+        .post(chessOnePlayerController.helpPlayer);
+
 
 
 
