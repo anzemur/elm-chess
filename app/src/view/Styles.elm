@@ -27,23 +27,18 @@ figureImgSize =
 squareStyle selected isBlack =
     let
         squareColor =
-            case selected of
-                Types.None ->
-                    if isBlack then
-                        "rgb(192, 152, 31)"
-                    else
-                        "rgba(192, 152, 31,0.5)"
-
-                Types.ChosenSquare ->
+            if List.member Types.ChosenSquare selected then
                     "cyan"
-
-                Types.PossibleMove ->
+            else if List.member Types.PossibleMove selected then
                     "blue"
-
-                Types.SuccessfulMove ->
+            else if List.member Types.SuccessfulMove selected then
                     "limegreen"
-
-                _ ->
+            else if List.member Types.None selected then
+              if isBlack then
+                "rgb(192, 152, 31)"
+                else
+                  "rgba(192, 152, 31,0.5)"
+            else
                     "black"
     in
     style

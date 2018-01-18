@@ -17,7 +17,11 @@ var _user$project$Moves$searchSquare = F2(
 			return _p0._0;
 		} else {
 			return {
-				highlightType: _user$project$Types$None,
+				highlightType: {
+					ctor: '::',
+					_0: _user$project$Types$None,
+					_1: {ctor: '[]'}
+				},
 				pos: {ctor: '_Tuple2', _0: -1, _1: -1},
 				figure: {figureType: _user$project$Types$Empty, color: _user$project$Types$NoColor, img_src: ''}
 			};
@@ -43,10 +47,7 @@ var _user$project$Moves$calcNext = F2(
 			A2(nextSquare, _p3, _p2).figure.color,
 			vector.position.figure.color)))))) ? _elm_lang$core$Native_Utils.update(
 			vector,
-			{
-				position: vector.next(vector.position),
-				isBlocked: true
-			}) : (((!_elm_lang$core$Native_Utils.eq(
+			{isBlocked: true}) : (((!_elm_lang$core$Native_Utils.eq(
 			A2(nextSquare, _p3, _p2).figure.color,
 			vector.position.figure.color)) && (!_elm_lang$core$Native_Utils.eq(
 			A2(nextSquare, _p3, _p2).figure.color,
@@ -378,10 +379,12 @@ var _user$project$Moves$returnPossibleMovesHighlighted = function (board) {
 										_user$project$Moves$searchSquare,
 										board,
 										function (square) {
-											return _elm_lang$core$Native_Utils.eq(square.highlightType, _user$project$Types$ChosenSquare);
+											return A2(_elm_lang$core$List$member, _user$project$Types$ChosenSquare, square.highlightType);
 										}).pos))) ? _elm_lang$core$Native_Utils.update(
 									square,
-									{highlightType: _user$project$Types$PossibleMove}) : square;
+									{
+										highlightType: {ctor: '::', _0: _user$project$Types$PossibleMove, _1: square.highlightType}
+									}) : square;
 							},
 							row);
 					},
@@ -407,7 +410,7 @@ var _user$project$Moves$returnPossibleMovesHighlighted = function (board) {
 				_user$project$Moves$searchSquare,
 				board,
 				function (square) {
-					return _elm_lang$core$Native_Utils.eq(square.highlightType, _user$project$Types$ChosenSquare);
+					return A2(_elm_lang$core$List$member, _user$project$Types$ChosenSquare, square.highlightType);
 				}));
 		return A3(
 			_elm_lang$core$List$foldl,

@@ -3,14 +3,7 @@ var _user$project$GameBoard$renderSquare = F4(
 		var setOpacity = _elm_lang$core$Native_Utils.eq(
 			_elm_lang$core$String$length(square.figure.img_src),
 			0) ? '0' : '1';
-		var clickType = function () {
-			var _p0 = square.highlightType;
-			if (_p0.ctor === 'PossibleMove') {
-				return _user$project$Model$MoveFigure;
-			} else {
-				return _user$project$Model$FirstClick;
-			}
-		}();
+		var clickType = A2(_elm_lang$core$List$member, _user$project$Types$PossibleMove, square.highlightType) ? _user$project$Model$MoveFigure : _user$project$Model$FirstClick;
 		return A2(
 			_elm_lang$html$Html$div,
 			{

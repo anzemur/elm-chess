@@ -2,6 +2,7 @@ module Moves exposing (..)
 
 import Tuple exposing (first, mapFirst, mapSecond, second)
 import Types exposing (..)
+import List exposing (member)
 
 
 -- All the moves for certain types of figures
@@ -33,7 +34,7 @@ calcNext vector board =
     case (vector.next vector.position).pos of
         ( row, col ) ->
             if row > 7 || row < 0 || col > 7 || col < 0 || vector.blockIn == 0 || (nextSquare row col).figure.color == vector.position.figure.color then
-                { vector | position = vector.next vector.position, isBlocked = True }
+                { vector | isBlocked = True }
             else if (nextSquare row col).figure.color /= vector.position.figure.color && (nextSquare row col).figure.color /= NoColor then
                 { vector | position = vector.next vector.position, blockIn = 0 }
             else
@@ -62,7 +63,7 @@ searchSquare board check =
             h
 
         _ ->
-            { highlightType = None, pos = ( -1, -1 ), figure = { figureType = Empty, color = NoColor, img_src = "" } }
+            { highlightType = [None], pos = ( -1, -1 ), figure = { figureType = Empty, color = NoColor, img_src = "" } }
 
 
 moves =
@@ -190,7 +191,7 @@ returnPossibleMovesHighlighted board =
             let
                 -- vsi vektorji za izbrano polje s figuro
                 vectorList =
-                    vectors (searchSquare board (\square -> square.highlightType == ChosenSquare))
+                    vectors (searchSquare board (\square -> member ChosenSquare square.highlightType ))
 
                 -- za vektor preveri ce je se uporaben in ga "izvede" na plosci ter se rekurzivno klice
                 changeBoard : List (List Types.Square) -> Vector -> List (List Types.Square)
@@ -207,8 +208,8 @@ returnPossibleMovesHighlighted board =
                         (\row ->
                             List.map
                                 (\square ->
-                                    if vector.position.pos == square.pos && square.pos /= (searchSquare board (\square -> square.highlightType == ChosenSquare)).pos then
-                                        { square | highlightType = PossibleMove }
+                                    if vector.position.pos == square.pos && square.pos /= (searchSquare board (\square -> member ChosenSquare square.highlightType)).pos then
+                                        { square | highlightType = PossibleMove::square.highlightType }
                                     else
                                         square
                                 )

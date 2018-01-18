@@ -18,7 +18,7 @@ update msg model =
             let
                 changePlayer : Types.Color -> Board -> Types.Color
                 changePlayer color board =
-                    case (searchSquare board (\square -> square.highlightType == Types.SuccessfulMove)).pos of
+                    case (searchSquare board (\square -> List.member Types.SuccessfulMove square.highlightType)).pos of
                         ( -1, -1 ) ->
                             color
 
@@ -117,27 +117,27 @@ updateSquareHighlight model row col clickType =
                 | board =
                     updateBoard
                         (\square ->
-                            if square.pos == ( row, col ) && square.highlightType /= Types.ChosenSquare && model.playerColor == square.figure.color then
-                                { square | highlightType = Types.ChosenSquare }
+                            if square.pos == ( row, col ) && not (List.member Types.ChosenSquare square.highlightType) && model.playerColor == square.figure.color then
+                                { square | highlightType = Types.ChosenSquare::square.highlightType }
                             else
-                                { square | highlightType = Types.None }
+                                { square | highlightType = [Types.None] }
                         )
             }
 
         Model.MoveFigure ->
             let
                 movedSquare =
-                    searchSquare currentBoard (\square -> square.highlightType == Types.ChosenSquare)
+                    searchSquare currentBoard (\square -> List.member Types.ChosenSquare square.highlightType)
             in
             { currentBoard
                 | board =
                     updateBoard
                         (\square ->
                             if square.pos == ( row, col ) then
-                                { square | highlightType = Types.SuccessfulMove, figure = movedSquare.figure }
+                                { square | highlightType = [Types.SuccessfulMove], figure = movedSquare.figure }
                             else if square.pos == movedSquare.pos then
-                                { square | highlightType = Types.None, figure = Types.Figure Types.Empty Types.NoColor "" }
+                                { square | highlightType = [Types.None], figure = Types.Figure Types.Empty Types.NoColor "" }
                             else
-                                { square | highlightType = Types.None }
+                                { square | highlightType = [Types.None] }
                         )
             }

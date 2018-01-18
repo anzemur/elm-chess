@@ -31,6 +31,7 @@ var _user$project$Types$PlayerVsAi = {ctor: 'PlayerVsAi'};
 var _user$project$Types$NoColor = {ctor: 'NoColor'};
 var _user$project$Types$White = {ctor: 'White'};
 var _user$project$Types$Black = {ctor: 'Black'};
+var _user$project$Types$Check = {ctor: 'Check'};
 var _user$project$Types$SuccessfulMove = {ctor: 'SuccessfulMove'};
 var _user$project$Types$AIRecommmends = {ctor: 'AIRecommmends'};
 var _user$project$Types$ChosenSquare = {ctor: 'ChosenSquare'};

@@ -148,11 +148,7 @@ var _user$project$Styles$gameBoardStyle = _elm_lang$html$Html_Attributes$style(
 												_0: {ctor: '_Tuple2', _0: 'font-size', _1: '40px'},
 												_1: {
 													ctor: '::',
-<<<<<<< HEAD
 													_0: {ctor: '_Tuple2', _0: 'margin-top', _1: '50px'},
-=======
-													_0: {ctor: '_Tuple2', _0: 'font-size', _1: '35px'},
->>>>>>> de6b3a49f49c75bac2e999d4800e9e6ef63c290c
 													_1: {ctor: '[]'}
 												}
 											}
@@ -179,21 +175,7 @@ var _user$project$Styles$squareSize = A2(
 	'px');
 var _user$project$Styles$squareStyle = F2(
 	function (selected, isBlack) {
-		var squareColor = function () {
-			var _p0 = selected;
-			switch (_p0.ctor) {
-				case 'None':
-					return isBlack ? 'rgb(192, 152, 31)' : 'rgba(192, 152, 31,0.5)';
-				case 'ChosenSquare':
-					return 'cyan';
-				case 'PossibleMove':
-					return 'blue';
-				case 'SuccessfulMove':
-					return 'limegreen';
-				default:
-					return 'black';
-			}
-		}();
+		var squareColor = A2(_elm_lang$core$List$member, _user$project$Types$ChosenSquare, selected) ? 'cyan' : (A2(_elm_lang$core$List$member, _user$project$Types$PossibleMove, selected) ? 'blue' : (A2(_elm_lang$core$List$member, _user$project$Types$SuccessfulMove, selected) ? 'limegreen' : (A2(_elm_lang$core$List$member, _user$project$Types$None, selected) ? (isBlack ? 'rgb(192, 152, 31)' : 'rgba(192, 152, 31,0.5)') : 'black')));
 		return _elm_lang$html$Html_Attributes$style(
 			{
 				ctor: '::',

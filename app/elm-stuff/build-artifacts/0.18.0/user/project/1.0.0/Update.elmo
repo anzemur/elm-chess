@@ -23,11 +23,19 @@ var _user$project$Update$updateSquareHighlight = F4(
 						function (square) {
 							return (_elm_lang$core$Native_Utils.eq(
 								square.pos,
-								{ctor: '_Tuple2', _0: row, _1: col}) && ((!_elm_lang$core$Native_Utils.eq(square.highlightType, _user$project$Types$ChosenSquare)) && _elm_lang$core$Native_Utils.eq(model.playerColor, square.figure.color))) ? _elm_lang$core$Native_Utils.update(
+								{ctor: '_Tuple2', _0: row, _1: col}) && ((!A2(_elm_lang$core$List$member, _user$project$Types$ChosenSquare, square.highlightType)) && _elm_lang$core$Native_Utils.eq(model.playerColor, square.figure.color))) ? _elm_lang$core$Native_Utils.update(
 								square,
-								{highlightType: _user$project$Types$ChosenSquare}) : _elm_lang$core$Native_Utils.update(
+								{
+									highlightType: {ctor: '::', _0: _user$project$Types$ChosenSquare, _1: square.highlightType}
+								}) : _elm_lang$core$Native_Utils.update(
 								square,
-								{highlightType: _user$project$Types$None});
+								{
+									highlightType: {
+										ctor: '::',
+										_0: _user$project$Types$None,
+										_1: {ctor: '[]'}
+									}
+								});
 						})
 				});
 		} else {
@@ -35,7 +43,7 @@ var _user$project$Update$updateSquareHighlight = F4(
 				_user$project$Moves$searchSquare,
 				currentBoard,
 				function (square) {
-					return _elm_lang$core$Native_Utils.eq(square.highlightType, _user$project$Types$ChosenSquare);
+					return A2(_elm_lang$core$List$member, _user$project$Types$ChosenSquare, square.highlightType);
 				});
 			return _elm_lang$core$Native_Utils.update(
 				currentBoard,
@@ -46,14 +54,31 @@ var _user$project$Update$updateSquareHighlight = F4(
 								square.pos,
 								{ctor: '_Tuple2', _0: row, _1: col}) ? _elm_lang$core$Native_Utils.update(
 								square,
-								{highlightType: _user$project$Types$SuccessfulMove, figure: movedSquare.figure}) : (_elm_lang$core$Native_Utils.eq(square.pos, movedSquare.pos) ? _elm_lang$core$Native_Utils.update(
+								{
+									highlightType: {
+										ctor: '::',
+										_0: _user$project$Types$SuccessfulMove,
+										_1: {ctor: '[]'}
+									},
+									figure: movedSquare.figure
+								}) : (_elm_lang$core$Native_Utils.eq(square.pos, movedSquare.pos) ? _elm_lang$core$Native_Utils.update(
 								square,
 								{
-									highlightType: _user$project$Types$None,
+									highlightType: {
+										ctor: '::',
+										_0: _user$project$Types$None,
+										_1: {ctor: '[]'}
+									},
 									figure: A3(_user$project$Types$Figure, _user$project$Types$Empty, _user$project$Types$NoColor, '')
 								}) : _elm_lang$core$Native_Utils.update(
 								square,
-								{highlightType: _user$project$Types$None}));
+								{
+									highlightType: {
+										ctor: '::',
+										_0: _user$project$Types$None,
+										_1: {ctor: '[]'}
+									}
+								}));
 						})
 				});
 		}
@@ -72,7 +97,7 @@ var _user$project$Update$update = F2(
 							_user$project$Moves$searchSquare,
 							board,
 							function (square) {
-								return _elm_lang$core$Native_Utils.eq(square.highlightType, _user$project$Types$SuccessfulMove);
+								return A2(_elm_lang$core$List$member, _user$project$Types$SuccessfulMove, square.highlightType);
 							}).pos;
 						if (((_p2.ctor === '_Tuple2') && (_p2._0 === -1)) && (_p2._1 === -1)) {
 							return color;

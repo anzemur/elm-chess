@@ -41,6 +41,7 @@ type HighlightType
     | ChosenSquare
     | AIRecommmends
     | SuccessfulMove
+    | Check
 
 
 type alias PlayerScore =
@@ -55,7 +56,7 @@ type alias Board =
 
 type alias Square =
     { figure : Figure
-    , highlightType : HighlightType
+    , highlightType : List HighlightType
     , pos : ( Int, Int ) -- (row,col)
     }
 

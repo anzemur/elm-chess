@@ -43,11 +43,9 @@ renderSquare model square row col =
     let
         clickType : Model.ClickType
         clickType =
-            case square.highlightType of
-                Types.PossibleMove ->
+            if List.member Types.PossibleMove square.highlightType then
                     Model.MoveFigure
-
-                _ ->
+            else
                     Model.FirstClick
 
         setOpacity =

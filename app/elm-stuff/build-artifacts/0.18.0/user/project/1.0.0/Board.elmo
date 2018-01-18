@@ -7,7 +7,11 @@ var _user$project$Board$createBoard = {
 				function (col) {
 					return {
 						pos: {ctor: '_Tuple2', _0: row, _1: col},
-						highlightType: _user$project$Types$None,
+						highlightType: {
+							ctor: '::',
+							_0: _user$project$Types$None,
+							_1: {ctor: '[]'}
+						},
 						figure: {figureType: _user$project$Types$Bishop, color: _user$project$Types$Black, img_src: 'assets/rook_black.svg'}
 					};
 				},

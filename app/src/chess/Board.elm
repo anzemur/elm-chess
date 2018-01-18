@@ -106,7 +106,7 @@ createBoard =
                 List.map
                     (\col ->
                         --FIXME repair the figure "must have" values
-                        { pos = ( row, col ), highlightType = Types.None,figure = { figureType = Types.Bishop, color = Types.Black, img_src = "assets/rook_black.svg"} }
+                        { pos = ( row, col ), highlightType = [Types.None],figure = { figureType = Types.Bishop, color = Types.Black, img_src = "assets/rook_black.svg"} }
                      -- Square type
                     )
                     (List.range 0 7)
