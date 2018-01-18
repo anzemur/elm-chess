@@ -13,6 +13,15 @@ import Types exposing (Board, Game, HighlightType, Square)
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
+    let
+        moveFigureAiCmd =
+            case model.game.gameType of
+                Types.PlayerVsAi ->
+                    Model.moveFigureAi model.game.gameId
+
+                _ ->
+                    Cmd.none
+    in
     case msg of
         Model.SquareSelected row col clickType ->
             let
@@ -35,13 +44,22 @@ update msg model =
 
                 highlightBoard =
                     updateSquareHighlight model row col clickType
+
+                -- Sends a command if a move happened on the Ai or player side
+                moveFigurePlayerCmd =
+                    case ( clickType, model.playerColor ) of
+                        ( Model.MoveFigure, Types.White ) ->
+                            Model.moveFigurePlayerOne model.game.gameId model.selectedSquare ( row, col )
+
+                        _ ->
+                            Cmd.none
             in
             ( { model
                 | selectedSquare = ( row, col )
                 , board = returnPossibleMovesHighlighted highlightBoard
                 , playerColor = changePlayer model.playerColor highlightBoard
               }
-            , Cmd.none
+            , moveFigurePlayerCmd
             )
 
         Model.Highscores (Ok highscores) ->
@@ -49,6 +67,16 @@ update msg model =
 
         Model.GameOneStart (Ok game_id) ->
             ( { model | startTime = model.currTime, game = { gameType = Types.PlayerVsAi, gameId = game_id } }, Cmd.none )
+
+        Model.MoveFigureAi (Ok move) ->
+            let
+                _ =
+                    Debug.log " " (toString move)
+            in
+            ( model, Cmd.none )
+
+        Model.MoveFigurePlayerOne (Ok result) ->
+            ( model, moveFigureAiCmd )
 
         Model.ShowMainMenu ->
             ( { model | route = Model.MainMenu }, Cmd.none )
@@ -93,6 +121,15 @@ update msg model =
 
         _ ->
             ( model, Cmd.none )
+
+
+
+-- Model.MoveFigureAi (Err e) ->
+--     let
+--         _ =
+--             Debug.log "MoveFigureAi err" e
+--     in
+--     ( model, Cmd.none )
 
 
 updateSquareHighlight : Model -> Int -> Int -> Model.ClickType -> Board

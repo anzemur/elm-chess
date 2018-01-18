@@ -65,10 +65,6 @@ searchSquare board check =
             { highlightType = None, pos = ( -1, -1 ), figure = { figureType = Empty, color = NoColor, img_src = "" } }
 
 
-moves =
-    1
-
-
 returnPossibleMovesHighlighted : Board -> Board
 returnPossibleMovesHighlighted board =
     let

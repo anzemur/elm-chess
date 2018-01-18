@@ -4,7 +4,7 @@ import Board exposing (createInitialBoard)
 import ChessApi
 import Http
 import Time exposing (Time, second)
-import Types exposing (Board, Color, Game, PlayerScore)
+import Types exposing (Board, Color, Game, Move, PlayerScore)
 
 
 -- Model definition for the chess game
@@ -33,6 +33,8 @@ type Msg
     | ShowGameTypesMenu
     | ShowHighscoresMenu
     | Tick Time
+    | MoveFigurePlayerOne (Result Http.Error String)
+    | MoveFigureAi (Result Http.Error Move)
 
 
 init : ( Model, Cmd Msg )
@@ -88,4 +90,16 @@ startGameOne =
 
 
 
--- moveFigurePlayerOne = Http.send
+-- Moves a figure for a player in PlayerVsAI
+
+
+moveFigurePlayerOne game_id from to =
+    Http.send MoveFigurePlayerOne (ChessApi.moveFigurePlayerOne game_id from to)
+
+
+
+-- Moves a figure for Ai in PlayerVsAi
+
+
+moveFigureAi game_id =
+    Http.send MoveFigureAi (ChessApi.moveFigureAi game_id)

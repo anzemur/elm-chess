@@ -43,6 +43,12 @@ type HighlightType
     | SuccessfulMove
 
 
+type alias Move =
+    { from : ( Int, Int )
+    , to : ( Int, Int )
+    }
+
+
 type alias PlayerScore =
     { name : String
     , score_out : String
