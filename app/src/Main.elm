@@ -1,7 +1,7 @@
 module Main exposing (..)
 
 import Html
-import Model exposing (Model, Msg, init)
+import Model exposing (Model, Msg, init, subscriptions)
 import Update
 import View
 
@@ -15,5 +15,5 @@ main =
         { init = init
         , view = View.view
         , update = Update.update
-        , subscriptions = \_ -> Sub.none
+        , subscriptions = Model.subscriptions
         }

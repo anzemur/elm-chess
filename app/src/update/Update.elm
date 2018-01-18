@@ -4,7 +4,8 @@ import ChessApi exposing (startGameOne)
 import Http
 import Model exposing (Model, Msg)
 import Moves exposing (returnPossibleMovesHighlighted, searchSquare)
-import Types exposing (Board, HighlightType, Square)
+import Time
+import Types exposing (Board, Game, HighlightType, Square)
 
 
 -- Update function for the chess game
@@ -47,7 +48,7 @@ update msg model =
             ( { model | highscores = highscores }, Cmd.none )
 
         Model.GameOneStart (Ok game_id) ->
-            ( { model | game = { gameType = Types.PlayerVsAi, gameId = game_id } }, Cmd.none )
+            ( { model | startTime = model.currTime, game = { gameType = Types.PlayerVsAi, gameId = game_id } }, Cmd.none )
 
         Model.ShowMainMenu ->
             ( { model | route = Model.MainMenu }, Cmd.none )
@@ -59,10 +60,22 @@ update msg model =
             ( { model | route = Model.GameTypeMenu }, Cmd.none )
 
         Model.OnePlayerGame ->
-            ( { model | route = Model.Game }, Model.startGameOne )
+            ( { model | route = Model.GameOne }, Model.startGameOne )
 
         --Model.TwoPlayerGame ->
         --( { model | route = Model.Game }, Model.startGameOne )
+        Model.Tick newTime ->
+            ( { model
+                | currTime = newTime
+                , score =
+                    if model.startTime > 0 then
+                        round (Time.inSeconds newTime - Time.inSeconds model.startTime)
+                    else
+                        model.score
+              }
+            , Cmd.none
+            )
+
         -- HTTP ERROR HANDLING
         Model.Highscores (Err e) ->
             let

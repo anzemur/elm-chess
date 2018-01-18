@@ -128,8 +128,21 @@ var _user$project$Update$update = F2(
 					ctor: '_Tuple2',
 					_0: _elm_lang$core$Native_Utils.update(
 						model,
-						{route: _user$project$Model$Game}),
+						{route: _user$project$Model$GameOne}),
 					_1: _user$project$Model$startGameOne
+				};
+			case 'Tick':
+				var _p6 = _p1._0;
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{
+							currTime: _p6,
+							score: (_elm_lang$core$Native_Utils.cmp(model.startTime, 0) > 0) ? _elm_lang$core$Basics$round(
+								_elm_lang$core$Time$inSeconds(_p6) - _elm_lang$core$Time$inSeconds(model.startTime)) : model.score
+						}),
+					_1: _elm_lang$core$Platform_Cmd$none
 				};
 			case 'Highscores':
 				if (_p1._0.ctor === 'Ok') {
@@ -141,14 +154,14 @@ var _user$project$Update$update = F2(
 						_1: _elm_lang$core$Platform_Cmd$none
 					};
 				} else {
-					var _p7 = _p1._0._0;
-					var _p6 = A2(_elm_lang$core$Debug$log, 'highscores get err', _p7);
+					var _p8 = _p1._0._0;
+					var _p7 = A2(_elm_lang$core$Debug$log, 'highscores get err', _p8);
 					return {
 						ctor: '_Tuple2',
 						_0: _elm_lang$core$Native_Utils.update(
 							model,
 							{
-								errors: {ctor: '::', _0: _p7, _1: model.errors}
+								errors: {ctor: '::', _0: _p8, _1: model.errors}
 							}),
 						_1: _elm_lang$core$Platform_Cmd$none
 					};
@@ -160,19 +173,20 @@ var _user$project$Update$update = F2(
 						_0: _elm_lang$core$Native_Utils.update(
 							model,
 							{
+								startTime: model.currTime,
 								game: {gameType: _user$project$Types$PlayerVsAi, gameId: _p1._0._0}
 							}),
 						_1: _elm_lang$core$Platform_Cmd$none
 					};
 				} else {
-					var _p9 = _p1._0._0;
-					var _p8 = A2(_elm_lang$core$Debug$log, 'highscores get err', _p9);
+					var _p10 = _p1._0._0;
+					var _p9 = A2(_elm_lang$core$Debug$log, 'highscores get err', _p10);
 					return {
 						ctor: '_Tuple2',
 						_0: _elm_lang$core$Native_Utils.update(
 							model,
 							{
-								errors: {ctor: '::', _0: _p9, _1: model.errors}
+								errors: {ctor: '::', _0: _p10, _1: model.errors}
 							}),
 						_1: _elm_lang$core$Platform_Cmd$none
 					};

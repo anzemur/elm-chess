@@ -307,9 +307,10 @@ exports.moveAI = function(req, res) {
                                 res.send(err);
                             }
                             var aiMoves = new AIMoves();
-                            aiMoves.status = "AI moved!";
+
                             aiMoves.to = to;
                             aiMoves.from = from;
+                            aiMoves.status = "AI moved!";
 
                             res.json(aiMoves);
                     });
@@ -333,6 +334,77 @@ exports.moveAI = function(req, res) {
 
     });
 };
+
+
+exports.helpPlayer = function( req, res ) {
+    var gameId = req.body.game_id;
+
+
+    getChess(gameId, currentGame => {
+        if(currentGame != null) {
+
+            var chess = new Chess(currentGame.chess);
+            var movesArr = currentGame.chess_moves;
+
+            // printChessboard(chess);
+
+            if(chess != null) {
+                chessAi.setOptions(
+                    {
+                        depth: 5,
+                        monitor: false,
+                        strategy: 'basic',
+                        timeout: 10000
+                    }
+                );
+
+                var bestMove = chessAi.play(movesArr);
+                var makeMove = chess.move(bestMove);
+
+                if(makeMove != null) {
+
+                    var from = makeMove.from;
+                    var to = makeMove.to;
+
+                    // printChessboard(chess);
+
+                } else {
+                    status.status = "error: invalid move!";
+                    res.json(status);
+                }
+
+
+                var aiMoves = new AIMoves();
+
+                aiMoves.to = to;
+                aiMoves.from = from;
+                aiMoves.status = "Player should move:";
+
+
+                chessAi.setOptions(
+                    {
+                        depth: 3,
+                        monitor: false,
+                        strategy: 'basic',
+                        timeout: 10000
+                    }
+                );
+
+                res.json(aiMoves);
+
+            }
+
+        } else {
+            status.status = "error: The game has expired OR you didn't put the game_id as the parameter!";
+            res.json(status);
+
+        }
+    });
+
+};
+
+
+
 
 
 exports.returnFEN = function(req, res){

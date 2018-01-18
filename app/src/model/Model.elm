@@ -3,6 +3,7 @@ module Model exposing (..)
 import Board exposing (createInitialBoard)
 import ChessApi
 import Http
+import Time exposing (Time, second)
 import Types exposing (Board, Color, Game, PlayerScore)
 
 
@@ -18,7 +19,8 @@ type Route
     = MainMenu
     | HighscoresMenu
     | GameTypeMenu
-    | Game
+    | GameOne
+    | GameTwo
 
 
 type Msg
@@ -30,6 +32,7 @@ type Msg
     | ShowMainMenu
     | ShowGameTypesMenu
     | ShowHighscoresMenu
+    | Tick Time
 
 
 init : ( Model, Cmd Msg )
@@ -41,6 +44,9 @@ init =
       , board = createInitialBoard
       , highscores = []
       , route = MainMenu
+      , currTime = 0
+      , startTime = 0
+      , score = 0
       }
     , getHighscores
     )
@@ -54,7 +60,15 @@ type alias Model =
     , highscores : List PlayerScore
     , errors : List Http.Error
     , route : Route
+    , currTime : Time
+    , startTime : Time
+    , score : Int
     }
+
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    Time.every second Tick
 
 
 
