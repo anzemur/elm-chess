@@ -180,3 +180,17 @@ playerVsAiHelpEncoder =
         )
         (field "from" string)
         (field "to" string)
+
+
+playervsAiCheckmateCheck game_id =
+    let
+        body =
+            Http.jsonBody
+                (Encode.object
+                    [ ( "game_id", Encode.string game_id ) ]
+                )
+    in
+    Http.post
+        (baseUrl ++ "chess/one/check")
+        body
+        (field "status" string)

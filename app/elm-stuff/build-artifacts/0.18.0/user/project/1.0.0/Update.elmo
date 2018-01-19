@@ -26,15 +26,13 @@ var _user$project$Update$updateSquareHighlight = F4(
 				{
 					board: updateBoard(
 						function (square) {
-							return ((!_elm_lang$core$Native_Utils.eq(square.pos, helpHighlightPosReverse)) && (_elm_lang$core$Native_Utils.eq(
+							return (_elm_lang$core$Native_Utils.eq(
 								square.pos,
-								{ctor: '_Tuple2', _0: row, _1: col}) && ((!_elm_lang$core$Native_Utils.eq(square.highlightType, _user$project$Types$ChosenSquare)) && _elm_lang$core$Native_Utils.eq(model.playerColor, square.figure.color)))) ? _elm_lang$core$Native_Utils.update(
+								{ctor: '_Tuple2', _0: row, _1: col}) && ((!_elm_lang$core$Native_Utils.eq(square.highlightType, _user$project$Types$ChosenSquare)) && _elm_lang$core$Native_Utils.eq(model.playerColor, square.figure.color))) ? _elm_lang$core$Native_Utils.update(
 								square,
-								{highlightType: _user$project$Types$ChosenSquare}) : (_elm_lang$core$Native_Utils.eq(square.pos, helpHighlightPosReverse) ? _elm_lang$core$Native_Utils.update(
+								{highlightType: _user$project$Types$ChosenSquare}) : _elm_lang$core$Native_Utils.update(
 								square,
-								{highlightType: _user$project$Types$AIRecommmends}) : _elm_lang$core$Native_Utils.update(
-								square,
-								{highlightType: _user$project$Types$None}));
+								{highlightType: _user$project$Types$None});
 						})
 				});
 		} else {
@@ -90,6 +88,7 @@ var _user$project$Update$update = F2(
 					return _elm_lang$core$Platform_Cmd$none;
 				}
 			}();
+<<<<<<< HEAD
 			var _p2 = msg;
 			_v2_18:
 			do {
@@ -196,6 +195,24 @@ var _user$project$Update$update = F2(
 =======
 							break _v2_15;
 >>>>>>> 98b5358bf4cffc5f4f032997220db2f3c8bbb226
+=======
+			var _p3 = msg;
+			switch (_p3.ctor) {
+				case 'SquareSelected':
+					var _p9 = _p3._0;
+					var _p8 = _p3._1;
+					var _p7 = _p3._2;
+					var moveFigurePlayerCmd = function () {
+						var _p4 = {ctor: '_Tuple2', _0: _p7, _1: model.playerColor};
+						if (((_p4.ctor === '_Tuple2') && (_p4._0.ctor === 'MoveFigure')) && (_p4._1.ctor === 'White')) {
+							return A3(
+								_user$project$Model$moveFigurePlayerOne,
+								model.game.gameId,
+								model.selectedSquare,
+								{ctor: '_Tuple2', _0: _p9, _1: _p8});
+						} else {
+							return _elm_lang$core$Platform_Cmd$none;
+>>>>>>> Added checkmate source
 						}
 					}();
 					var highlightBoard = A4(_user$project$Update$updateSquareHighlight, model, _p9, _p8, _p7);
@@ -278,6 +295,33 @@ var _user$project$Update$update = F2(
 							{route: _user$project$Model$GameOne}),
 						_1: _user$project$Model$startGameOne
 					};
+				case 'TwoPlayerGame':
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{route: _user$project$Model$GameTwo}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				case 'QuitGame':
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								route: _user$project$Model$MainMenu,
+								selectedSquare: {ctor: '_Tuple2', _0: -1, _1: -1},
+								playerColor: _user$project$Types$White,
+								errors: {ctor: '[]'},
+								game: {gameType: _user$project$Types$NoGame, gameId: ''},
+								board: _user$project$Board$createInitialBoard,
+								highscores: {ctor: '[]'},
+								currTime: 0,
+								startTime: 0,
+								score: 0
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
 				case 'Tick':
 					var _p15 = _p3._0;
 					return {
@@ -300,6 +344,7 @@ var _user$project$Update$update = F2(
 								{highscores: _p3._0._0}),
 							_1: _elm_lang$core$Platform_Cmd$none
 						};
+<<<<<<< HEAD
 					case 'OnePlayerGame':
 						return {
 							ctor: '_Tuple2',
@@ -364,6 +409,13 @@ var _user$project$Update$update = F2(
 						};
 					case 'Tick':
 						var _p11 = _p2._0;
+=======
+					} else {
+						return A2(_user$project$Update$printErrors, _p3._0._0, model);
+					}
+				case 'GameOneStart':
+					if (_p3._0.ctor === 'Ok') {
+>>>>>>> Added checkmate source
 						return {
 							ctor: '_Tuple2',
 							_0: _elm_lang$core$Native_Utils.update(
@@ -376,6 +428,7 @@ var _user$project$Update$update = F2(
 								}),
 							_1: _elm_lang$core$Platform_Cmd$none
 						};
+<<<<<<< HEAD
 					case 'Highscores':
 						if (_p2._0.ctor === 'Ok') {
 							return {
@@ -428,5 +481,85 @@ var _user$project$Update$update = F2(
 				}
 			} while(false);
 			return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+=======
+					} else {
+						return A2(_user$project$Update$printErrors, _p3._0._0, model);
+					}
+				case 'MoveFigurePlayerOne':
+					if (_p3._0.ctor === 'Ok') {
+						var _p12 = A2(
+							_elm_lang$core$Debug$log,
+							'MoveFigPlayerOne result',
+							_elm_lang$core$Basics$toString(_p3._0._0));
+						return {ctor: '_Tuple2', _0: model, _1: moveFigureAiCmd};
+					} else {
+						return A2(_user$project$Update$printErrors, _p3._0._0, model);
+					}
+				case 'MoveFigureAi':
+					if (_p3._0.ctor === 'Ok') {
+						var _p11 = _p3._0._0;
+						var _p10 = A2(
+							_elm_lang$core$Debug$log,
+							' ',
+							_elm_lang$core$Basics$toString(_p11));
+						var _v6 = A3(
+							_user$project$Model$SquareSelected,
+							_elm_lang$core$Tuple$second(_p11.to),
+							_elm_lang$core$Tuple$first(_p11.to),
+							_user$project$Model$MoveFigure),
+							_v7 = _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								board: {
+									board: A2(
+										_elm_lang$core$List$indexedMap,
+										F2(
+											function (idxRow, row) {
+												return _elm_lang$core$Native_Utils.eq(
+													_elm_lang$core$Tuple$second(_p11.from),
+													idxRow) ? A2(
+													_elm_lang$core$List$indexedMap,
+													F2(
+														function (idxCol, sqr) {
+															return _elm_lang$core$Native_Utils.eq(
+																_elm_lang$core$Tuple$first(_p11.from),
+																idxCol) ? _elm_lang$core$Native_Utils.update(
+																sqr,
+																{highlightType: _user$project$Types$ChosenSquare, pos: sqr.pos}) : sqr;
+														}),
+													row) : row;
+											}),
+										model.board.board)
+								}
+							});
+						msg = _v6;
+						model = _v7;
+						continue update;
+					} else {
+						return A2(_user$project$Update$printErrors, _p3._0._0, model);
+					}
+				default:
+					if (_p3._0.ctor === 'Ok') {
+						var _p14 = _p3._0._0;
+						var _p13 = A2(
+							_elm_lang$core$Debug$log,
+							' ',
+							_elm_lang$core$Basics$toString(_p14));
+						var _v8 = A3(
+							_user$project$Model$SquareSelected,
+							_elm_lang$core$Tuple$second(_p14.from),
+							_elm_lang$core$Tuple$first(_p14.from),
+							_user$project$Model$FirstClick),
+							_v9 = _elm_lang$core$Native_Utils.update(
+							model,
+							{helpHighlightPos: _p14.to});
+						msg = _v8;
+						model = _v9;
+						continue update;
+					} else {
+						return A2(_user$project$Update$printErrors, _p3._0._0, model);
+					}
+			}
+>>>>>>> Added checkmate source
 		}
 	});

@@ -187,9 +187,6 @@ update msg model =
         Model.PlayerVsAiHelp (Err e) ->
             printErrors e model
 
-        Model.TwoPlayerGame ->
-            ( model, Cmd.none )
-
 
 printErrors e model =
     let
