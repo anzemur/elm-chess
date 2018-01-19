@@ -37,6 +37,8 @@ type Msg
     | Tick Time
     | MoveFigurePlayerOne (Result Http.Error String)
     | MoveFigureAi (Result Http.Error Move)
+    | PlayerVsAiHelp (Result Http.Error Move)
+    | Help
     | QuitGame
     | NameChanged String
     | PostHighscores
@@ -56,6 +58,8 @@ init =
       , currTime = 0
       , startTime = 0
       , score = 0
+      , tipCount = 15
+      , helpHighlightPos = ( -1, -1 )
       , playersName = ""
       }
     , getHighscores
@@ -73,6 +77,8 @@ type alias Model =
     , currTime : Time
     , startTime : Time
     , score : Int
+    , tipCount : Int
+    , helpHighlightPos : ( Int, Int )
     , playersName : String
     }
 
@@ -116,3 +122,11 @@ moveFigurePlayerOne game_id from to =
 
 moveFigureAi game_id =
     Http.send MoveFigureAi (ChessApi.moveFigureAi game_id)
+
+
+
+-- Returns a help move suggestion when playing against AI
+
+
+playerVsAiHelp game_id =
+    Http.send PlayerVsAiHelp (ChessApi.playerVsAiHelp game_id)

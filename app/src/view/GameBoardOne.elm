@@ -38,7 +38,11 @@ view model =
                 , ( "height", "50px" )
                 , ( "margin-left", "60px" )
                 ]
+<<<<<<< HEAD
             , onClick Model.GameOver
+=======
+            , onClick Model.Help
+>>>>>>> 98b5358bf4cffc5f4f032997220db2f3c8bbb226
             ]
             []
         ]
