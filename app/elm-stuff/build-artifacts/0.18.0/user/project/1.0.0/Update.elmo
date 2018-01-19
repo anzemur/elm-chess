@@ -98,15 +98,7 @@ var _user$project$Update$updateSquareHighlight = F4(
 								}) : _elm_lang$core$Native_Utils.update(
 								square,
 								{
-									highlightType: A2(_elm_lang$core$List$member, _user$project$Types$Check, square.highlightType) ? {
-										ctor: '::',
-										_0: _user$project$Types$None,
-										_1: {
-											ctor: '::',
-											_0: _user$project$Types$Check,
-											_1: {ctor: '[]'}
-										}
-									} : {
+									highlightType: {
 										ctor: '::',
 										_0: _user$project$Types$None,
 										_1: {ctor: '[]'}
@@ -448,7 +440,15 @@ var _user$project$Update$update = F2(
 																		_1: {ctor: '[]'}
 																	},
 																	pos: sqr.pos
-																}) : sqr;
+																}) : _elm_lang$core$Native_Utils.update(
+																sqr,
+																{
+																	highlightType: {
+																		ctor: '::',
+																		_0: _user$project$Types$None,
+																		_1: {ctor: '[]'}
+																	}
+																});
 														}),
 													row) : row;
 											}),

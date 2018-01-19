@@ -106,7 +106,7 @@ update msg model =
                                                 if Tuple.first move.from == idxCol then
                                                     { sqr | highlightType = [ Types.ChosenSquare ], pos = sqr.pos }
                                                 else
-                                                    sqr
+                                                    {sqr | highlightType = [Types.None]}
                                             )
                                             row
                                     else
@@ -312,11 +312,7 @@ updateSquareHighlight model row col clickType =
                                 { square | highlightType = [ Types.None ], figure = Types.Figure Types.Empty Types.NoColor "" }
                             else
                                 { square
-                                    | highlightType =
-                                        if List.member Types.Check square.highlightType then
-                                            [ Types.None, Types.Check ]
-                                        else
-                                            [ Types.None ]
+                                    | highlightType = [ Types.None ]
                                 }
                         )
             }
