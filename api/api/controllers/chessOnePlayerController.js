@@ -172,14 +172,14 @@ exports.move = function(req, res) {
             var chess = new Chess(currentGame.chess);
             var movesArr = currentGame.chess_moves;
 
-            if(chess != null) {
+            if(chess != null && !chess.game_over()) {
                 var fromSq = req.body.from;
                 var toSq = req.body.to;
 
                 var move = chess.move({ from: fromSq, to: toSq });
 
                 if(move != null) {
-
+                try {
                     movesArr.push(move.san);
                     ChessGame.update({ game_id: gameId },
                         {
@@ -194,6 +194,12 @@ exports.move = function(req, res) {
                             status.status = "figure moved";
                             res.json(status);
                     });
+                  } catch (ex)
+                  {
+                    console.log(ex);
+                    status.status = "error: The game has expired OR you didn't put the game_id as the parameter!";
+                    res.json(status);
+                  }
 
                     // printChessboard(chess);
 
@@ -223,7 +229,7 @@ exports.checkGameOver = function(req, res) {
     getChess(gameId, currentGame => {
         if(currentGame != null) {
             var chess = new Chess(currentGame.chess);
-
+            try {
             if(chess != null) {
                 if(chess.game_over()) {
                     status.game_over_status = true;
@@ -260,11 +266,18 @@ exports.checkGameOver = function(req, res) {
 
                 }
 
+
             } else {
                 status.status = "error: chess was not initialized!";
                 res.json(status);
 
             }
+          } catch(ex)
+          {
+            console.log(ex);
+            status.status = "error: The game has expired OR you didn't put the game_id as the parameter!";
+            res.json(status);
+          }
 
         } else {
             status.status = "error: The game has expired OR you didn't put the game_id as the parameter!";
@@ -285,7 +298,7 @@ exports.moveAI = function(req, res) {
             var chess = new Chess(currentGame.chess);
             var movesArr = currentGame.chess_moves;
 
-            if(chess != null) {
+            if(chess != null && !chess.game_over()) {
                 var move = chessAi.play(movesArr);
                 var makeMove = chess.move(move);
 

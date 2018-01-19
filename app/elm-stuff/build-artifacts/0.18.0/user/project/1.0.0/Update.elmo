@@ -108,7 +108,11 @@ var _user$project$Update$update = F2(
 											model.game.gameId,
 											model.selectedSquare,
 											{ctor: '_Tuple2', _0: _p9, _1: _p8}),
-										_1: {ctor: '[]'}
+										_1: {
+											ctor: '::',
+											_0: _user$project$Model$playervsAiCheckmateCheck(model.game.gameId),
+											_1: {ctor: '[]'}
+										}
 									}
 								});
 						} else {
@@ -145,7 +149,8 @@ var _user$project$Update$update = F2(
 							{
 								selectedSquare: {ctor: '_Tuple2', _0: _p9, _1: _p8},
 								board: _user$project$Moves$returnPossibleMovesHighlighted(highlightBoard),
-								playerColor: A2(changePlayer, model.playerColor, highlightBoard)
+								playerColor: A2(changePlayer, model.playerColor, highlightBoard),
+								helpHighlightPos: {ctor: '_Tuple2', _0: -1, _1: -1}
 							}),
 						_1: moveFigurePlayerCmd
 					};
@@ -200,18 +205,7 @@ var _user$project$Update$update = F2(
 						ctor: '_Tuple2',
 						_0: _elm_lang$core$Native_Utils.update(
 							model,
-							{
-								route: _user$project$Model$GameTwo,
-								selectedSquare: {ctor: '_Tuple2', _0: -1, _1: -1},
-								playerColor: _user$project$Types$White,
-								errors: {ctor: '[]'},
-								game: {gameType: _user$project$Types$NoGame, gameId: ''},
-								board: _user$project$Board$createInitialBoard,
-								highscores: {ctor: '[]'},
-								currTime: 0,
-								startTime: 0,
-								score: 0
-							}),
+							{route: _user$project$Model$GameTwo}),
 						_1: _elm_lang$core$Platform_Cmd$none
 					};
 				case 'QuitGame':

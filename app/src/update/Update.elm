@@ -53,6 +53,7 @@ update msg model =
                             Cmd.batch
                                 [ Model.playervsAiCheckmateCheck model.game.gameId
                                 , Model.moveFigurePlayerOne model.game.gameId model.selectedSquare ( row, col )
+                                , Model.playervsAiCheckmateCheck model.game.gameId
                                 ]
 
                         _ ->
@@ -62,8 +63,7 @@ update msg model =
                 | selectedSquare = ( row, col )
                 , board = returnPossibleMovesHighlighted highlightBoard
                 , playerColor = changePlayer model.playerColor highlightBoard
-
-                -- , helpHighlightPos = ( -1, -1 )
+                , helpHighlightPos = ( -1, -1 )
               }
             , moveFigurePlayerCmd
             )
@@ -145,20 +145,7 @@ update msg model =
             ( { model | route = Model.GameOne }, Model.startGameOne )
 
         Model.TwoPlayerGame ->
-            ( { model
-                | route = Model.GameTwo
-                , selectedSquare = ( -1, -1 )
-                , playerColor = Types.White
-                , errors = []
-                , game = { gameType = Types.NoGame, gameId = "" }
-                , board = createInitialBoard
-                , highscores = []
-                , currTime = 0
-                , startTime = 0
-                , score = 0
-              }
-            , Cmd.none
-            )
+            ( { model | route = Model.GameTwo }, Cmd.none )
 
         Model.QuitGame ->
             ( { model
