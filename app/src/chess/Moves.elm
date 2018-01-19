@@ -14,6 +14,7 @@ import List exposing (member)
 
 type alias Vector =
     { position : Square
+    , start : Square
     , next : Square -> Square
     , isBlocked : Bool
     , blockIn : Int
@@ -76,7 +77,11 @@ vectors board square =
     -- parametra sta sprememba po x in y
     makeVectors : Int -> List (Int -> Int -> Vector)
     makeVectors n =
-      List.repeat n (\a b -> { blockIn = -1, isBlocked = False, position = square, next = \square -> { square | pos = ( first square.pos + a, second square.pos + b ) } })
+      List.repeat n (\a b -> { blockIn = -1,
+                               position = square,
+                               start = square,
+                               isBlocked = False,
+                               next = \square -> { square | pos = ( first square.pos + a, second square.pos + b ) } })
 
     rowSelect =
       Tuple.first square.pos
@@ -107,6 +112,7 @@ vectors board square =
       [ { blockIn = forwardDistance
       , isBlocked = False
       , position = square
+      , start = square
       , next =
         \square ->
           if (searchSquare board (\sq -> sq.pos == mapFirst (\x -> x + n) square.pos)).figure.color == NoColor then
@@ -125,6 +131,7 @@ vectors board square =
       [ { blockIn = 1
       , isBlocked = False
       , position = square
+      , start = square
       , next =
         \square ->
           if nextColor /= square.figure.color && nextColor /= NoColor then
@@ -170,10 +177,10 @@ vectors board square =
           forwardVector -1 ++ sideVectors -1 1 ++ sideVectors -1 -1
 
         _ ->
-          [ { isBlocked = True, position = square, next = \_ -> square, blockIn = -1 } ]
+          [ { isBlocked = True, position = square, start = square, next = \_ -> square, blockIn = -1 } ]
 
     _ ->
-      [ { isBlocked = True, position = square, next = \_ -> square, blockIn = -1 } ]
+      [ { isBlocked = True, position = square, start = square, next = \_ -> square, blockIn = -1 } ]
 
 
 returnPossibleMovesHighlighted : Board -> Board
@@ -183,6 +190,23 @@ returnPossibleMovesHighlighted board =
         newBoard : List (List Types.Square)
         newBoard =
             let
+                willInCheck : Vector -> Bool
+                willInCheck vector =
+                  let
+                      changedBoard = Board (List.map (\row -> List.map (\square -> if square.pos == vector.start.pos then
+                                                                                      {square | figure = Figure Empty NoColor ""}
+                                                                                  else if square.pos == vector.position.pos then
+                                                                                      {square | figure = vector.position.figure}
+                                                                                  else if square.figure.figureType == King then
+                                                                                      {square | highlightType = List.filter (\typ -> typ /= Check) square.highlightType}
+                                                                                  else
+                                                                                      square) row) board.board)
+
+                      markedKing = markCheck changedBoard vector.position.figure.color
+                  in
+                  (searchSquare markedKing (\sqr -> sqr.figure.color == vector.position.figure.color &&
+                                                    sqr.figure.figureType == King &&
+                                                    member Check sqr.highlightType)).pos /= (-1, -1)
                 -- vsi vektorji za izbrano polje s figuro
                 vectorList =
                     vectors board (searchSquare board (\square -> member ChosenSquare square.highlightType ))
@@ -202,7 +226,9 @@ returnPossibleMovesHighlighted board =
                         (\row ->
                             List.map
                                 (\square ->
-                                    if vector.position.pos == square.pos && square.pos /= (searchSquare board (\square -> member ChosenSquare square.highlightType)).pos then
+                                    if vector.position.pos == square.pos &&
+                                       square.pos /= (searchSquare board (\square -> member ChosenSquare square.highlightType)).pos &&
+                                       not (willInCheck vector) then
                                         { square | highlightType = PossibleMove::square.highlightType}
                                     else
                                         square

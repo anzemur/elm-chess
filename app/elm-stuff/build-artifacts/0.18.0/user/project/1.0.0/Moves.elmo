@@ -49,6 +49,7 @@ var _user$project$Moves$vectors = F2(
 						blockIn: 1,
 						isBlocked: false,
 						position: square,
+						start: square,
 						next: function (square) {
 							return ((!_elm_lang$core$Native_Utils.eq(nextColor, square.figure.color)) && (!_elm_lang$core$Native_Utils.eq(nextColor, _user$project$Types$NoColor))) ? _elm_lang$core$Native_Utils.update(
 								square,
@@ -84,6 +85,7 @@ var _user$project$Moves$vectors = F2(
 					blockIn: forwardDistance,
 					isBlocked: false,
 					position: square,
+					start: square,
 					next: function (square) {
 						return _elm_lang$core$Native_Utils.eq(
 							A2(
@@ -122,8 +124,9 @@ var _user$project$Moves$vectors = F2(
 					function (a, b) {
 						return {
 							blockIn: -1,
-							isBlocked: false,
 							position: square,
+							start: square,
+							isBlocked: false,
 							next: function (square) {
 								return _elm_lang$core$Native_Utils.update(
 									square,
@@ -284,6 +287,7 @@ var _user$project$Moves$vectors = F2(
 							_0: {
 								isBlocked: true,
 								position: square,
+								start: square,
 								next: function (_p4) {
 									return square;
 								},
@@ -298,6 +302,7 @@ var _user$project$Moves$vectors = F2(
 					_0: {
 						isBlocked: true,
 						position: square,
+						start: square,
 						next: function (_p5) {
 							return square;
 						},
@@ -343,70 +348,6 @@ var _user$project$Moves$calcNext = F2(
 				blockIn: vector.blockIn - 1
 			}));
 	});
-var _user$project$Moves$returnPossibleMovesHighlighted = function (board) {
-	var newBoard = function () {
-		var changeSquare = F2(
-			function (squareList, vector) {
-				return A2(
-					_elm_lang$core$List$map,
-					function (row) {
-						return A2(
-							_elm_lang$core$List$map,
-							function (square) {
-								return (_elm_lang$core$Native_Utils.eq(vector.position.pos, square.pos) && (!_elm_lang$core$Native_Utils.eq(
-									square.pos,
-									A2(
-										_user$project$Moves$searchSquare,
-										board,
-										function (square) {
-											return A2(_elm_lang$core$List$member, _user$project$Types$ChosenSquare, square.highlightType);
-										}).pos))) ? _elm_lang$core$Native_Utils.update(
-									square,
-									{
-										highlightType: {ctor: '::', _0: _user$project$Types$PossibleMove, _1: square.highlightType}
-									}) : square;
-							},
-							row);
-					},
-					squareList);
-			});
-		var changeBoard = F2(
-			function (squareList, vector) {
-				changeBoard:
-				while (true) {
-					if (_elm_lang$core$Native_Utils.eq(vector.isBlocked, false)) {
-						var _v5 = A2(changeSquare, squareList, vector),
-							_v6 = A2(_user$project$Moves$calcNext, vector, board);
-						squareList = _v5;
-						vector = _v6;
-						continue changeBoard;
-					} else {
-						return squareList;
-					}
-				}
-			});
-		var vectorList = A2(
-			_user$project$Moves$vectors,
-			board,
-			A2(
-				_user$project$Moves$searchSquare,
-				board,
-				function (square) {
-					return A2(_elm_lang$core$List$member, _user$project$Types$ChosenSquare, square.highlightType);
-				}));
-		return A3(
-			_elm_lang$core$List$foldl,
-			F2(
-				function (vector, board) {
-					return A2(changeBoard, board, vector);
-				}),
-			board.board,
-			vectorList);
-	}();
-	return _elm_lang$core$Native_Utils.update(
-		board,
-		{board: newBoard});
-};
 var _user$project$Moves$markCheck = F2(
 	function (board, color) {
 		var isInCheck = function (vector) {
@@ -419,14 +360,10 @@ var _user$project$Moves$markCheck = F2(
 						return _elm_lang$core$Native_Utils.eq(sqr.pos, vector.position.pos);
 					});
 				if (vector.isBlocked) {
-					var _p9 = A2(
-						_elm_lang$core$Debug$log,
-						'blokiran',
-						{vector: vector, koncni: endSquare});
 					return (!_elm_lang$core$Native_Utils.eq(vector.position.figure.color, endSquare.figure.color)) && ((!_elm_lang$core$Native_Utils.eq(endSquare.figure.color, _user$project$Types$NoColor)) && _elm_lang$core$Native_Utils.eq(endSquare.figure.figureType, vector.position.figure.figureType));
 				} else {
-					var _v7 = A2(_user$project$Moves$calcNext, vector, board);
-					vector = _v7;
+					var _v5 = A2(_user$project$Moves$calcNext, vector, board);
+					vector = _v5;
 					continue isInCheck;
 				}
 			}
@@ -526,7 +463,109 @@ var _user$project$Moves$markCheck = F2(
 				},
 				board.board)) : board;
 	});
-var _user$project$Moves$Vector = F4(
-	function (a, b, c, d) {
-		return {position: a, next: b, isBlocked: c, blockIn: d};
+var _user$project$Moves$returnPossibleMovesHighlighted = function (board) {
+	var newBoard = function () {
+		var vectorList = A2(
+			_user$project$Moves$vectors,
+			board,
+			A2(
+				_user$project$Moves$searchSquare,
+				board,
+				function (square) {
+					return A2(_elm_lang$core$List$member, _user$project$Types$ChosenSquare, square.highlightType);
+				}));
+		var willInCheck = function (vector) {
+			var changedBoard = _user$project$Types$Board(
+				A2(
+					_elm_lang$core$List$map,
+					function (row) {
+						return A2(
+							_elm_lang$core$List$map,
+							function (square) {
+								return _elm_lang$core$Native_Utils.eq(square.pos, vector.start.pos) ? _elm_lang$core$Native_Utils.update(
+									square,
+									{
+										figure: A3(_user$project$Types$Figure, _user$project$Types$Empty, _user$project$Types$NoColor, '')
+									}) : (_elm_lang$core$Native_Utils.eq(square.pos, vector.position.pos) ? _elm_lang$core$Native_Utils.update(
+									square,
+									{figure: vector.position.figure}) : (_elm_lang$core$Native_Utils.eq(square.figure.figureType, _user$project$Types$King) ? _elm_lang$core$Native_Utils.update(
+									square,
+									{
+										highlightType: A2(
+											_elm_lang$core$List$filter,
+											function (typ) {
+												return !_elm_lang$core$Native_Utils.eq(typ, _user$project$Types$Check);
+											},
+											square.highlightType)
+									}) : square));
+							},
+							row);
+					},
+					board.board));
+			var markedKing = A2(_user$project$Moves$markCheck, changedBoard, vector.position.figure.color);
+			return !_elm_lang$core$Native_Utils.eq(
+				A2(
+					_user$project$Moves$searchSquare,
+					markedKing,
+					function (sqr) {
+						return _elm_lang$core$Native_Utils.eq(sqr.figure.color, vector.position.figure.color) && (_elm_lang$core$Native_Utils.eq(sqr.figure.figureType, _user$project$Types$King) && A2(_elm_lang$core$List$member, _user$project$Types$Check, sqr.highlightType));
+					}).pos,
+				{ctor: '_Tuple2', _0: -1, _1: -1});
+		};
+		var changeSquare = F2(
+			function (squareList, vector) {
+				return A2(
+					_elm_lang$core$List$map,
+					function (row) {
+						return A2(
+							_elm_lang$core$List$map,
+							function (square) {
+								return (_elm_lang$core$Native_Utils.eq(vector.position.pos, square.pos) && ((!_elm_lang$core$Native_Utils.eq(
+									square.pos,
+									A2(
+										_user$project$Moves$searchSquare,
+										board,
+										function (square) {
+											return A2(_elm_lang$core$List$member, _user$project$Types$ChosenSquare, square.highlightType);
+										}).pos)) && (!willInCheck(vector)))) ? _elm_lang$core$Native_Utils.update(
+									square,
+									{
+										highlightType: {ctor: '::', _0: _user$project$Types$PossibleMove, _1: square.highlightType}
+									}) : square;
+							},
+							row);
+					},
+					squareList);
+			});
+		var changeBoard = F2(
+			function (squareList, vector) {
+				changeBoard:
+				while (true) {
+					if (_elm_lang$core$Native_Utils.eq(vector.isBlocked, false)) {
+						var _v6 = A2(changeSquare, squareList, vector),
+							_v7 = A2(_user$project$Moves$calcNext, vector, board);
+						squareList = _v6;
+						vector = _v7;
+						continue changeBoard;
+					} else {
+						return squareList;
+					}
+				}
+			});
+		return A3(
+			_elm_lang$core$List$foldl,
+			F2(
+				function (vector, board) {
+					return A2(changeBoard, board, vector);
+				}),
+			board.board,
+			vectorList);
+	}();
+	return _elm_lang$core$Native_Utils.update(
+		board,
+		{board: newBoard});
+};
+var _user$project$Moves$Vector = F5(
+	function (a, b, c, d, e) {
+		return {position: a, start: b, next: c, isBlocked: d, blockIn: e};
 	});
