@@ -7,6 +7,7 @@ import View
 
 
 -- Just the barebones structure for running the app, model, view and update are in separate files
+-- with API cca 3500 lines of code
 
 
 main : Program Never Model Msg
