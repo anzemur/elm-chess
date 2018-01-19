@@ -46,6 +46,7 @@ type Msg
     | PostScore (Result Http.Error String)
     | GameOver
     | CheckmateCheck (Result Http.Error String)
+    | SendCheckmateCheck
 
 
 init : ( Model, Cmd Msg )

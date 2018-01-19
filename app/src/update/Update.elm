@@ -80,6 +80,9 @@ update msg model =
             , moveFigurePlayerCmd
             )
 
+        Model.SendCheckmateCheck ->
+            ( model, Model.playervsAiCheckmateCheck model.game.gameId )
+
         Model.Highscores (Ok highscores) ->
             ( { model | highscores = highscores }, Cmd.none )
 
@@ -101,7 +104,7 @@ update msg model =
                                         List.indexedMap
                                             (\idxCol sqr ->
                                                 if Tuple.first move.from == idxCol then
-                                                    { sqr | highlightType = Types.ChosenSquare, pos = sqr.pos }
+                                                    { sqr | highlightType = [ Types.ChosenSquare ], pos = sqr.pos }
                                                 else
                                                     sqr
                                             )
@@ -176,6 +179,10 @@ update msg model =
             )
 
         Model.GameOver ->
+            let
+                currentGame =
+                    model.game
+            in
             ( { model
                 | route =
                     if model.winner then
@@ -183,6 +190,7 @@ update msg model =
                     else
                         Model.GameOverLost
                 , startTime = 0
+                , game = { currentGame | gameType = Types.NoGame }
               }
             , Cmd.none
             )
@@ -197,6 +205,16 @@ update msg model =
             ( { model | route = Model.MainMenu }, Model.postHighscores model.playersName (toString model.score) )
 
         Model.Tick newTime ->
+            let
+                checkGameOver =
+                    if (round (Time.inSeconds newTime) % 3) == 0 && model.game.gameType /= Types.NoGame then
+                        Model.playervsAiCheckmateCheck model.game.gameId
+                    else
+                        Cmd.none
+
+                currGame =
+                    model.game
+            in
             ( { model
                 | currTime = newTime
                 , score =
@@ -205,7 +223,7 @@ update msg model =
                     else
                         model.score
               }
-            , Cmd.none
+            , checkGameOver
             )
 
         -- HTTP ERROR HANDLING
@@ -264,8 +282,10 @@ updateSquareHighlight model row col clickType =
                 | board =
                     updateBoard
                         (\square ->
-                            if square.pos == ( row, col ) && not (List.member Types.ChosenSquare square.highlightType) && model.playerColor == square.figure.color then
+                            if square.pos /= helpHighlightPosReverse && square.pos == ( row, col ) && not (List.member Types.ChosenSquare square.highlightType) && model.playerColor == square.figure.color then
                                 { square | highlightType = [ Types.ChosenSquare ] }
+                            else if square.pos == helpHighlightPosReverse then
+                                { square | highlightType = [ Types.AIRecommmends ] }
                             else
                                 { square
                                     | highlightType =

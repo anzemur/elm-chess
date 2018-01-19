@@ -244,7 +244,7 @@ returnPossibleMovesHighlighted board =
                                 == vector.position.figure.color
                                 && sqr.figure.figureType
                                 == King
-                                && member Check sqr.highlightType
+                                && member Types.Check sqr.highlightType
                         )
                     ).pos
                         /= ( -1, -1 )
@@ -339,7 +339,7 @@ markCheck board color =
                     List.map
                         (\square ->
                             if square.pos == king.pos then
-                                { square | highlightType = Check :: square.highlightType }
+                                { square | highlightType = Types.Check :: square.highlightType }
                             else
                                 square
                         )
