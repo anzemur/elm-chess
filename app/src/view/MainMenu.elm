@@ -12,6 +12,7 @@ view : Model -> Html Msg
 view model =
     div [ mainMenuStyle ]
         [ br [] []
+        , br [] []
         , img [ src "/src/assets/other/ElmChessLogo.png" ] []
         , br [] []
         , br [] []

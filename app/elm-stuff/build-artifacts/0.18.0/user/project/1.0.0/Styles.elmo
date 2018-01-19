@@ -162,6 +162,12 @@ var _user$project$Styles$gameBoardStyle = _elm_lang$html$Html_Attributes$style(
 			}
 		}
 	});
+var _user$project$Styles$chessboardStyleTwo = _elm_lang$html$Html_Attributes$style(
+	{
+		ctor: '::',
+		_0: {ctor: '_Tuple2', _0: 'margin-top', _1: '60px'},
+		_1: {ctor: '[]'}
+	});
 var _user$project$Styles$chessboardStyle = _elm_lang$html$Html_Attributes$style(
 	{
 		ctor: '::',

@@ -13,7 +13,7 @@ import Types exposing (Board, Figure, Square)
 view : Model -> Html Msg
 view model =
     div [ Styles.gameBoardStyle ]
-        [ div [ Styles.chessboardStyle ] (renderBoard model)
+        [ div [ Styles.chessboardStyleTwo ] (renderBoard model)
         , button
             [ style
                 [ ( "background", "url(\"/src/assets/buttons/QuitGame.png\")" )

@@ -2,7 +2,7 @@ module GameOverMenu exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (src, style)
-import Html.Events exposing (onClick)
+import Html.Events exposing (onClick, onInput)
 import List
 import Model exposing (Model, Msg)
 import Styles exposing (mainMenuStyle)
@@ -16,7 +16,8 @@ view model =
         , br [] []
         , br [] []
         , input
-            [ style
+            [ onInput Model.NameChanged
+            , style
                 [ ( "height", "40px" )
                 , ( "width", "400px" )
                 , ( "align", "middle" )
@@ -32,6 +33,7 @@ view model =
                 , ( "width", "512px" )
                 , ( "height", "100px" )
                 ]
+            , onClick Model.PostHighscores
             ]
             []
         , br [] []

@@ -133,6 +133,15 @@ update msg model =
             , Cmd.none
             )
 
+        Model.GameOver ->
+            ( { model | route = Model.GameOverMenu, startTime = 0 }, Cmd.none )
+
+        Model.NameChanged name ->
+            ( { model | playersName = name }, Cmd.none )
+
+        Model.PostHighscores ->
+            ( { model | route = Model.MainMenu }, Model.postHighscores model.playersName (toString model.score) )
+
         Model.Tick newTime ->
             ( { model
                 | currTime = newTime

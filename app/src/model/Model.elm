@@ -38,6 +38,10 @@ type Msg
     | MoveFigurePlayerOne (Result Http.Error String)
     | MoveFigureAi (Result Http.Error Move)
     | QuitGame
+    | NameChanged String
+    | PostHighscores
+    | PostScore (Result Http.Error String)
+    | GameOver
 
 
 init : ( Model, Cmd Msg )
@@ -52,6 +56,7 @@ init =
       , currTime = 0
       , startTime = 0
       , score = 0
+      , playersName = ""
       }
     , getHighscores
     )
@@ -68,12 +73,17 @@ type alias Model =
     , currTime : Time
     , startTime : Time
     , score : Int
+    , playersName : String
     }
 
 
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Time.every second Tick
+
+
+postHighscores name score =
+    Http.send PostScore (ChessApi.postScore name score)
 
 
 

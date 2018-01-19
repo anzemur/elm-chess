@@ -71,7 +71,7 @@ var _user$project$Update$update = F2(
 				}
 			}();
 			var _p2 = msg;
-			_v2_15:
+			_v2_18:
 			do {
 				switch (_p2.ctor) {
 					case 'SquareSelected':
@@ -165,13 +165,13 @@ var _user$project$Update$update = F2(
 							model = _v7;
 							continue update;
 						} else {
-							break _v2_15;
+							break _v2_18;
 						}
 					case 'MoveFigurePlayerOne':
 						if (_p2._0.ctor === 'Ok') {
 							return {ctor: '_Tuple2', _0: model, _1: moveFigureAiCmd};
 						} else {
-							break _v2_15;
+							break _v2_18;
 						}
 					case 'ShowMainMenu':
 						return {
@@ -240,6 +240,33 @@ var _user$project$Update$update = F2(
 								}),
 							_1: _elm_lang$core$Platform_Cmd$none
 						};
+					case 'GameOver':
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{route: _user$project$Model$GameOverMenu, startTime: 0}),
+							_1: _elm_lang$core$Platform_Cmd$none
+						};
+					case 'NameChanged':
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{playersName: _p2._0}),
+							_1: _elm_lang$core$Platform_Cmd$none
+						};
+					case 'PostHighscores':
+						return {
+							ctor: '_Tuple2',
+							_0: _elm_lang$core$Native_Utils.update(
+								model,
+								{route: _user$project$Model$MainMenu}),
+							_1: A2(
+								_user$project$Model$postHighscores,
+								model.playersName,
+								_elm_lang$core$Basics$toString(model.score))
+						};
 					case 'Tick':
 						var _p11 = _p2._0;
 						return {
@@ -275,7 +302,7 @@ var _user$project$Update$update = F2(
 								_1: _elm_lang$core$Platform_Cmd$none
 							};
 						}
-					default:
+					case 'GameOneStart':
 						if (_p2._0.ctor === 'Ok') {
 							return {
 								ctor: '_Tuple2',
@@ -300,6 +327,8 @@ var _user$project$Update$update = F2(
 								_1: _elm_lang$core$Platform_Cmd$none
 							};
 						}
+					default:
+						break _v2_18;
 				}
 			} while(false);
 			return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};

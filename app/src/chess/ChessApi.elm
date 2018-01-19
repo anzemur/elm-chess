@@ -71,6 +71,27 @@ moveFigurePlayerOne game_id from to =
 
 
 
+-- Sends a players score to API
+
+
+postScore : String -> String -> Http.Request String
+postScore name score =
+    let
+        body =
+            Http.jsonBody
+                (Encode.object
+                    [ ( "name", Encode.string name )
+                    , ( "score", Encode.string score )
+                    ]
+                )
+    in
+    Http.post
+        (baseUrl ++ "highscores/add")
+        body
+        (field "name" string)
+
+
+
 -- Send the_game id to the backend to receive back the move that AI makes
 
 

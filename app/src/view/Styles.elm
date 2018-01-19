@@ -72,6 +72,11 @@ chessboardStyle =
         [ ( "margin-top", "2px" ) ]
 
 
+chessboardStyleTwo =
+    style
+        [ ( "margin-top", "60px" ) ]
+
+
 gameBoardStyle =
     style
         [ ( "position", "absolute" )
