@@ -28,22 +28,29 @@ squareStyle selected isBlack =
     let
         squareColor =
             if List.member Types.Check selected then
-                "red"
+                    "red"
             else if List.member Types.ChosenSquare selected then
-                "cyan"
-            else if List.member Types.AIRecommmends selected then
-                "rgb(155,89,182)"
+                    "cyan"
             else if List.member Types.PossibleMove selected then
-                "blue"
+                    "blue"
             else if List.member Types.SuccessfulMove selected then
-                "limegreen"
+                    "limegreen"
+<<<<<<< HEAD
+
+                Types.AIRecommmends ->
+                    "rgb(155,89,182)"
+
+        -- _ ->
+        --     "black"
+=======
             else if List.member Types.None selected then
-                if isBlack then
-                    "rgb(192, 152, 31)"
+              if isBlack then
+                "rgb(192, 152, 31)"
                 else
-                    "rgba(192, 152, 31,0.5)"
+                  "rgba(192, 152, 31,0.5)"
             else
-                "black"
+                    "black"
+>>>>>>> origin/sah-check
     in
     style
         [ ( "display", "inline-block" )

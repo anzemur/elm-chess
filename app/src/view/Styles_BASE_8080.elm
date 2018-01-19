@@ -27,23 +27,24 @@ figureImgSize =
 squareStyle selected isBlack =
     let
         squareColor =
-            if List.member Types.Check selected then
-                "red"
-            else if List.member Types.ChosenSquare selected then
-                "cyan"
-            else if List.member Types.AIRecommmends selected then
-                "rgb(155,89,182)"
-            else if List.member Types.PossibleMove selected then
-                "blue"
-            else if List.member Types.SuccessfulMove selected then
-                "limegreen"
-            else if List.member Types.None selected then
-                if isBlack then
-                    "rgb(192, 152, 31)"
-                else
-                    "rgba(192, 152, 31,0.5)"
-            else
-                "black"
+            case selected of
+                Types.None ->
+                    if isBlack then
+                        "rgb(192, 152, 31)"
+                    else
+                        "rgba(192, 152, 31,0.5)"
+
+                Types.ChosenSquare ->
+                    "cyan"
+
+                Types.PossibleMove ->
+                    "blue"
+
+                Types.SuccessfulMove ->
+                    "limegreen"
+
+                _ ->
+                    "black"
     in
     style
         [ ( "display", "inline-block" )
@@ -71,11 +72,6 @@ chessboardStyle =
         [ ( "margin-top", "2px" ) ]
 
 
-chessboardStyleTwo =
-    style
-        [ ( "margin-top", "60px" ) ]
-
-
 gameBoardStyle =
     style
         [ ( "position", "absolute" )
@@ -83,13 +79,15 @@ gameBoardStyle =
         , ( "top", "0px" )
         , ( "width", "100%" )
         , ( "height", "100%" )
-        , ( "background-image", "url(\"/src/assets/other/BackgroundBlue.png\")" )
+
+        --, ( "background-image", "url(\"/src/assets/other/BackgroundBlue.png\")" )
         , ( "background-size", "cover" )
         , ( "background-repeat", "no-repeat" )
         , ( "background-position", "center center" )
         , ( "text-align", "center" )
         , ( "color", "white" )
-        , ( "font-size", "35px" )
+        , ( "font-size", "40px" )
+        , ( "margin-top", "50px" )
         ]
 
 

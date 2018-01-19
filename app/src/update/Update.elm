@@ -4,7 +4,7 @@ import Board exposing (createInitialBoard)
 import ChessApi exposing (moveFigureAi, startGameOne)
 import Http
 import Model exposing (Model, Msg)
-import Moves exposing (returnPossibleMovesHighlighted, searchSquare)
+import Moves exposing (markCheck, returnPossibleMovesHighlighted, searchSquare)
 import Time
 import Types exposing (Board, Game, HighlightType, Square)
 
@@ -28,7 +28,7 @@ update msg model =
             let
                 changePlayer : Types.Color -> Board -> Types.Color
                 changePlayer color board =
-                    case (searchSquare board (\square -> square.highlightType == Types.SuccessfulMove)).pos of
+                    case (searchSquare board (\square -> List.member Types.SuccessfulMove square.highlightType)).pos of
                         ( -1, -1 ) ->
                             color
 
@@ -43,8 +43,20 @@ update msg model =
                                 _ ->
                                     Types.White
 
+                switchColor =
+                    case model.playerColor of
+                        Types.White ->
+                            Types.Black
+
+                        Types.Black ->
+                            Types.White
+
+                        _ ->
+                            Types.NoColor
+
+                highlightBoard : Board
                 highlightBoard =
-                    updateSquareHighlight model row col clickType
+                    markCheck (updateSquareHighlight model row col clickType) switchColor
 
                 -- Sends a command if a move happened on the Ai or player side
                 moveFigurePlayerCmd =
@@ -252,27 +264,39 @@ updateSquareHighlight model row col clickType =
                 | board =
                     updateBoard
                         (\square ->
-                            if square.pos == ( row, col ) && square.highlightType /= Types.ChosenSquare && model.playerColor == square.figure.color then
-                                { square | highlightType = Types.ChosenSquare }
+                            if square.pos == ( row, col ) && not (List.member Types.ChosenSquare square.highlightType) && model.playerColor == square.figure.color then
+                                { square | highlightType = [ Types.ChosenSquare ] }
                             else
-                                { square | highlightType = Types.None }
+                                { square
+                                    | highlightType =
+                                        if List.member Types.Check square.highlightType then
+                                            [ Types.None, Types.Check ]
+                                        else
+                                            [ Types.None ]
+                                }
                         )
             }
 
         Model.MoveFigure ->
             let
                 movedSquare =
-                    searchSquare currentBoard (\square -> square.highlightType == Types.ChosenSquare)
+                    searchSquare currentBoard (\square -> List.member Types.ChosenSquare square.highlightType)
             in
             { currentBoard
                 | board =
                     updateBoard
                         (\square ->
                             if square.pos == ( row, col ) then
-                                { square | highlightType = Types.SuccessfulMove, figure = movedSquare.figure }
+                                { square | highlightType = [ Types.SuccessfulMove ], figure = movedSquare.figure }
                             else if square.pos == movedSquare.pos then
-                                { square | highlightType = Types.None, figure = Types.Figure Types.Empty Types.NoColor "" }
+                                { square | highlightType = [ Types.None ], figure = Types.Figure Types.Empty Types.NoColor "" }
                             else
-                                { square | highlightType = Types.None }
+                                { square
+                                    | highlightType =
+                                        if List.member Types.Check square.highlightType then
+                                            [ Types.None, Types.Check ]
+                                        else
+                                            [ Types.None ]
+                                }
                         )
             }

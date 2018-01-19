@@ -16,53 +16,18 @@ var _user$project$Moves$searchSquare = F2(
 			return _p0._0;
 		} else {
 			return {
-				highlightType: _user$project$Types$None,
+				highlightType: {
+					ctor: '::',
+					_0: _user$project$Types$None,
+					_1: {ctor: '[]'}
+				},
 				pos: {ctor: '_Tuple2', _0: -1, _1: -1},
 				figure: {figureType: _user$project$Types$Empty, color: _user$project$Types$NoColor, img_src: ''}
 			};
 		}
 	});
-var _user$project$Moves$calcNext = F2(
-	function (vector, board) {
-		var nextSquare = F2(
-			function (row, col) {
-				return A2(
-					_user$project$Moves$searchSquare,
-					board,
-					function (square) {
-						return _elm_lang$core$Native_Utils.eq(
-							square.pos,
-							{ctor: '_Tuple2', _0: row, _1: col});
-					});
-			});
-		var _p1 = vector.next(vector.position).pos;
-		var _p3 = _p1._0;
-		var _p2 = _p1._1;
-		return ((_elm_lang$core$Native_Utils.cmp(_p3, 7) > 0) || ((_elm_lang$core$Native_Utils.cmp(_p3, 0) < 0) || ((_elm_lang$core$Native_Utils.cmp(_p2, 7) > 0) || ((_elm_lang$core$Native_Utils.cmp(_p2, 0) < 0) || (_elm_lang$core$Native_Utils.eq(vector.blockIn, 0) || _elm_lang$core$Native_Utils.eq(
-			A2(nextSquare, _p3, _p2).figure.color,
-			vector.position.figure.color)))))) ? _elm_lang$core$Native_Utils.update(
-			vector,
-			{
-				position: vector.next(vector.position),
-				isBlocked: true
-			}) : (((!_elm_lang$core$Native_Utils.eq(
-			A2(nextSquare, _p3, _p2).figure.color,
-			vector.position.figure.color)) && (!_elm_lang$core$Native_Utils.eq(
-			A2(nextSquare, _p3, _p2).figure.color,
-			_user$project$Types$NoColor))) ? _elm_lang$core$Native_Utils.update(
-			vector,
-			{
-				position: vector.next(vector.position),
-				blockIn: 0
-			}) : _elm_lang$core$Native_Utils.update(
-			vector,
-			{
-				position: vector.next(vector.position),
-				blockIn: vector.blockIn - 1
-			}));
-	});
-var _user$project$Moves$returnPossibleMovesHighlighted = function (board) {
-	var vectors = function (square) {
+var _user$project$Moves$vectors = F2(
+	function (board, square) {
 		var sideVectors = F2(
 			function (row, col) {
 				var nextColor = A2(
@@ -83,6 +48,7 @@ var _user$project$Moves$returnPossibleMovesHighlighted = function (board) {
 						blockIn: 1,
 						isBlocked: false,
 						position: square,
+						start: square,
 						next: function (square) {
 							return ((!_elm_lang$core$Native_Utils.eq(nextColor, square.figure.color)) && (!_elm_lang$core$Native_Utils.eq(nextColor, _user$project$Types$NoColor))) ? _elm_lang$core$Native_Utils.update(
 								square,
@@ -101,8 +67,8 @@ var _user$project$Moves$returnPossibleMovesHighlighted = function (board) {
 		var colSelect = _elm_lang$core$Tuple$second(square.pos);
 		var rowSelect = _elm_lang$core$Tuple$first(square.pos);
 		var forwardDistance = function () {
-			var _p4 = square.figure.color;
-			switch (_p4.ctor) {
+			var _p1 = square.figure.color;
+			switch (_p1.ctor) {
 				case 'Black':
 					return _elm_lang$core$Native_Utils.eq(rowSelect, 1) ? 2 : 1;
 				case 'White':
@@ -118,6 +84,7 @@ var _user$project$Moves$returnPossibleMovesHighlighted = function (board) {
 					blockIn: forwardDistance,
 					isBlocked: false,
 					position: square,
+					start: square,
 					next: function (square) {
 						return _elm_lang$core$Native_Utils.eq(
 							A2(
@@ -156,8 +123,9 @@ var _user$project$Moves$returnPossibleMovesHighlighted = function (board) {
 					function (a, b) {
 						return {
 							blockIn: -1,
-							isBlocked: false,
 							position: square,
+							start: square,
+							isBlocked: false,
 							next: function (square) {
 								return _elm_lang$core$Native_Utils.update(
 									square,
@@ -172,131 +140,117 @@ var _user$project$Moves$returnPossibleMovesHighlighted = function (board) {
 						};
 					}));
 		};
-		var _p5 = square.figure.figureType;
-		switch (_p5.ctor) {
-			case 'Rook':
-				return A3(
-					_elm_lang$core$List$map2,
-					F2(
-						function (vector, tupl) {
-							return A2(
-								vector,
-								_elm_lang$core$Tuple$first(tupl),
-								_elm_lang$core$Tuple$second(tupl));
-						}),
-					makeVectors(4),
-					{
+		var rook = A3(
+			_elm_lang$core$List$map2,
+			F2(
+				function (vector, tupl) {
+					return A2(
+						vector,
+						_elm_lang$core$Tuple$first(tupl),
+						_elm_lang$core$Tuple$second(tupl));
+				}),
+			makeVectors(4),
+			{
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 1, _1: 0},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: -1, _1: 0},
+					_1: {
 						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 1, _1: 0},
+						_0: {ctor: '_Tuple2', _0: 0, _1: 1},
 						_1: {
 							ctor: '::',
-							_0: {ctor: '_Tuple2', _0: -1, _1: 0},
-							_1: {
-								ctor: '::',
-								_0: {ctor: '_Tuple2', _0: 0, _1: 1},
-								_1: {
-									ctor: '::',
-									_0: {ctor: '_Tuple2', _0: 0, _1: -1},
-									_1: {ctor: '[]'}
-								}
-							}
+							_0: {ctor: '_Tuple2', _0: 0, _1: -1},
+							_1: {ctor: '[]'}
 						}
-					});
-			case 'Bishop':
-				return A3(
-					_elm_lang$core$List$map2,
-					F2(
-						function (vector, tupl) {
-							return A2(
-								vector,
-								_elm_lang$core$Tuple$first(tupl),
-								_elm_lang$core$Tuple$second(tupl));
-						}),
-					makeVectors(4),
-					{
+					}
+				}
+			});
+		var bishop = A3(
+			_elm_lang$core$List$map2,
+			F2(
+				function (vector, tupl) {
+					return A2(
+						vector,
+						_elm_lang$core$Tuple$first(tupl),
+						_elm_lang$core$Tuple$second(tupl));
+				}),
+			makeVectors(4),
+			{
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: 1, _1: 1},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: 1, _1: -1},
+					_1: {
 						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: 1, _1: 1},
+						_0: {ctor: '_Tuple2', _0: -1, _1: 1},
 						_1: {
 							ctor: '::',
-							_0: {ctor: '_Tuple2', _0: 1, _1: -1},
-							_1: {
-								ctor: '::',
-								_0: {ctor: '_Tuple2', _0: -1, _1: 1},
-								_1: {
-									ctor: '::',
-									_0: {ctor: '_Tuple2', _0: -1, _1: -1},
-									_1: {ctor: '[]'}
-								}
-							}
+							_0: {ctor: '_Tuple2', _0: -1, _1: -1},
+							_1: {ctor: '[]'}
 						}
-					});
-			case 'Queen':
-				var figura = square.figure;
-				return A2(
-					_elm_lang$core$Basics_ops['++'],
-					vectors(
-						_elm_lang$core$Native_Utils.update(
-							square,
-							{
-								figure: _elm_lang$core$Native_Utils.update(
-									figura,
-									{figureType: _user$project$Types$Rook})
-							})),
-					vectors(
-						_elm_lang$core$Native_Utils.update(
-							square,
-							{
-								figure: _elm_lang$core$Native_Utils.update(
-									figura,
-									{figureType: _user$project$Types$Bishop})
-							})));
-			case 'Knight':
-				return A3(
-					_elm_lang$core$List$map2,
-					F2(
-						function (vector, tupl) {
-							var myVector = A2(
-								vector,
-								_elm_lang$core$Tuple$first(tupl),
-								_elm_lang$core$Tuple$second(tupl));
-							return _elm_lang$core$Native_Utils.update(
-								myVector,
-								{blockIn: 1});
-						}),
-					makeVectors(8),
-					{
+					}
+				}
+			});
+		var queen = A2(_elm_lang$core$Basics_ops['++'], rook, bishop);
+		var knight = A3(
+			_elm_lang$core$List$map2,
+			F2(
+				function (vector, tupl) {
+					var myVector = A2(
+						vector,
+						_elm_lang$core$Tuple$first(tupl),
+						_elm_lang$core$Tuple$second(tupl));
+					return _elm_lang$core$Native_Utils.update(
+						myVector,
+						{blockIn: 1});
+				}),
+			makeVectors(8),
+			{
+				ctor: '::',
+				_0: {ctor: '_Tuple2', _0: -2, _1: 1},
+				_1: {
+					ctor: '::',
+					_0: {ctor: '_Tuple2', _0: -1, _1: 2},
+					_1: {
 						ctor: '::',
-						_0: {ctor: '_Tuple2', _0: -2, _1: 1},
+						_0: {ctor: '_Tuple2', _0: 1, _1: 2},
 						_1: {
 							ctor: '::',
-							_0: {ctor: '_Tuple2', _0: -1, _1: 2},
+							_0: {ctor: '_Tuple2', _0: 2, _1: 1},
 							_1: {
 								ctor: '::',
-								_0: {ctor: '_Tuple2', _0: 1, _1: 2},
+								_0: {ctor: '_Tuple2', _0: 2, _1: -1},
 								_1: {
 									ctor: '::',
-									_0: {ctor: '_Tuple2', _0: 2, _1: 1},
+									_0: {ctor: '_Tuple2', _0: 1, _1: -2},
 									_1: {
 										ctor: '::',
-										_0: {ctor: '_Tuple2', _0: 2, _1: -1},
+										_0: {ctor: '_Tuple2', _0: -1, _1: -2},
 										_1: {
 											ctor: '::',
-											_0: {ctor: '_Tuple2', _0: 1, _1: -2},
-											_1: {
-												ctor: '::',
-												_0: {ctor: '_Tuple2', _0: -1, _1: -2},
-												_1: {
-													ctor: '::',
-													_0: {ctor: '_Tuple2', _0: -2, _1: -1},
-													_1: {ctor: '[]'}
-												}
-											}
+											_0: {ctor: '_Tuple2', _0: -2, _1: -1},
+											_1: {ctor: '[]'}
 										}
 									}
 								}
 							}
 						}
-					});
+					}
+				}
+			});
+		var _p2 = square.figure.figureType;
+		switch (_p2.ctor) {
+			case 'Rook':
+				return rook;
+			case 'Bishop':
+				return bishop;
+			case 'Queen':
+				return queen;
+			case 'Knight':
+				return knight;
 			case 'King':
 				var figura = square.figure;
 				return A2(
@@ -306,17 +260,10 @@ var _user$project$Moves$returnPossibleMovesHighlighted = function (board) {
 							vector,
 							{blockIn: 1});
 					},
-					vectors(
-						_elm_lang$core$Native_Utils.update(
-							square,
-							{
-								figure: _elm_lang$core$Native_Utils.update(
-									figura,
-									{figureType: _user$project$Types$Queen})
-							})));
+					queen);
 			case 'Pawn':
-				var _p6 = square.figure.color;
-				switch (_p6.ctor) {
+				var _p3 = square.figure.color;
+				switch (_p3.ctor) {
 					case 'Black':
 						return A2(
 							_elm_lang$core$Basics_ops['++'],
@@ -339,7 +286,8 @@ var _user$project$Moves$returnPossibleMovesHighlighted = function (board) {
 							_0: {
 								isBlocked: true,
 								position: square,
-								next: function (_p7) {
+								start: square,
+								next: function (_p4) {
 									return square;
 								},
 								blockIn: -1
@@ -353,7 +301,8 @@ var _user$project$Moves$returnPossibleMovesHighlighted = function (board) {
 					_0: {
 						isBlocked: true,
 						position: square,
-						next: function (_p8) {
+						start: square,
+						next: function (_p5) {
 							return square;
 						},
 						blockIn: -1
@@ -361,8 +310,207 @@ var _user$project$Moves$returnPossibleMovesHighlighted = function (board) {
 					_1: {ctor: '[]'}
 				};
 		}
-	};
+	});
+var _user$project$Moves$calcNext = F2(
+	function (vector, board) {
+		var nextSquare = F2(
+			function (row, col) {
+				return A2(
+					_user$project$Moves$searchSquare,
+					board,
+					function (square) {
+						return _elm_lang$core$Native_Utils.eq(
+							square.pos,
+							{ctor: '_Tuple2', _0: row, _1: col});
+					});
+			});
+		var _p6 = vector.next(vector.position).pos;
+		var _p8 = _p6._0;
+		var _p7 = _p6._1;
+		return ((_elm_lang$core$Native_Utils.cmp(_p8, 7) > 0) || ((_elm_lang$core$Native_Utils.cmp(_p8, 0) < 0) || ((_elm_lang$core$Native_Utils.cmp(_p7, 7) > 0) || ((_elm_lang$core$Native_Utils.cmp(_p7, 0) < 0) || (_elm_lang$core$Native_Utils.eq(vector.blockIn, 0) || _elm_lang$core$Native_Utils.eq(
+			A2(nextSquare, _p8, _p7).figure.color,
+			vector.position.figure.color)))))) ? _elm_lang$core$Native_Utils.update(
+			vector,
+			{isBlocked: true}) : (((!_elm_lang$core$Native_Utils.eq(
+			A2(nextSquare, _p8, _p7).figure.color,
+			vector.position.figure.color)) && (!_elm_lang$core$Native_Utils.eq(
+			A2(nextSquare, _p8, _p7).figure.color,
+			_user$project$Types$NoColor))) ? _elm_lang$core$Native_Utils.update(
+			vector,
+			{
+				position: vector.next(vector.position),
+				blockIn: 0
+			}) : _elm_lang$core$Native_Utils.update(
+			vector,
+			{
+				position: vector.next(vector.position),
+				blockIn: vector.blockIn - 1
+			}));
+	});
+var _user$project$Moves$markCheck = F2(
+	function (board, color) {
+		var isInCheck = function (vector) {
+			isInCheck:
+			while (true) {
+				var endSquare = A2(
+					_user$project$Moves$searchSquare,
+					board,
+					function (sqr) {
+						return _elm_lang$core$Native_Utils.eq(sqr.pos, vector.position.pos);
+					});
+				if (vector.isBlocked) {
+					return (!_elm_lang$core$Native_Utils.eq(vector.position.figure.color, endSquare.figure.color)) && ((!_elm_lang$core$Native_Utils.eq(endSquare.figure.color, _user$project$Types$NoColor)) && _elm_lang$core$Native_Utils.eq(endSquare.figure.figureType, vector.position.figure.figureType));
+				} else {
+					var _v5 = A2(_user$project$Moves$calcNext, vector, board);
+					vector = _v5;
+					continue isInCheck;
+				}
+			}
+		};
+		var king = A2(
+			_user$project$Moves$searchSquare,
+			board,
+			function (square) {
+				return _elm_lang$core$Native_Utils.eq(square.figure.figureType, _user$project$Types$King) && _elm_lang$core$Native_Utils.eq(square.figure.color, color);
+			});
+		var vectorList = function () {
+			var figura = king.figure;
+			return A2(
+				_elm_lang$core$Basics_ops['++'],
+				A2(
+					_user$project$Moves$vectors,
+					board,
+					_elm_lang$core$Native_Utils.update(
+						king,
+						{
+							figure: _elm_lang$core$Native_Utils.update(
+								figura,
+								{figureType: _user$project$Types$Queen})
+						})),
+				A2(
+					_elm_lang$core$Basics_ops['++'],
+					A2(
+						_user$project$Moves$vectors,
+						board,
+						_elm_lang$core$Native_Utils.update(
+							king,
+							{
+								figure: _elm_lang$core$Native_Utils.update(
+									figura,
+									{figureType: _user$project$Types$Knight})
+							})),
+					A2(
+						_elm_lang$core$Basics_ops['++'],
+						A2(
+							_user$project$Moves$vectors,
+							board,
+							_elm_lang$core$Native_Utils.update(
+								king,
+								{
+									figure: _elm_lang$core$Native_Utils.update(
+										figura,
+										{figureType: _user$project$Types$Rook})
+								})),
+						A2(
+							_elm_lang$core$Basics_ops['++'],
+							A2(
+								_user$project$Moves$vectors,
+								board,
+								_elm_lang$core$Native_Utils.update(
+									king,
+									{
+										figure: _elm_lang$core$Native_Utils.update(
+											figura,
+											{figureType: _user$project$Types$Bishop})
+									})),
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								A2(
+									_user$project$Moves$vectors,
+									board,
+									_elm_lang$core$Native_Utils.update(
+										king,
+										{
+											figure: _elm_lang$core$Native_Utils.update(
+												figura,
+												{figureType: _user$project$Types$Pawn})
+										})),
+								A2(_user$project$Moves$vectors, board, king))))));
+		}();
+		var kingInCheck = A3(
+			_elm_lang$core$List$foldl,
+			F2(
+				function (vector, bool) {
+					return bool ? bool : isInCheck(vector);
+				}),
+			false,
+			vectorList);
+		return kingInCheck ? _user$project$Types$Board(
+			A2(
+				_elm_lang$core$List$map,
+				function (row) {
+					return A2(
+						_elm_lang$core$List$map,
+						function (square) {
+							return _elm_lang$core$Native_Utils.eq(square.pos, king.pos) ? _elm_lang$core$Native_Utils.update(
+								square,
+								{
+									highlightType: {ctor: '::', _0: _user$project$Types$Check, _1: square.highlightType}
+								}) : square;
+						},
+						row);
+				},
+				board.board)) : board;
+	});
+var _user$project$Moves$returnPossibleMovesHighlighted = function (board) {
 	var newBoard = function () {
+		var vectorList = A2(
+			_user$project$Moves$vectors,
+			board,
+			A2(
+				_user$project$Moves$searchSquare,
+				board,
+				function (square) {
+					return A2(_elm_lang$core$List$member, _user$project$Types$ChosenSquare, square.highlightType);
+				}));
+		var willInCheck = function (vector) {
+			var changedBoard = _user$project$Types$Board(
+				A2(
+					_elm_lang$core$List$map,
+					function (row) {
+						return A2(
+							_elm_lang$core$List$map,
+							function (square) {
+								return _elm_lang$core$Native_Utils.eq(square.pos, vector.start.pos) ? _elm_lang$core$Native_Utils.update(
+									square,
+									{
+										figure: A3(_user$project$Types$Figure, _user$project$Types$Empty, _user$project$Types$NoColor, '')
+									}) : (_elm_lang$core$Native_Utils.eq(square.pos, vector.position.pos) ? _elm_lang$core$Native_Utils.update(
+									square,
+									{figure: vector.position.figure}) : (_elm_lang$core$Native_Utils.eq(square.figure.figureType, _user$project$Types$King) ? _elm_lang$core$Native_Utils.update(
+									square,
+									{
+										highlightType: A2(
+											_elm_lang$core$List$filter,
+											function (typ) {
+												return !_elm_lang$core$Native_Utils.eq(typ, _user$project$Types$Check);
+											},
+											square.highlightType)
+									}) : square));
+							},
+							row);
+					},
+					board.board));
+			var markedKing = A2(_user$project$Moves$markCheck, changedBoard, vector.position.figure.color);
+			return !_elm_lang$core$Native_Utils.eq(
+				A2(
+					_user$project$Moves$searchSquare,
+					markedKing,
+					function (sqr) {
+						return _elm_lang$core$Native_Utils.eq(sqr.figure.color, vector.position.figure.color) && (_elm_lang$core$Native_Utils.eq(sqr.figure.figureType, _user$project$Types$King) && A2(_elm_lang$core$List$member, _user$project$Types$Check, sqr.highlightType));
+					}).pos,
+				{ctor: '_Tuple2', _0: -1, _1: -1});
+		};
 		var changeSquare = F2(
 			function (squareList, vector) {
 				return A2(
@@ -371,16 +519,18 @@ var _user$project$Moves$returnPossibleMovesHighlighted = function (board) {
 						return A2(
 							_elm_lang$core$List$map,
 							function (square) {
-								return (_elm_lang$core$Native_Utils.eq(vector.position.pos, square.pos) && (!_elm_lang$core$Native_Utils.eq(
+								return (_elm_lang$core$Native_Utils.eq(vector.position.pos, square.pos) && ((!_elm_lang$core$Native_Utils.eq(
 									square.pos,
 									A2(
 										_user$project$Moves$searchSquare,
 										board,
 										function (square) {
-											return _elm_lang$core$Native_Utils.eq(square.highlightType, _user$project$Types$ChosenSquare);
-										}).pos))) ? _elm_lang$core$Native_Utils.update(
+											return A2(_elm_lang$core$List$member, _user$project$Types$ChosenSquare, square.highlightType);
+										}).pos)) && (!willInCheck(vector)))) ? _elm_lang$core$Native_Utils.update(
 									square,
-									{highlightType: _user$project$Types$PossibleMove}) : square;
+									{
+										highlightType: {ctor: '::', _0: _user$project$Types$PossibleMove, _1: square.highlightType}
+									}) : square;
 							},
 							row);
 					},
@@ -391,23 +541,16 @@ var _user$project$Moves$returnPossibleMovesHighlighted = function (board) {
 				changeBoard:
 				while (true) {
 					if (_elm_lang$core$Native_Utils.eq(vector.isBlocked, false)) {
-						var _v5 = A2(changeSquare, squareList, vector),
-							_v6 = A2(_user$project$Moves$calcNext, vector, board);
-						squareList = _v5;
-						vector = _v6;
+						var _v6 = A2(changeSquare, squareList, vector),
+							_v7 = A2(_user$project$Moves$calcNext, vector, board);
+						squareList = _v6;
+						vector = _v7;
 						continue changeBoard;
 					} else {
 						return squareList;
 					}
 				}
 			});
-		var vectorList = vectors(
-			A2(
-				_user$project$Moves$searchSquare,
-				board,
-				function (square) {
-					return _elm_lang$core$Native_Utils.eq(square.highlightType, _user$project$Types$ChosenSquare);
-				}));
 		return A3(
 			_elm_lang$core$List$foldl,
 			F2(
@@ -421,7 +564,7 @@ var _user$project$Moves$returnPossibleMovesHighlighted = function (board) {
 		board,
 		{board: newBoard});
 };
-var _user$project$Moves$Vector = F4(
-	function (a, b, c, d) {
-		return {position: a, next: b, isBlocked: c, blockIn: d};
+var _user$project$Moves$Vector = F5(
+	function (a, b, c, d, e) {
+		return {position: a, start: b, next: c, isBlocked: d, blockIn: e};
 	});
