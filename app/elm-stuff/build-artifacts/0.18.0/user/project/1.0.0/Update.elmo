@@ -88,114 +88,6 @@ var _user$project$Update$update = F2(
 					return _elm_lang$core$Platform_Cmd$none;
 				}
 			}();
-<<<<<<< HEAD
-			var _p2 = msg;
-			_v2_18:
-			do {
-				switch (_p2.ctor) {
-					case 'SquareSelected':
-						var _p8 = _p2._0;
-						var _p7 = _p2._1;
-						var _p6 = _p2._2;
-						var moveFigurePlayerCmd = function () {
-							var _p3 = {ctor: '_Tuple2', _0: _p6, _1: model.playerColor};
-							if (((_p3.ctor === '_Tuple2') && (_p3._0.ctor === 'MoveFigure')) && (_p3._1.ctor === 'White')) {
-								return A3(
-									_user$project$Model$moveFigurePlayerOne,
-									model.game.gameId,
-									model.selectedSquare,
-									{ctor: '_Tuple2', _0: _p8, _1: _p7});
-							} else {
-								return _elm_lang$core$Platform_Cmd$none;
-							}
-						}();
-						var highlightBoard = A4(_user$project$Update$updateSquareHighlight, model, _p8, _p7, _p6);
-						var changePlayer = F2(
-							function (color, board) {
-								var _p4 = A2(
-									_user$project$Moves$searchSquare,
-									board,
-									function (square) {
-										return _elm_lang$core$Native_Utils.eq(square.highlightType, _user$project$Types$SuccessfulMove);
-									}).pos;
-								if (((_p4.ctor === '_Tuple2') && (_p4._0 === -1)) && (_p4._1 === -1)) {
-									return color;
-								} else {
-									var _p5 = color;
-									switch (_p5.ctor) {
-										case 'Black':
-											return _user$project$Types$White;
-										case 'White':
-											return _user$project$Types$Black;
-										default:
-											return _user$project$Types$White;
-									}
-								}
-							});
-						return {
-							ctor: '_Tuple2',
-							_0: _elm_lang$core$Native_Utils.update(
-								model,
-								{
-									selectedSquare: {ctor: '_Tuple2', _0: _p8, _1: _p7},
-									board: _user$project$Moves$returnPossibleMovesHighlighted(highlightBoard),
-									playerColor: A2(changePlayer, model.playerColor, highlightBoard)
-								}),
-							_1: moveFigurePlayerCmd
-						};
-					case 'MoveFigureAi':
-						if (_p2._0.ctor === 'Ok') {
-							var _p10 = _p2._0._0;
-							var _p9 = A2(
-								_elm_lang$core$Debug$log,
-								' ',
-								_elm_lang$core$Basics$toString(_p10));
-							var _v6 = A3(
-								_user$project$Model$SquareSelected,
-								_elm_lang$core$Tuple$second(_p10.to),
-								_elm_lang$core$Tuple$first(_p10.to),
-								_user$project$Model$MoveFigure),
-								_v7 = _elm_lang$core$Native_Utils.update(
-								model,
-								{
-									board: {
-										board: A2(
-											_elm_lang$core$List$indexedMap,
-											F2(
-												function (idxRow, row) {
-													return _elm_lang$core$Native_Utils.eq(
-														_elm_lang$core$Tuple$second(_p10.from),
-														idxRow) ? A2(
-														_elm_lang$core$List$indexedMap,
-														F2(
-															function (idxCol, sqr) {
-																return _elm_lang$core$Native_Utils.eq(
-																	_elm_lang$core$Tuple$first(_p10.from),
-																	idxCol) ? _elm_lang$core$Native_Utils.update(
-																	sqr,
-																	{highlightType: _user$project$Types$ChosenSquare, pos: sqr.pos}) : sqr;
-															}),
-														row) : row;
-												}),
-											model.board.board)
-									}
-								});
-							msg = _v6;
-							model = _v7;
-							continue update;
-						} else {
-							break _v2_18;
-						}
-					case 'MoveFigurePlayerOne':
-						if (_p2._0.ctor === 'Ok') {
-							return {ctor: '_Tuple2', _0: model, _1: moveFigureAiCmd};
-						} else {
-<<<<<<< HEAD
-							break _v2_18;
-=======
-							break _v2_15;
->>>>>>> 98b5358bf4cffc5f4f032997220db2f3c8bbb226
-=======
 			var _p3 = msg;
 			switch (_p3.ctor) {
 				case 'SquareSelected':
@@ -212,7 +104,6 @@ var _user$project$Update$update = F2(
 								{ctor: '_Tuple2', _0: _p9, _1: _p8});
 						} else {
 							return _elm_lang$core$Platform_Cmd$none;
->>>>>>> Added checkmate source
 						}
 					}();
 					var highlightBoard = A4(_user$project$Update$updateSquareHighlight, model, _p9, _p8, _p7);
@@ -322,6 +213,36 @@ var _user$project$Update$update = F2(
 							}),
 						_1: _elm_lang$core$Platform_Cmd$none
 					};
+				case 'GameOver':
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{
+								route: model.winner ? _user$project$Model$GameOverMenu : _user$project$Model$GameOverLost,
+								startTime: 0
+							}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				case 'NameChanged':
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{playersName: _p3._0}),
+						_1: _elm_lang$core$Platform_Cmd$none
+					};
+				case 'PostHighscores':
+					return {
+						ctor: '_Tuple2',
+						_0: _elm_lang$core$Native_Utils.update(
+							model,
+							{route: _user$project$Model$MainMenu}),
+						_1: A2(
+							_user$project$Model$postHighscores,
+							model.playersName,
+							_elm_lang$core$Basics$toString(model.score))
+					};
 				case 'Tick':
 					var _p15 = _p3._0;
 					return {
@@ -344,78 +265,11 @@ var _user$project$Update$update = F2(
 								{highscores: _p3._0._0}),
 							_1: _elm_lang$core$Platform_Cmd$none
 						};
-<<<<<<< HEAD
-					case 'OnePlayerGame':
-						return {
-							ctor: '_Tuple2',
-							_0: _elm_lang$core$Native_Utils.update(
-								model,
-								{route: _user$project$Model$GameOne}),
-							_1: _user$project$Model$startGameOne
-						};
-					case 'TwoPlayerGame':
-						return {
-							ctor: '_Tuple2',
-							_0: _elm_lang$core$Native_Utils.update(
-								model,
-								{route: _user$project$Model$GameTwo}),
-							_1: _elm_lang$core$Platform_Cmd$none
-						};
-					case 'QuitGame':
-						return {
-							ctor: '_Tuple2',
-							_0: _elm_lang$core$Native_Utils.update(
-								model,
-								{
-									route: _user$project$Model$MainMenu,
-									selectedSquare: {ctor: '_Tuple2', _0: -1, _1: -1},
-									playerColor: _user$project$Types$White,
-									errors: {ctor: '[]'},
-									game: {gameType: _user$project$Types$NoGame, gameId: ''},
-									board: _user$project$Board$createInitialBoard,
-									highscores: {ctor: '[]'},
-									currTime: 0,
-									startTime: 0,
-									score: 0
-								}),
-							_1: _elm_lang$core$Platform_Cmd$none
-						};
-					case 'GameOver':
-						return {
-							ctor: '_Tuple2',
-							_0: _elm_lang$core$Native_Utils.update(
-								model,
-								{route: _user$project$Model$GameOverMenu, startTime: 0}),
-							_1: _elm_lang$core$Platform_Cmd$none
-						};
-					case 'NameChanged':
-						return {
-							ctor: '_Tuple2',
-							_0: _elm_lang$core$Native_Utils.update(
-								model,
-								{playersName: _p2._0}),
-							_1: _elm_lang$core$Platform_Cmd$none
-						};
-					case 'PostHighscores':
-						return {
-							ctor: '_Tuple2',
-							_0: _elm_lang$core$Native_Utils.update(
-								model,
-								{route: _user$project$Model$MainMenu}),
-							_1: A2(
-								_user$project$Model$postHighscores,
-								model.playersName,
-								_elm_lang$core$Basics$toString(model.score))
-						};
-					case 'Tick':
-						var _p11 = _p2._0;
-=======
 					} else {
 						return A2(_user$project$Update$printErrors, _p3._0._0, model);
 					}
 				case 'GameOneStart':
 					if (_p3._0.ctor === 'Ok') {
->>>>>>> Added checkmate source
 						return {
 							ctor: '_Tuple2',
 							_0: _elm_lang$core$Native_Utils.update(
@@ -428,60 +282,6 @@ var _user$project$Update$update = F2(
 								}),
 							_1: _elm_lang$core$Platform_Cmd$none
 						};
-<<<<<<< HEAD
-					case 'Highscores':
-						if (_p2._0.ctor === 'Ok') {
-							return {
-								ctor: '_Tuple2',
-								_0: _elm_lang$core$Native_Utils.update(
-									model,
-									{highscores: _p2._0._0}),
-								_1: _elm_lang$core$Platform_Cmd$none
-							};
-						} else {
-							var _p13 = _p2._0._0;
-							var _p12 = A2(_elm_lang$core$Debug$log, 'highscores get err', _p13);
-							return {
-								ctor: '_Tuple2',
-								_0: _elm_lang$core$Native_Utils.update(
-									model,
-									{
-										errors: {ctor: '::', _0: _p13, _1: model.errors}
-									}),
-								_1: _elm_lang$core$Platform_Cmd$none
-							};
-						}
-					case 'GameOneStart':
-						if (_p2._0.ctor === 'Ok') {
-							return {
-								ctor: '_Tuple2',
-								_0: _elm_lang$core$Native_Utils.update(
-									model,
-									{
-										startTime: model.currTime,
-										game: {gameType: _user$project$Types$PlayerVsAi, gameId: _p2._0._0}
-									}),
-								_1: _elm_lang$core$Platform_Cmd$none
-							};
-						} else {
-							var _p15 = _p2._0._0;
-							var _p14 = A2(_elm_lang$core$Debug$log, 'highscores get err', _p15);
-							return {
-								ctor: '_Tuple2',
-								_0: _elm_lang$core$Native_Utils.update(
-									model,
-									{
-										errors: {ctor: '::', _0: _p15, _1: model.errors}
-									}),
-								_1: _elm_lang$core$Platform_Cmd$none
-							};
-						}
-					default:
-						break _v2_18;
-				}
-			} while(false);
-			return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
-=======
 					} else {
 						return A2(_user$project$Update$printErrors, _p3._0._0, model);
 					}
@@ -538,7 +338,7 @@ var _user$project$Update$update = F2(
 					} else {
 						return A2(_user$project$Update$printErrors, _p3._0._0, model);
 					}
-				default:
+				case 'PlayerVsAiHelp':
 					if (_p3._0.ctor === 'Ok') {
 						var _p14 = _p3._0._0;
 						var _p13 = A2(
@@ -559,7 +359,12 @@ var _user$project$Update$update = F2(
 					} else {
 						return A2(_user$project$Update$printErrors, _p3._0._0, model);
 					}
+				default:
+					if (_p3._0.ctor === 'Ok') {
+						return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+					} else {
+						return A2(_user$project$Update$printErrors, _p3._0._0, model);
+					}
 			}
->>>>>>> Added checkmate source
 		}
 	});

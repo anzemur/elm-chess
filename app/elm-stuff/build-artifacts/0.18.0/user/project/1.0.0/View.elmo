@@ -11,8 +11,10 @@ var _user$project$View$showView = function (model) {
 			return _user$project$GameBoardOne$view(model);
 		case 'GameTwo':
 			return _user$project$GameBoardTwo$view(model);
-		default:
+		case 'GameOverMenu':
 			return _user$project$GameOverMenu$view(model);
+		default:
+			return _user$project$GameOverLost$view(model);
 	}
 };
 var _user$project$View$view = function (model) {
