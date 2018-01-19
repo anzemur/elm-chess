@@ -131,8 +131,25 @@ update msg model =
         Model.OnePlayerGame ->
             ( { model | route = Model.GameOne }, Model.startGameOne )
 
-        --Model.TwoPlayerGame ->
-        --( { model | route = Model.Game }, Model.startGameOne )
+        Model.TwoPlayerGame ->
+            ( { model | route = Model.GameTwo }, Cmd.none )
+
+        Model.QuitGame ->
+            ( { model
+                | route = Model.MainMenu
+                , selectedSquare = ( -1, -1 )
+                , playerColor = Types.White
+                , errors = []
+                , game = { gameType = Types.NoGame, gameId = "" }
+                , board = createInitialBoard
+                , highscores = []
+                , currTime = 0
+                , startTime = 0
+                , score = 0
+              }
+            , Cmd.none
+            )
+
         Model.Tick newTime ->
             ( { model
                 | currTime = newTime

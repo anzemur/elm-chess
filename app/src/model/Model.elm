@@ -39,6 +39,7 @@ type Msg
     | MoveFigureAi (Result Http.Error Move)
     | PlayerVsAiHelp (Result Http.Error Move)
     | Help
+    | QuitGame
 
 
 init : ( Model, Cmd Msg )
