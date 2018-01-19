@@ -145,7 +145,20 @@ update msg model =
             ( { model | route = Model.GameOne }, Model.startGameOne )
 
         Model.TwoPlayerGame ->
-            ( { model | route = Model.GameTwo }, Cmd.none )
+            ( { model
+                | route = Model.GameTwo
+                , selectedSquare = ( -1, -1 )
+                , playerColor = Types.White
+                , errors = []
+                , game = { gameType = Types.NoGame, gameId = "" }
+                , board = createInitialBoard
+                , highscores = []
+                , currTime = 0
+                , startTime = 0
+                , score = 0
+              }
+            , Cmd.none
+            )
 
         Model.QuitGame ->
             ( { model
@@ -196,9 +209,6 @@ update msg model =
             , Cmd.none
             )
 
-        Model.PostScore (Ok val) ->
-            ( model, Cmd.none )
-
         -- HTTP ERROR HANDLING
         Model.Highscores (Err e) ->
             printErrors e model
@@ -215,12 +225,9 @@ update msg model =
         Model.PlayerVsAiHelp (Err e) ->
             printErrors e model
 
-<<<<<<< HEAD
         Model.CheckmateCheck (Err e) ->
             printErrors e model
 
-=======
->>>>>>> 9b9028037d3dc09e767b72c9514641d4ec7b994d
         Model.PostScore (Err e) ->
             printErrors e model
 

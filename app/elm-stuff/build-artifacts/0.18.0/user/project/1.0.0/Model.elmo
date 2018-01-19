@@ -11,13 +11,9 @@ var _user$project$Model$Model = function (a) {
 										return function (k) {
 											return function (l) {
 												return function (m) {
-<<<<<<< HEAD
-													return {selectedSquare: a, playerColor: b, board: c, game: d, highscores: e, errors: f, route: g, currTime: h, startTime: i, score: j, tipCount: k, helpHighlightPos: l, playersName: m};
-=======
 													return function (n) {
 														return {selectedSquare: a, playerColor: b, board: c, game: d, highscores: e, errors: f, route: g, currTime: h, startTime: i, score: j, tipCount: k, helpHighlightPos: l, playersName: m, winner: n};
 													};
->>>>>>> 9b9028037d3dc09e767b72c9514641d4ec7b994d
 												};
 											};
 										};
@@ -40,7 +36,6 @@ var _user$project$Model$GameOne = {ctor: 'GameOne'};
 var _user$project$Model$GameTypeMenu = {ctor: 'GameTypeMenu'};
 var _user$project$Model$HighscoresMenu = {ctor: 'HighscoresMenu'};
 var _user$project$Model$MainMenu = {ctor: 'MainMenu'};
-<<<<<<< HEAD
 var _user$project$Model$CheckmateCheck = function (a) {
 	return {ctor: 'CheckmateCheck', _0: a};
 };
@@ -50,8 +45,6 @@ var _user$project$Model$playervsAiCheckmateCheck = function (game_id) {
 		_user$project$Model$CheckmateCheck,
 		_user$project$ChessApi$playervsAiCheckmateCheck(game_id));
 };
-=======
->>>>>>> 9b9028037d3dc09e767b72c9514641d4ec7b994d
 var _user$project$Model$GameOver = {ctor: 'GameOver'};
 var _user$project$Model$PostScore = function (a) {
 	return {ctor: 'PostScore', _0: a};
@@ -132,12 +125,8 @@ var _user$project$Model$init = {
 		score: 0,
 		tipCount: 15,
 		helpHighlightPos: {ctor: '_Tuple2', _0: -1, _1: -1},
-<<<<<<< HEAD
-		playersName: ''
-=======
 		playersName: '',
 		winner: false
->>>>>>> 9b9028037d3dc09e767b72c9514641d4ec7b994d
 	},
 	_1: _user$project$Model$getHighscores
 };
