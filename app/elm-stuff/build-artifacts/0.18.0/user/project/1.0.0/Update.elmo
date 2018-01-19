@@ -90,24 +90,6 @@ var _user$project$Update$update = F2(
 					return _elm_lang$core$Platform_Cmd$none;
 				}
 			}();
-<<<<<<< HEAD
-			var _p3 = msg;
-			switch (_p3.ctor) {
-				case 'SquareSelected':
-					var _p9 = _p3._0;
-					var _p8 = _p3._1;
-					var _p7 = _p3._2;
-					var moveFigurePlayerCmd = function () {
-						var _p4 = {ctor: '_Tuple2', _0: _p7, _1: model.playerColor};
-						if (((_p4.ctor === '_Tuple2') && (_p4._0.ctor === 'MoveFigure')) && (_p4._1.ctor === 'White')) {
-							return A3(
-								_user$project$Model$moveFigurePlayerOne,
-								model.game.gameId,
-								model.selectedSquare,
-								{ctor: '_Tuple2', _0: _p9, _1: _p8});
-						} else {
-							return _elm_lang$core$Platform_Cmd$none;
-=======
 			var _p2 = msg;
 			_v2_18:
 			do {
@@ -213,7 +195,6 @@ var _user$project$Update$update = F2(
 							break _v2_18;
 =======
 							break _v2_15;
->>>>>>> bd2d91ab97f72672aef20d79f6f5723c05de9abd
 >>>>>>> 98b5358bf4cffc5f4f032997220db2f3c8bbb226
 						}
 					}();
@@ -319,13 +300,6 @@ var _user$project$Update$update = F2(
 								{highscores: _p3._0._0}),
 							_1: _elm_lang$core$Platform_Cmd$none
 						};
-<<<<<<< HEAD
-					} else {
-						return A2(_user$project$Update$printErrors, _p3._0._0, model);
-					}
-				case 'GameOneStart':
-					if (_p3._0.ctor === 'Ok') {
-=======
 					case 'OnePlayerGame':
 						return {
 							ctor: '_Tuple2',
@@ -390,7 +364,6 @@ var _user$project$Update$update = F2(
 						};
 					case 'Tick':
 						var _p11 = _p2._0;
->>>>>>> bd2d91ab97f72672aef20d79f6f5723c05de9abd
 						return {
 							ctor: '_Tuple2',
 							_0: _elm_lang$core$Native_Utils.update(
@@ -403,88 +376,6 @@ var _user$project$Update$update = F2(
 								}),
 							_1: _elm_lang$core$Platform_Cmd$none
 						};
-<<<<<<< HEAD
-					} else {
-						return A2(_user$project$Update$printErrors, _p3._0._0, model);
-					}
-				case 'MoveFigurePlayerOne':
-					if (_p3._0.ctor === 'Ok') {
-						var _p12 = A2(
-							_elm_lang$core$Debug$log,
-							'MoveFigPlayerOne result',
-							_elm_lang$core$Basics$toString(_p3._0._0));
-						return {ctor: '_Tuple2', _0: model, _1: moveFigureAiCmd};
-					} else {
-						return A2(_user$project$Update$printErrors, _p3._0._0, model);
-					}
-				case 'MoveFigureAi':
-					if (_p3._0.ctor === 'Ok') {
-						var _p11 = _p3._0._0;
-						var _p10 = A2(
-							_elm_lang$core$Debug$log,
-							' ',
-							_elm_lang$core$Basics$toString(_p11));
-						var _v6 = A3(
-							_user$project$Model$SquareSelected,
-							_elm_lang$core$Tuple$second(_p11.to),
-							_elm_lang$core$Tuple$first(_p11.to),
-							_user$project$Model$MoveFigure),
-							_v7 = _elm_lang$core$Native_Utils.update(
-							model,
-							{
-								board: {
-									board: A2(
-										_elm_lang$core$List$indexedMap,
-										F2(
-											function (idxRow, row) {
-												return _elm_lang$core$Native_Utils.eq(
-													_elm_lang$core$Tuple$second(_p11.from),
-													idxRow) ? A2(
-													_elm_lang$core$List$indexedMap,
-													F2(
-														function (idxCol, sqr) {
-															return _elm_lang$core$Native_Utils.eq(
-																_elm_lang$core$Tuple$first(_p11.from),
-																idxCol) ? _elm_lang$core$Native_Utils.update(
-																sqr,
-																{highlightType: _user$project$Types$ChosenSquare, pos: sqr.pos}) : sqr;
-														}),
-													row) : row;
-											}),
-										model.board.board)
-								}
-							});
-						msg = _v6;
-						model = _v7;
-						continue update;
-					} else {
-						return A2(_user$project$Update$printErrors, _p3._0._0, model);
-					}
-				case 'PlayerVsAiHelp':
-					if (_p3._0.ctor === 'Ok') {
-						var _p14 = _p3._0._0;
-						var _p13 = A2(
-							_elm_lang$core$Debug$log,
-							' ',
-							_elm_lang$core$Basics$toString(_p14));
-						var _v8 = A3(
-							_user$project$Model$SquareSelected,
-							_elm_lang$core$Tuple$second(_p14.from),
-							_elm_lang$core$Tuple$first(_p14.from),
-							_user$project$Model$FirstClick),
-							_v9 = _elm_lang$core$Native_Utils.update(
-							model,
-							{helpHighlightPos: _p14.to});
-						msg = _v8;
-						model = _v9;
-						continue update;
-					} else {
-						return A2(_user$project$Update$printErrors, _p3._0._0, model);
-					}
-				default:
-					return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
-			}
-=======
 					case 'Highscores':
 						if (_p2._0.ctor === 'Ok') {
 							return {
@@ -537,6 +428,5 @@ var _user$project$Update$update = F2(
 				}
 			} while(false);
 			return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
->>>>>>> bd2d91ab97f72672aef20d79f6f5723c05de9abd
 		}
 	});

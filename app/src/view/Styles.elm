@@ -43,8 +43,11 @@ squareStyle selected isBlack =
                 Types.SuccessfulMove ->
                     "limegreen"
 
-                _ ->
-                    "black"
+                Types.AIRecommmends ->
+                    "rgb(155,89,182)"
+
+        -- _ ->
+        --     "black"
     in
     style
         [ ( "display", "inline-block" )
