@@ -129,3 +129,33 @@ parseApiPosition str =
         )
         ( 0, 0 )
         charList
+
+
+playerVsAiHelp game_id =
+    let
+        body =
+            Http.jsonBody
+                (Encode.object
+                    [ ( "game_id", Encode.string game_id ) ]
+                )
+    in
+    Http.post
+        (baseUrl ++ "chess/one/help")
+        body
+        playerVsAiHelpEncoder
+
+
+playerVsAiHelpEncoder : Decoder Move
+playerVsAiHelpEncoder =
+    map2
+        (\fromz toz ->
+            let
+                _ =
+                    Debug.log "PlayerVsAiEncoderHelp: " (fromz ++ " " ++ toz)
+            in
+            { from = parseApiPosition fromz
+            , to = parseApiPosition toz
+            }
+        )
+        (field "from" string)
+        (field "to" string)

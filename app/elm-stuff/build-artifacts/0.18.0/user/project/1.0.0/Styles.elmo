@@ -187,7 +187,7 @@ var _user$project$Styles$squareStyle = F2(
 				case 'SuccessfulMove':
 					return 'limegreen';
 				default:
-					return 'black';
+					return 'rgb(155,89,182)';
 			}
 		}();
 		return _elm_lang$html$Html_Attributes$style(

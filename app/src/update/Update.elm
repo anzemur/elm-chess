@@ -1,5 +1,6 @@
 module Update exposing (..)
 
+import Board exposing (createInitialBoard)
 import ChessApi exposing (startGameOne)
 import Http
 import Model exposing (Model, Msg)
@@ -58,6 +59,8 @@ update msg model =
                 | selectedSquare = ( row, col )
                 , board = returnPossibleMovesHighlighted highlightBoard
                 , playerColor = changePlayer model.playerColor highlightBoard
+
+                -- , helpHighlightPos = ( -1, -1 )
               }
             , moveFigurePlayerCmd
             )
@@ -66,7 +69,7 @@ update msg model =
             ( { model | highscores = highscores }, Cmd.none )
 
         Model.GameOneStart (Ok game_id) ->
-            ( { model | startTime = model.currTime, game = { gameType = Types.PlayerVsAi, gameId = game_id } }, Cmd.none )
+            ( { model | startTime = model.currTime, game = { gameType = Types.PlayerVsAi, gameId = game_id }, board = createInitialBoard, playerColor = Types.White }, Cmd.none )
 
         Model.MoveFigureAi (Ok move) ->
             let
@@ -96,7 +99,22 @@ update msg model =
                 }
 
         Model.MoveFigurePlayerOne (Ok result) ->
+            let
+                _ =
+                    Debug.log "MoveFigPlayerOne result" (toString result)
+            in
             ( model, moveFigureAiCmd )
+
+        Model.Help ->
+            ( model, Model.playerVsAiHelp model.game.gameId )
+
+        Model.PlayerVsAiHelp (Ok move) ->
+            let
+                _ =
+                    Debug.log " " (toString move)
+            in
+            update (Model.SquareSelected (Tuple.second move.from) (Tuple.first move.from) Model.FirstClick)
+                { model | helpHighlightPos = move.to }
 
         Model.ShowMainMenu ->
             ( { model | route = Model.MainMenu }, Cmd.none )
@@ -129,30 +147,30 @@ update msg model =
 
         -- HTTP ERROR HANDLING
         Model.Highscores (Err e) ->
-            let
-                _ =
-                    Debug.log "highscores get err" e
-            in
-            ( { model | errors = e :: model.errors }, Cmd.none )
+            printErrors e model
 
         Model.GameOneStart (Err e) ->
-            let
-                _ =
-                    Debug.log "highscores get err" e
-            in
-            ( { model | errors = e :: model.errors }, Cmd.none )
+            printErrors e model
 
-        _ ->
+        Model.MoveFigurePlayerOne (Err e) ->
+            printErrors e model
+
+        Model.MoveFigureAi (Err e) ->
+            printErrors e model
+
+        Model.PlayerVsAiHelp (Err e) ->
+            printErrors e model
+
+        Model.TwoPlayerGame ->
             ( model, Cmd.none )
 
 
-
--- Model.MoveFigureAi (Err e) ->
---     let
---         _ =
---             Debug.log "MoveFigureAi err" e
---     in
---     ( model, Cmd.none )
+printErrors e model =
+    let
+        _ =
+            Debug.log "Http error:" e
+    in
+    ( { model | errors = e :: model.errors }, Cmd.none )
 
 
 updateSquareHighlight : Model -> Int -> Int -> Model.ClickType -> Board
@@ -170,6 +188,9 @@ updateSquareHighlight model row col clickType =
                         rowlist
                 )
                 model.board.board
+
+        helpHighlightPosReverse =
+            ( Tuple.second model.helpHighlightPos, Tuple.first model.helpHighlightPos )
     in
     case clickType of
         Model.FirstClick ->

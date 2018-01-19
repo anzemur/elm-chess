@@ -38,6 +38,7 @@ view model =
                 , ( "height", "50px" )
                 , ( "margin-left", "60px" )
                 ]
+            , onClick Model.Help
             ]
             []
         ]
