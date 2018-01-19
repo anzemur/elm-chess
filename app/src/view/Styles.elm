@@ -27,7 +27,9 @@ figureImgSize =
 squareStyle selected isBlack =
     let
         squareColor =
-            if List.member Types.ChosenSquare selected then
+            if List.member Types.Check selected then
+                    "red"
+            else if List.member Types.ChosenSquare selected then
                     "cyan"
             else if List.member Types.PossibleMove selected then
                     "blue"

@@ -3,7 +3,7 @@ module Update exposing (..)
 import ChessApi exposing (startGameOne)
 import Http
 import Model exposing (Model, Msg)
-import Moves exposing (returnPossibleMovesHighlighted, searchSquare)
+import Moves exposing (returnPossibleMovesHighlighted, searchSquare, markCheck)
 import Time
 import Types exposing (Board, Game, HighlightType, Square)
 
@@ -33,8 +33,15 @@ update msg model =
                                 _ ->
                                     Types.White
 
+                switchColor =
+                  case model.playerColor of
+                    Types.White -> Types.Black
+                    Types.Black -> Types.White
+                    _ -> Types.NoColor
+
+                highlightBoard : Board
                 highlightBoard =
-                    updateSquareHighlight model row col clickType
+                    markCheck (updateSquareHighlight model row col clickType) switchColor
             in
             ( { model
                 | selectedSquare = ( row, col )
@@ -118,9 +125,9 @@ updateSquareHighlight model row col clickType =
                     updateBoard
                         (\square ->
                             if square.pos == ( row, col ) && not (List.member Types.ChosenSquare square.highlightType) && model.playerColor == square.figure.color then
-                                { square | highlightType = Types.ChosenSquare::square.highlightType }
+                                { square | highlightType = [Types.ChosenSquare]}
                             else
-                                { square | highlightType = [Types.None] }
+                                { square | highlightType = if List.member Types.Check square.highlightType then [Types.None, Types.Check] else [Types.None] }
                         )
             }
 
@@ -138,6 +145,6 @@ updateSquareHighlight model row col clickType =
                             else if square.pos == movedSquare.pos then
                                 { square | highlightType = [Types.None], figure = Types.Figure Types.Empty Types.NoColor "" }
                             else
-                                { square | highlightType = [Types.None] }
+                                { square | highlightType = if List.member Types.Check square.highlightType then [Types.None, Types.Check] else [Types.None] }
                         )
             }

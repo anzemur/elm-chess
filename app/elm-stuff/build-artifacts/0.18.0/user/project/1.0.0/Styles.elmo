@@ -175,7 +175,7 @@ var _user$project$Styles$squareSize = A2(
 	'px');
 var _user$project$Styles$squareStyle = F2(
 	function (selected, isBlack) {
-		var squareColor = A2(_elm_lang$core$List$member, _user$project$Types$ChosenSquare, selected) ? 'cyan' : (A2(_elm_lang$core$List$member, _user$project$Types$PossibleMove, selected) ? 'blue' : (A2(_elm_lang$core$List$member, _user$project$Types$SuccessfulMove, selected) ? 'limegreen' : (A2(_elm_lang$core$List$member, _user$project$Types$None, selected) ? (isBlack ? 'rgb(192, 152, 31)' : 'rgba(192, 152, 31,0.5)') : 'black')));
+		var squareColor = A2(_elm_lang$core$List$member, _user$project$Types$Check, selected) ? 'red' : (A2(_elm_lang$core$List$member, _user$project$Types$ChosenSquare, selected) ? 'cyan' : (A2(_elm_lang$core$List$member, _user$project$Types$PossibleMove, selected) ? 'blue' : (A2(_elm_lang$core$List$member, _user$project$Types$SuccessfulMove, selected) ? 'limegreen' : (A2(_elm_lang$core$List$member, _user$project$Types$None, selected) ? (isBlack ? 'rgb(192, 152, 31)' : 'rgba(192, 152, 31,0.5)') : 'black'))));
 		return _elm_lang$html$Html_Attributes$style(
 			{
 				ctor: '::',
