@@ -227,7 +227,14 @@ var _user$project$Update$update = F2(
 						ctor: '_Tuple2',
 						_0: _elm_lang$core$Native_Utils.update(
 							model,
+<<<<<<< HEAD
 							{route: _user$project$Model$GameOverMenu, startTime: 0}),
+=======
+							{
+								route: model.winner ? _user$project$Model$GameOverMenu : _user$project$Model$GameOverLost,
+								startTime: 0
+							}),
+>>>>>>> 9b9028037d3dc09e767b72c9514641d4ec7b994d
 						_1: _elm_lang$core$Platform_Cmd$none
 					};
 				case 'NameChanged':
@@ -382,6 +389,7 @@ var _user$project$Update$update = F2(
 					} else {
 						return A2(_user$project$Update$printErrors, _p3._0._0, model);
 					}
+<<<<<<< HEAD
 				case 'CheckmateCheck':
 					if (_p3._0.ctor === 'Ok') {
 						var _p16 = _p3._0._0;
@@ -401,6 +409,8 @@ var _user$project$Update$update = F2(
 					} else {
 						return A2(_user$project$Update$printErrors, _p3._0._0, model);
 					}
+=======
+>>>>>>> 9b9028037d3dc09e767b72c9514641d4ec7b994d
 				default:
 					if (_p3._0.ctor === 'Ok') {
 						return {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};

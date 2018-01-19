@@ -2,6 +2,7 @@ module View exposing (..)
 
 import GameBoardOne
 import GameBoardTwo
+import GameOverLost
 import GameOverMenu
 import GameTypeMenu
 import Highscores
@@ -42,3 +43,6 @@ showView model =
 
         Model.GameOverMenu ->
             GameOverMenu.view model
+
+        Model.GameOverLost ->
+            GameOverLost.view model

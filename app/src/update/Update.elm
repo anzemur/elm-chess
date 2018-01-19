@@ -164,7 +164,19 @@ update msg model =
             )
 
         Model.GameOver ->
-            ( { model | route = Model.GameOverMenu, startTime = 0 }, Cmd.none )
+            ( { model
+                | route =
+                    if model.winner then
+                        Model.GameOverMenu
+                    else
+                        Model.GameOverLost
+                , startTime = 0
+              }
+            , Cmd.none
+            )
+
+        Model.PostScore (Ok val) ->
+            ( model, Cmd.none )
 
         Model.NameChanged name ->
             ( { model | playersName = name }, Cmd.none )
@@ -203,9 +215,12 @@ update msg model =
         Model.PlayerVsAiHelp (Err e) ->
             printErrors e model
 
+<<<<<<< HEAD
         Model.CheckmateCheck (Err e) ->
             printErrors e model
 
+=======
+>>>>>>> 9b9028037d3dc09e767b72c9514641d4ec7b994d
         Model.PostScore (Err e) ->
             printErrors e model
 

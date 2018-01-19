@@ -22,6 +22,7 @@ type Route
     | GameOne
     | GameTwo
     | GameOverMenu
+    | GameOverLost
 
 
 type Msg
@@ -62,6 +63,7 @@ init =
       , tipCount = 15
       , helpHighlightPos = ( -1, -1 )
       , playersName = ""
+      , winner = False
       }
     , getHighscores
     )
@@ -81,6 +83,7 @@ type alias Model =
     , tipCount : Int
     , helpHighlightPos : ( Int, Int )
     , playersName : String
+    , winner : Bool
     }
 
 
