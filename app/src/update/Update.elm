@@ -1,7 +1,7 @@
 module Update exposing (..)
 
 import Board exposing (createInitialBoard)
-import ChessApi exposing (startGameOne)
+import ChessApi exposing (moveFigureAi, startGameOne)
 import Http
 import Model exposing (Model, Msg)
 import Moves exposing (returnPossibleMovesHighlighted, searchSquare)
@@ -50,7 +50,10 @@ update msg model =
                 moveFigurePlayerCmd =
                     case ( clickType, model.playerColor ) of
                         ( Model.MoveFigure, Types.White ) ->
-                            Model.moveFigurePlayerOne model.game.gameId model.selectedSquare ( row, col )
+                            Cmd.batch
+                                [ Model.playervsAiCheckmateCheck model.game.gameId
+                                , Model.moveFigurePlayerOne model.game.gameId model.selectedSquare ( row, col )
+                                ]
 
                         _ ->
                             Cmd.none
@@ -103,7 +106,7 @@ update msg model =
                 _ =
                     Debug.log "MoveFigPlayerOne result" (toString result)
             in
-            ( model, moveFigureAiCmd )
+            ( model, Cmd.batch [ Model.playervsAiCheckmateCheck model.game.gameId, moveFigureAiCmd, Model.playervsAiCheckmateCheck model.game.gameId ] )
 
         Model.Help ->
             ( model, Model.playerVsAiHelp model.game.gameId )
@@ -115,6 +118,16 @@ update msg model =
             in
             update (Model.SquareSelected (Tuple.second move.from) (Tuple.first move.from) Model.FirstClick)
                 { model | helpHighlightPos = move.to }
+
+        Model.CheckmateCheck (Ok status) ->
+            let
+                _ =
+                    Debug.log "CheckmateCheck " (toString status)
+            in
+            if String.contains status "check mate" then
+                update Model.GameOver model
+            else
+                ( model, Cmd.none )
 
         Model.ShowMainMenu ->
             ( { model | route = Model.MainMenu }, Cmd.none )
@@ -171,6 +184,9 @@ update msg model =
             , Cmd.none
             )
 
+        Model.PostScore (Ok val) ->
+            ( model, Cmd.none )
+
         -- HTTP ERROR HANDLING
         Model.Highscores (Err e) ->
             printErrors e model
@@ -185,6 +201,12 @@ update msg model =
             printErrors e model
 
         Model.PlayerVsAiHelp (Err e) ->
+            printErrors e model
+
+        Model.CheckmateCheck (Err e) ->
+            printErrors e model
+
+        Model.PostScore (Err e) ->
             printErrors e model
 
 

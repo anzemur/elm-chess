@@ -44,6 +44,7 @@ type Msg
     | PostHighscores
     | PostScore (Result Http.Error String)
     | GameOver
+    | CheckmateCheck (Result Http.Error String)
 
 
 init : ( Model, Cmd Msg )
@@ -130,3 +131,7 @@ moveFigureAi game_id =
 
 playerVsAiHelp game_id =
     Http.send PlayerVsAiHelp (ChessApi.playerVsAiHelp game_id)
+
+
+playervsAiCheckmateCheck game_id =
+    Http.send CheckmateCheck (ChessApi.playervsAiCheckmateCheck game_id)
