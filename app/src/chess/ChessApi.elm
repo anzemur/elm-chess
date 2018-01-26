@@ -8,11 +8,11 @@ import Types exposing (Move, PlayerScore)
 
 
 baseUrl =
-    "http://localhost:3000/api/v1/"
+    --"http://localhost:3000/api/v1/"
+    "https://chess-api-chess.herokuapp.com/api/v1/"
 
 
 
--- "https://chess-api-chess.herokuapp.com/api/v1/"
 -- Returns the list of top 5 players in chess
 
 
