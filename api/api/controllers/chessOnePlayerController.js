@@ -361,7 +361,7 @@ exports.helpPlayer = function( req, res ) {
 
             // printChessboard(chess);
 
-            if(chess != null) {
+            if(chess != null && !chess.game_over()) {
                 chessAi.setOptions(
                     {
                         depth: 4,
