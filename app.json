@@ -1,7 +1,7 @@
 
 {
     "name": "Elm-chess",
-    "repository": "https://github.com/AndrejHafner/Elm-chess",
+    "repository": "https://github.com/AndrejHafner/Elm-chess.git",
     "env": {
         "ELM_COMPILE": "elm-make Main.elm --output elm.js"
     },
