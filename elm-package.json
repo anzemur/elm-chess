@@ -4,12 +4,12 @@
     "repository": "https://github.com/user/project.git",
     "license": "BSD3",
     "source-directories": [
-        "src",
-        "src/model",
-        "src/update",
-        "src/view",
-        "src/subscriptions",
-        "src/chess"
+        "app/src",
+        "app/src/model",
+        "app/src/update",
+        "app/src/view",
+        "app/src/subscriptions",
+        "app/src/chess"
     ],
     "exposed-modules": [],
     "dependencies": {
