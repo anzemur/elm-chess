@@ -13,12 +13,12 @@ view model =
     div [ mainMenuStyle ]
         [ br [] []
         , br [] []
-        , img [ src "/src/assets/other/ElmChessLogo.png" ] []
+        , img [ src "assets/other/ElmChessLogo.png" ] []
         , br [] []
         , br [] []
         , button
             [ style
-                [ ( "background", "url(\"/src/assets/buttons/StartGame.png\")" )
+                [ ( "background", "url(\"assets/buttons/StartGame.png\")" )
                 , ( "width", "512px" )
                 , ( "height", "110px" )
                 ]
@@ -29,7 +29,7 @@ view model =
         , br [] []
         , button
             [ style
-                [ ( "background", "url(\"/src/assets/buttons/Highscores.png\")" )
+                [ ( "background", "url(\"assets/buttons/Highscores.png\")" )
                 , ( "width", "512px" )
                 , ( "height", "110px" )
                 ]

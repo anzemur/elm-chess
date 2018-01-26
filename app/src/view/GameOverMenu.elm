@@ -12,7 +12,7 @@ view : Model -> Html Msg
 view model =
     div [ mainMenuStyle ]
         [ br [] []
-        , img [ src "/src/assets/other/YouWon.png" ] []
+        , img [ src "assets/other/YouWon.png" ] []
         , br [] []
         , br [] []
         , input
@@ -29,7 +29,7 @@ view model =
         , br [] []
         , button
             [ style
-                [ ( "background", "url(\"/src/assets/buttons/Submit.png\")" )
+                [ ( "background", "url(\"assets/buttons/Submit.png\")" )
                 , ( "width", "512px" )
                 , ( "height", "100px" )
                 ]
@@ -40,7 +40,7 @@ view model =
         , br [] []
         , button
             [ style
-                [ ( "background", "url(\"/src/assets/buttons/Highscores.png\")" )
+                [ ( "background", "url(\"assets/buttons/Highscores.png\")" )
                 , ( "width", "512px" )
                 , ( "height", "100px" )
                 ]

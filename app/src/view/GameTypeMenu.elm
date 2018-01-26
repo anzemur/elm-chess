@@ -15,7 +15,7 @@ view model =
         , br [] []
         , button
             [ style
-                [ ( "background", "url(\"/src/assets/buttons/PlayerVsComputer.png\")" )
+                [ ( "background", "url(\"assets/buttons/PlayerVsComputer.png\")" )
                 , ( "width", "482px" )
                 , ( "height", "110px" )
                 ]
@@ -25,7 +25,7 @@ view model =
         , br [] []
         , button
             [ style
-                [ ( "background", "url(\"/src/assets/buttons/PlayerVsPlayer.png\")" )
+                [ ( "background", "url(\"assets/buttons/PlayerVsPlayer.png\")" )
                 , ( "width", "482px" )
                 , ( "height", "110px" )
                 ]
@@ -40,7 +40,7 @@ view model =
         , br [] []
         , button
             [ style
-                [ ( "background", "url(\"/src/assets/buttons/MainMenu.png\")" )
+                [ ( "background", "url(\"assets/buttons/MainMenu.png\")" )
                 , ( "width", "512px" )
                 , ( "height", "110px" )
                 ]

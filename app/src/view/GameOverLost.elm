@@ -12,7 +12,7 @@ view : Model -> Html Msg
 view model =
     div [ mainMenuStyle ]
         [ br [] []
-        , img [ src "/src/assets/other/YouLost.png" ] []
+        , img [ src "assets/other/YouLost.png" ] []
         , br [] []
         , br [] []
         , br [] []
@@ -20,7 +20,7 @@ view model =
         , br [] []
         , button
             [ style
-                [ ( "background", "url(\"/src/assets/buttons/MainMenu.png\")" )
+                [ ( "background", "url(\"assets/buttons/MainMenu.png\")" )
                 , ( "width", "512px" )
                 , ( "height", "100px" )
                 ]
@@ -31,7 +31,7 @@ view model =
         , br [] []
         , button
             [ style
-                [ ( "background", "url(\"/src/assets/buttons/Highscores.png\")" )
+                [ ( "background", "url(\"assets/buttons/Highscores.png\")" )
                 , ( "width", "512px" )
                 , ( "height", "100px" )
                 ]

@@ -1,5 +1,6 @@
 module GameBoardOne exposing (..)
 
+import GameBoard exposing (renderBoard)
 import Html exposing (..)
 import Html.Attributes exposing (src, style)
 import Html.Events exposing (onClick)
@@ -8,7 +9,6 @@ import Model exposing (Model, Msg)
 import Styles exposing (figureImgStyle, gameBoardStyle, squareStyle)
 import Time
 import Types exposing (Board, Figure, Square)
-import GameBoard exposing (renderBoard)
 
 
 view : Model -> Html Msg
@@ -24,7 +24,7 @@ view model =
         , div [ Styles.chessboardStyle ] (renderBoard model)
         , button
             [ style
-                [ ( "background", "url(\"/src/assets/buttons/QuitGame.png\")" )
+                [ ( "background", "url(\"assets/buttons/QuitGame.png\")" )
                 , ( "width", "200px" )
                 , ( "height", "50px" )
                 , ( "margin-right", "60px" )
@@ -34,7 +34,7 @@ view model =
             []
         , button
             [ style
-                [ ( "background", "url(\"/src/assets/buttons/Help.png\")" )
+                [ ( "background", "url(\"assets/buttons/Help.png\")" )
                 , ( "width", "200px" )
                 , ( "height", "50px" )
                 , ( "margin-left", "60px" )

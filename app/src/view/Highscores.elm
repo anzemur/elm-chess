@@ -12,14 +12,14 @@ view : Model -> Html Msg
 view model =
     div [ highscoresStyle ]
         [ br [] []
-        , img [ src "/src/assets/other/Highscores.png" ] []
+        , img [ src "assets/other/Highscores.png" ] []
         , br [] []
         , showHighscores model
         , br [] []
         , br [] []
         , button
             [ style
-                [ ( "background", "url(\"/src/assets/buttons/MainMenu.png\")" )
+                [ ( "background", "url(\"assets/buttons/MainMenu.png\")" )
                 , ( "width", "512px" )
                 , ( "height", "110px" )
                 ]
